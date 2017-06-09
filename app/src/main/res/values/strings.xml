@@ -1,0 +1,132 @@
+<resources>
+    <string name="app_name">KJDS_Android_student</string>
+    <!-- 首页-->
+    <string name="index_text">首页</string>
+    <!-- 简历-->
+    <string name="resume_text">简历</string>
+    <!-- 我的-->
+    <string name="my_text">我的</string>
+
+    <!--登陆-->
+    <string name="username_hint">请输入账号</string>
+    <string name="pwd_hint">请输入密码</string>
+    <string name="forget_pwd">忘记密码</string>
+
+    <!-- 修改密码  -->
+    <string name="repwd_hint">请再次输入密码</string>
+    <string name="confirm_modify">确认修改</string>
+    <string name="old_pwd_hint">请输入登陆密码</string>
+    <string name="new_pwd_hint">请输入新密码</string>
+
+    <!--首页-->
+    <string name="login">登陆</string>
+    <string name="input_job">输入职位</string>
+    <string name="all_job">全部</string>
+    <string name="pt_job">兼职</string>
+    <string name="fl_job">全职</string>
+    <string name="project">项目</string>
+    <string name="career_opportunities">招聘岗位</string>
+    <!-- 公司信息 -->
+    <string name="company_info">公司信息</string>
+    <string name="industry">行业：</string>
+    <string name="company_type">性质：</string>
+    <string name="company_size">规模：</string>
+    <string name="address">公司地址：</string>
+    <string name="telephone">联系电话：</string>
+    <string name="company_desc">公司简介</string>
+    <string name="spread">展开</string>
+
+    <!-- 职位/岗位详情-->
+    <string name="job_profit">职位诱惑：</string>
+    <string name="work_address">上班地点：</string>
+    <string name="job_desc">职位描述</string>
+    <string name="job_info">职位详情</string>
+
+    <!--我的-->
+    <string name="edit">编辑</string>
+    <string name="my_deliver">我的投递</string>
+    <string name="my_msg">我的消息</string>
+    <string name="my_favorite">我的收藏</string>
+    <string name="setting">设置</string>
+
+    <!-- 设置 -->
+    <string name="clear_cache">清除缓存</string>
+    <string name="update_version">检查新版本</string>
+    <string name="feedback">意见反馈</string>
+    <string name="about_kjds">关于平台</string>
+    <string name="modify_pwd">修改密码</string>
+    <string name="user_logout">退出登陆</string>
+
+    <!-- 意见反馈 -->
+    <string name="title_desc">您有什么问题或建议想对我们说？</string>
+    <string name="title_int">您的主题：</string>
+    <string name="content_int">您的宝贵意见，就是我们进步的源泉</string>
+    <string name="content_desc">(*^_^*)请详细描述您遇到的问题，有助于我们快速定位并解决问题，或留下您宝贵的建议或意见 我们会认真进行评估！</string>
+    <string name="submit_question">问题提交</string>
+    <!--我的收藏-->
+    <string name="cancel_favorite">取消收藏</string>
+    <string name="send_resume">发送简历</string>
+    <string name="add_favorite">收藏</string>
+    <!-- 个人信息-->
+    <string name="person_info">个人信息</string>
+    <string name="user_img">头像</string>
+    <string name="nickname">昵称</string>
+    <string name="update_nickname">更改昵称</string>
+    
+    <!-- 简历 -->
+    <string name="refresh_resume">刷新简历</string>
+    <string name="preview_resume">简历预览</string>
+    <string name="select_input">(选填)</string>
+
+    <!--个人信息-->
+    <string name="department">系部</string>
+    <string name="city">所在城市</string>
+    <string name="phone">手机号码</string>
+    <string name="email">邮箱</string>
+
+    <!-- 自我评价 -->
+    <string name="evaluation_hint">优质的自我评价会让您应聘的机率更高</string>
+
+    <!-- 教育背景 -->
+    <string name="add_edu_bg">添加教育背景</string>
+    <string name="degree">学历/学位</string>
+    <string name="profession">专业名称</string>
+    <string name="enter_school_date">入学时间</string>
+    <string name="finish_school_date">毕业时间</string>
+
+    <!-- 实习/工作经历 -->
+    <string name="company_name">公司名称</string>
+    <string name="job_name">岗位名称</string>
+    <string name="start_time">开始时间</string>
+    <string name="end_time">结束时间</string>
+    <string name="work_desc">工作描述</string>
+    <string name="add_work_exp">添加实习/工作经历</string>
+    <string name="work_desc_hint">请输入工作内容描述</string>
+
+    <!--common-->
+    <string name="not_set">未设置</string>
+    <string name="not_input">未填写</string>
+    <string name="school_name">请输入院校名称</string>
+    <string name="professional">请输入专业名称</string>
+    <string name="company">请输入公司名称</string>
+    <string name="job">请输入岗位名称</string>
+    <string name="school">学校</string>
+    <string name="sex">性别</string>
+    <string name="birthday">出生日期</string>
+    <string name="save">保存</string>
+    <string name="base_info">基本信息</string>
+    <string name="edu_bg">教育背景</string>
+    <string name="work_experience">实习/工作经历</string>
+    <string name="evaluation">自我评价</string>
+    <string name="username">姓名</string>
+    <string name="not_null">必填</string>
+    <string name="submit_evaluation">提交评价</string>
+    <string name="already_verify">已核实</string>
+    <string name="update_user_name">好名字可以让你的朋友更容易记住你</string>
+    <!--<string name="all_post">全部岗位</string>-->
+
+    <!--招聘岗位-->
+    <string name="all_post">全部岗位</string>
+    <string name="all_region">全部地区</string>
+
+</resources>

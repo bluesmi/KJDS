@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <!--头部-->
+    <include
+        layout="@layout/title_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_height" />
+
+
+    <!--筛选区域-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_height"
+        android:orientation="horizontal"
+        >
+        <!--全部岗位-->
+        <RelativeLayout
+            android:id="@+id/btn_all_post"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/tv_all_post"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:text="@string/all_post"
+                android:textSize="@dimen/middle_text_size"
+                android:gravity="center|right"
+                android:textColor="@color/common_black_txt"
+                android:layout_centerInParent="true"
+                />
+            <ImageView
+                android:id="@+id/img_all_post"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/icon_blank_down"
+                android:layout_marginLeft="3dp"
+                android:layout_toRightOf="@+id/tv_all_post"
+                />
+        </RelativeLayout>
+
+        <!--全部地区-->
+        <RelativeLayout
+            android:id="@+id/btn_all_region"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tv_all_region"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:text="@string/all_region"
+                android:textSize="@dimen/middle_text_size"
+                android:gravity="center|right"
+                android:textColor="@color/common_black_txt"
+                android:layout_centerInParent="true"
+                />
+            <ImageView
+                android:id="@+id/img_all_region"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/icon_blank_down"
+                android:layout_marginLeft="3dp"
+                android:layout_toRightOf="@+id/tv_all_region"
+                />
+        </RelativeLayout>
+
+        <!--兼职-->
+        <RelativeLayout
+            android:id="@+id/btn_post_pt_job"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tv_post_pt_job"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:text="@string/pt_job"
+                android:textSize="@dimen/middle_text_size"
+                android:gravity="center|right"
+                android:textColor="@color/common_black_txt"
+                android:layout_centerInParent="true"
+                />
+            <ImageView
+                android:id="@+id/img_post_pt_job"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/icon_blank_down"
+                android:layout_marginLeft="3dp"
+                android:layout_toRightOf="@+id/tv_post_pt_job"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <!--分隔线-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/common_gray_line"
+        />
+
+    <!--招聘岗位XRecyclerView-->
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/xrv_job_view"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>    
+
+</LinearLayout>

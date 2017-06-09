@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_content_bg"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <!--头部区域-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/icon_my_fragment_bg"
+        android:paddingBottom="25dp"
+        android:paddingTop="15dp"
+        android:layout_weight="0.06">
+
+        <LinearLayout
+            android:id="@+id/edit_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/dark_gray_bg_shape"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="2dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="2dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_user_edit" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="@string/edit"
+                android:textColor="@color/white"
+                android:textSize="@dimen/small_text_size" />
+        </LinearLayout>
+
+        <com.penglai.kjds.ui.view.widget.CircleImageView
+            android:id="@+id/iv_user_img"
+            android:layout_width="@dimen/iv_big_width"
+            android:layout_height="@dimen/iv_big_height"
+            android:layout_below="@id/edit_layout"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/icon_user_img"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="0dp" />
+
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_user_img"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="白百何"
+            android:textColor="@color/white"
+            android:textSize="@dimen/large_text_size" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <!-- 我的投递 -->
+        <LinearLayout
+            android:id="@+id/my_deliver_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/small_item_height"
+            android:background="@drawable/item_bg_select"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/icon_default_logo" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:text="@string/my_deliver"
+                android:textColor="@color/common_black_txt"
+                android:textSize="@dimen/middle_text_size" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/icon_arrow_right" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/common_gray_line" />
+
+        <!-- 我的收藏-->
+        <LinearLayout
+            android:id="@+id/my_favorite_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/small_item_height"
+            android:background="@drawable/item_bg_select"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/icon_default_logo" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:text="@string/my_favorite"
+                android:textColor="@color/common_black_txt"
+                android:textSize="@dimen/middle_text_size" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/icon_arrow_right" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <!-- 我的消息 -->
+        <LinearLayout
+            android:id="@+id/my_msg_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/small_item_height"
+            android:background="@drawable/item_bg_select"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/icon_default_logo" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:text="@string/my_msg"
+                android:textColor="@color/common_black_txt"
+                android:textSize="@dimen/middle_text_size" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/icon_arrow_right" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/light_view1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/common_gray_line" />
+
+        <!--设置 -->
+        <LinearLayout
+            android:id="@+id/my_settting_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/small_item_height"
+            android:background="@drawable/item_bg_select"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/icon_default_logo" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:text="@string/setting"
+                android:textColor="@color/common_black_txt"
+                android:textSize="@dimen/middle_text_size" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/icon_arrow_right" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

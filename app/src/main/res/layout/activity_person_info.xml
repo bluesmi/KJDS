@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/title_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_height" />
+
+    <!--内容区域-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_content_bg"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:id="@+id/btn_user_img"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/middle_item_height"
+            android:background="@drawable/item_bg_select">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:text="@string/user_img"
+                android:textColor="@color/common_black_txt"
+                android:textSize="@dimen/middle_text_size" />
+
+            <ImageView
+                android:id="@+id/iv_arrow_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/icon_arrow_right" />
+
+            <com.penglai.kjds.ui.view.widget.CircleImageView
+                android:id="@+id/iv_user_img"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:layout_toLeftOf="@id/iv_arrow_right"
+                android:src="@drawable/icon_user_img"
+                app:civ_border_color="@color/white"
+                app:civ_border_width="0dp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <!-- 昵称 -->
+            <LinearLayout
+                android:id="@+id/btn_nickname"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/small_item_height"
+                android:background="@drawable/item_bg_select"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="@string/nickname"
+                    android:textColor="@color/common_black_txt"
+                    android:textSize="@dimen/middle_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="@string/not_input"
+                    android:textColor="@color/common_light_gray_txt"
+                    android:textSize="@dimen/small_medium_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/icon_arrow_right" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/common_gray_line" />
+
+            <!--学校 -->
+            <LinearLayout
+                android:id="@+id/btn_school"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/small_item_height"
+                android:background="@drawable/item_bg_select"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="@string/school"
+                    android:textColor="@color/common_black_txt"
+                    android:textSize="@dimen/middle_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_school"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="@string/not_input"
+                    android:textColor="@color/common_light_gray_txt"
+                    android:textSize="@dimen/small_medium_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/icon_arrow_right" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/common_gray_line" />
+
+            <!--性别 -->
+            <LinearLayout
+                android:id="@+id/btn_sex"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/small_item_height"
+                android:background="@drawable/item_bg_select"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="@string/sex"
+                    android:textColor="@color/common_black_txt"
+                    android:textSize="@dimen/middle_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_sex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="@string/not_set"
+                    android:textColor="@color/common_light_gray_txt"
+                    android:textSize="@dimen/small_medium_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/icon_arrow_right" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/common_gray_line" />
+
+            <!-- 出生日期 -->
+            <LinearLayout
+                android:id="@+id/btn_birthday"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/small_item_height"
+                android:background="@drawable/item_bg_select"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="@string/birthday"
+                    android:textColor="@color/common_black_txt"
+                    android:textSize="@dimen/middle_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_birthday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="@string/not_set"
+                    android:textColor="@color/common_light_gray_txt"
+                    android:textSize="@dimen/small_medium_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/icon_arrow_right" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

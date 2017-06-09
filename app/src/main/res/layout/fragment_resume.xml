@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/title_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_height" />
+
+    <!--内容区域-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_content_bg"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <com.penglai.kjds.ui.view.widget.CircleImageView
+                android:id="@+id/iv_user_img"
+                android:layout_width="@dimen/iv_big_width"
+                android:layout_height="@dimen/iv_big_height"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/icon_user_img"
+                app:civ_border_color="@color/white"
+                app:civ_border_width="0dp" />
+
+            <TextView
+                android:id="@+id/tv_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="白百何"
+                android:textColor="@color/common_blue_txt"
+                android:textSize="@dimen/large_text_size" />
+
+            <TextView
+                android:id="@+id/tv_other_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="男|长沙学院|数学与计算机系"
+                android:textColor="@color/common_gray_txt"
+                android:textSize="@dimen/middle_text_size" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/btn_refresh_resume"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="50dp"
+                    android:background="@drawable/btn_blue_stroke_shape"
+                    android:padding="10dp"
+                    android:text="@string/refresh_resume"
+                    android:textColor="@color/blue_top_bg"
+                    android:textSize="@dimen/middle_text_size" />
+
+                <TextView
+                    android:id="@+id/btn_preview_resume"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:background="@drawable/btn_blue_stroke_shape"
+                    android:padding="10dp"
+                    android:text="@string/preview_resume"
+                    android:textColor="@color/blue_top_bg"
+                    android:textSize="@dimen/middle_text_size" />
+            </LinearLayout>
+
+            <View
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/common_gray_line" />
+
+            <!-- 基本信息 -->
+            <LinearLayout
+                android:id="@+id/btn_base_info"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/small_item_height"
+                android:background="@drawable/item_bg_select"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="@string/base_info"
+                    android:textColor="@color/common_black_txt"
+                    android:textSize="@dimen/middle_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_integrity1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="完整度10%"
+                    android:textColor="@color/common_gray_txt"
+                    android:textSize="@dimen/small_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/icon_arrow_right" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/common_gray_line" />
+
+            <!-- 自我评价 -->
+            <LinearLayout
+                android:id="@+id/btn_edu_bg"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/small_item_height"
+                android:background="@drawable/item_bg_select"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="@string/edu_bg"
+                    android:textColor="@color/common_black_txt"
+                    android:textSize="@dimen/middle_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_integrity2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="完整度10%"
+                    android:textColor="@color/common_gray_txt"
+                    android:textSize="@dimen/small_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/icon_arrow_right" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/common_gray_line" />
+
+            <!-- 实习/工作经历 -->
+            <LinearLayout
+                android:id="@+id/btn_work_experience"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/small_item_height"
+                android:background="@drawable/item_bg_select"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="@string/work_experience"
+                    android:textColor="@color/common_black_txt"
+                    android:textSize="@dimen/middle_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_integrity3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="完整度0%"
+                    android:textColor="@color/common_gray_txt"
+                    android:textSize="@dimen/small_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/icon_arrow_right" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/common_gray_line" />
+
+            <!-- 自我评价 -->
+            <LinearLayout
+                android:id="@+id/btn_evaluation"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/small_item_height"
+                android:background="@drawable/item_bg_select"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="@string/evaluation"
+                    android:textColor="@color/common_black_txt"
+                    android:textSize="@dimen/middle_text_size" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/select_input"
+                    android:textColor="@color/light_orange_txt"
+                    android:textSize="@dimen/small_medium_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_integrity4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="完整度0%"
+                    android:textColor="@color/common_gray_txt"
+                    android:textSize="@dimen/small_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/icon_arrow_right" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/common_gray_line" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

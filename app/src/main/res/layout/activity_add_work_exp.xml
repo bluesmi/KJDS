@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/title_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_height" />
+
+    <!--内容区域-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_content_bg"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <!-- 学校 -->
+            <LinearLayout
+                android:id="@+id/btn_company"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/small_item_height"
+                android:background="@drawable/item_bg_select"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="@string/company_name"
+                    android:textColor="@color/common_black_txt"
+                    android:textSize="@dimen/middle_text_size" />
+
+                <EditText
+                    android:id="@+id/company_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:hint="@string/company"
+                    android:maxLength="15"
+                    android:inputType="text"
+                    android:lines="4"
+                    android:padding="15dp"
+                    android:textColor="@color/common_blue_txt"
+                    android:textColorHint="@color/common_light_gray_txt"
+                    android:textSize="@dimen/small_medium_text_size" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/common_gray_line" />
+
+            <!-- 岗位名称 -->
+            <LinearLayout
+                android:id="@+id/btn_job"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/small_item_height"
+                android:background="@drawable/item_bg_select"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="@string/job_name"
+                    android:textColor="@color/common_black_txt"
+                    android:textSize="@dimen/middle_text_size" />
+
+                <EditText
+                    android:id="@+id/job_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:hint="@string/job"
+                    android:maxLength="15"
+                    android:inputType="text"
+                    android:lines="4"
+                    android:padding="15dp"
+                    android:textColor="@color/common_blue_txt"
+                    android:textColorHint="@color/common_light_gray_txt"
+                    android:textSize="@dimen/small_medium_text_size" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/common_gray_line" />
+
+            <!-- 开始时间 -->
+            <LinearLayout
+                android:id="@+id/btn_start_time"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/small_item_height"
+                android:background="@drawable/item_bg_select"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="@string/start_time"
+                    android:textColor="@color/common_black_txt"
+                    android:textSize="@dimen/middle_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_start_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:textSize="@dimen/small_medium_text_size"
+                    android:textColor="@color/common_light_gray_txt"
+                    android:text="@string/not_set"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/icon_arrow_right" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/common_gray_line" />
+
+            <!-- 结束时间 -->
+            <LinearLayout
+                android:id="@+id/btn_end_time"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/small_item_height"
+                android:background="@drawable/item_bg_select"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="@string/end_time"
+                    android:textColor="@color/common_black_txt"
+                    android:textSize="@dimen/middle_text_size" />
+
+                <TextView
+                    android:id="@+id/end_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:textSize="@dimen/small_medium_text_size"
+                    android:textColor="@color/common_light_gray_txt"
+                    android:text="@string/not_set"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/icon_arrow_right" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/common_gray_line" />
+
+            <!-- 工作描述 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/work_desc"
+                    android:textColor="@color/common_black_txt"
+                    android:textSize="@dimen/middle_text_size" />
+
+                <!-- 评价内容 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/large_item_height"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@drawable/white_bg_shape"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/et_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:gravity="left|top"
+                        android:hint="@string/work_desc_hint"
+                        android:inputType="textMultiLine"
+                        android:lines="4"
+                        android:padding="15dp"
+                        android:textColor="@color/common_blue_txt"
+                        android:textColorHint="@color/common_gray_txt"
+                        android:textSize="@dimen/small_medium_text_size" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

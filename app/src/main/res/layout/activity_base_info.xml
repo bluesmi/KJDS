@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        layout="@layout/title_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_height" />
+
+    <!--内容区域-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_content_bg"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <!-- 姓名 -->
+            <LinearLayout
+                android:id="@+id/btn_username"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/small_item_height"
+                android:background="@drawable/item_bg_select"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="@string/username"
+                    android:textColor="@color/common_black_txt"
+                    android:textSize="@dimen/middle_text_size" />
+
+
+                <EditText
+                    android:id="@+id/tv_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:hint="@string/not_input"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:maxLength="5"
+                    android:padding="15dp"
+                    android:textColor="@color/common_blue_txt"
+                    android:textColorHint="@color/common_light_gray_txt"
+                    android:textSize="@dimen/small_medium_text_size" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/common_gray_line" />
+
+            <!-- 学校 -->
+            <LinearLayout
+                android:id="@+id/btn_school"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/small_item_height"
+                android:background="@drawable/item_bg_select"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="@string/school"
+                    android:textColor="@color/common_black_txt"
+                    android:textSize="@dimen/middle_text_size" />
+
+                <EditText
+                    android:id="@+id/tv_school"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:hint="@string/not_input"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:maxLength="5"
+                    android:padding="15dp"
+                    android:textColor="@color/common_blue_txt"
+                    android:textColorHint="@color/common_light_gray_txt"
+                    android:textSize="@dimen/small_medium_text_size" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/common_gray_line" />
+
+            <!-- 系部 -->
+            <LinearLayout
+                android:id="@+id/btn_department"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/small_item_height"
+                android:background="@drawable/item_bg_select"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="@string/department"
+                    android:textColor="@color/common_black_txt"
+                    android:textSize="@dimen/middle_text_size" />
+
+
+                <EditText
+                    android:id="@+id/tv_department"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:hint="@string/not_input"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:maxLength="15"
+                    android:padding="15dp"
+                    android:textColor="@color/common_blue_txt"
+                    android:textColorHint="@color/common_light_gray_txt"
+                    android:textSize="@dimen/small_medium_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/icon_arrow_right" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/common_gray_line" />
+
+            <!-- 所在城市 -->
+            <LinearLayout
+                android:id="@+id/btn_city"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/small_item_height"
+                android:background="@drawable/item_bg_select"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="@string/city"
+                    android:textColor="@color/common_black_txt"
+                    android:textSize="@dimen/middle_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="@string/not_input"
+                    android:textColor="@color/common_light_gray_txt"
+                    android:textSize="@dimen/small_medium_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/icon_arrow_right" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/common_gray_line" />
+
+            <!-- 出生日期 -->
+            <LinearLayout
+                android:id="@+id/btn_birthday"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/small_item_height"
+                android:background="@drawable/item_bg_select"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="@string/birthday"
+                    android:textColor="@color/common_black_txt"
+                    android:textSize="@dimen/middle_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_birthday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="@string/not_set"
+                    android:textColor="@color/common_light_gray_txt"
+                    android:textSize="@dimen/small_medium_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/icon_arrow_right" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/common_gray_line" />
+
+            <!-- 出生日期 -->
+            <LinearLayout
+                android:id="@+id/btn_sex"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/small_item_height"
+                android:background="@drawable/item_bg_select"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="@string/sex"
+                    android:textColor="@color/common_black_txt"
+                    android:textSize="@dimen/middle_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_sex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="@string/not_set"
+                    android:textColor="@color/common_light_gray_txt"
+                    android:textSize="@dimen/small_medium_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/icon_arrow_right" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/common_gray_line" />
+
+            <!-- 手机号码 -->
+            <LinearLayout
+                android:id="@+id/btn_phone"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/small_item_height"
+                android:background="@drawable/item_bg_select"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="@string/phone"
+                    android:textColor="@color/common_black_txt"
+                    android:textSize="@dimen/middle_text_size" />
+
+
+                <EditText
+                    android:id="@+id/tv_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:hint="@string/not_null"
+                    android:inputType="phone"
+                    android:lines="1"
+                    android:maxLength="11"
+                    android:padding="15dp"
+                    android:textColor="@color/common_blue_txt"
+                    android:textColorHint="@color/common_light_gray_txt"
+                    android:textSize="@dimen/small_medium_text_size"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/icon_arrow_right" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/common_gray_line" />
+
+            <!-- 邮箱 -->
+            <LinearLayout
+                android:id="@+id/btn_email"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/small_item_height"
+                android:background="@drawable/item_bg_select"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="@string/email"
+                    android:textColor="@color/common_black_txt"
+                    android:textSize="@dimen/middle_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="@string/select_input"
+                    android:textColor="@color/common_light_gray_txt"
+                    android:textSize="@dimen/small_medium_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/icon_arrow_right" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

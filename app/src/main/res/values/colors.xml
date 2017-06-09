@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <!--白色字体-->
+    <color name="white">#FFFFFF</color>
+    <!-- 整体灰白色背景-->
+    <color name="app_bg">#EFEFEF</color>
+    <!-- 绿色顶部栏 -->
+    <color name="blue_top_bg">#0BB88D</color>
+    <!-- 灰色顶部栏 -->
+    <color name="gray_top_bg">#F6F6F7</color>
+    <!-- 浅灰色内容区-->
+    <color name="gray_content_bg">#F0F1F5</color>
+    <!-- 深灰色 -->
+    <color name="dark_gray_bg">#007C5F</color>
+    <!-- 全局黑色字体 -->
+    <color name="common_black_txt">#333333</color>
+    <!-- 全局灰色字体 -->
+    <color name="common_gray_txt">#797979</color>
+    <!-- 全局浅灰色字体 -->
+    <color name="common_light_gray_txt">#A1A1A1</color>
+    <!-- 全局浅红色字体 -->
+    <color name="common_red_txt">#FD5F39</color>
+    <!--全局绿色字体 -->
+    <color name="common_blue_txt">#24CD9E</color>
+    <!--浅黄色字体 -->
+    <color name="light_orange_txt">#F9B766</color>
+    <!-- item 选中时候的颜色 -->
+    <color name="light_bg">#F2F2F2</color>
+    <!-- 未选中的颜色 -->
+    <color name="hint_bg">#d7d7d7</color>
+    <!-- 退出登录颜色 -->
+    <color name="red_txt">#f10044</color>
+    <!-- 浅灰色线 -->
+    <color name="common_gray_line">#E4E4E4</color>
+    <!-- 底部文本选择器 -->
+    <color name="tab_txt_selected">#09AE86</color>
+    <color name="tab_txt_no_selected">#585858</color>
+    <color name="gray_txt">#D7D7D7</color>
+</resources>

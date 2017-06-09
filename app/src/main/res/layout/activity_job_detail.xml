@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/title_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_height" />l
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/gray_content_bg"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+        <!-- 顶部基本信息 -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <LinearLayout
+                android:id="@+id/job_info_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_job_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Android开发工程师"
+                    android:textColor="@color/common_black_txt"
+                    android:textSize="@dimen/large_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_pay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="【4K-8K/月】"
+                    android:textColor="@color/common_red_txt"
+                    android:textSize="@dimen/small_medium_text_size" />
+            </LinearLayout>
+
+            <!-- 工作其他信息 -->
+            <LinearLayout
+                android:id="@+id/job_other_info_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/job_info_layout"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <!-- 地点 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_small_address" />
+
+                    <TextView
+                        android:id="@+id/tv_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="长沙"
+                        android:textColor="@color/common_gray_txt"
+                        android:textSize="@dimen/small_text_size" />
+                </LinearLayout>
+
+                <!-- 经验 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_experience" />
+
+                    <TextView
+                        android:id="@+id/tv_experience"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="不限"
+                        android:textColor="@color/common_gray_txt"
+                        android:textSize="@dimen/small_text_size" />
+
+                </LinearLayout>
+
+                <!-- 学历  -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_degree" />
+
+                    <TextView
+                        android:id="@+id/tv_degree"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="不限"
+                        android:textColor="@color/common_gray_txt"
+                        android:textSize="@dimen/small_text_size" />
+                </LinearLayout>
+
+                <!-- 雇佣类型 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_job_type" />
+
+                    <TextView
+                        android:id="@+id/tv_employ_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="全职"
+                        android:textColor="@color/common_gray_txt"
+                        android:textSize="@dimen/small_text_size" />
+
+                </LinearLayout>
+
+                <!-- 雇佣人数 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_num" />
+
+                    <TextView
+                        android:id="@+id/tv_employ_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="5人"
+                        android:textColor="@color/common_gray_txt"
+                        android:textSize="@dimen/small_text_size" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/light_view1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/job_other_info_layout"
+                android:background="@color/common_gray_line" />
+
+            <!-- 职位诱惑 -->
+            <LinearLayout
+                android:id="@+id/job_profit_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/light_view1"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_job_profit" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/job_profit"
+                    android:textColor="@color/common_gray_txt"
+                    android:textSize="@dimen/small_medium_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_job_profit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="五险一金、双休"
+                    android:textColor="@color/common_gray_txt"
+                    android:textSize="@dimen/small_medium_text_size" />
+            </LinearLayout>
+
+            <!-- 上班地点 -->
+            <LinearLayout
+                android:id="@+id/work_address_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/job_profit_layout"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_work_address" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/work_address"
+                    android:textColor="@color/common_gray_txt"
+                    android:textSize="@dimen/small_medium_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_work_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="长沙市开福区"
+                    android:textColor="@color/common_gray_txt"
+                    android:textSize="@dimen/small_medium_text_size" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/light_view2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/work_address_layout"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/common_gray_line" />
+
+            <RelativeLayout
+                android:id="@+id/btn_company_info"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/middle_item_height"
+                android:layout_below="@id/light_view2"
+                android:layout_marginBottom="10dp"
+                android:background="@color/white">
+
+                <ImageView
+                    android:id="@+id/iv_company_logo"
+                    android:layout_width="@dimen/iv_small_width"
+                    android:layout_height="@dimen/iv_small_height"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/icon_user_img" />
+
+                <TextView
+                    android:id="@+id/tv_company_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/iv_company_logo"
+                    android:layout_toRightOf="@id/iv_company_logo"
+                    android:text="大唐科技有限公司"
+                    android:textColor="@color/common_black_txt"
+                    android:textSize="@dimen/large_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_company_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/iv_company_logo"
+                    android:layout_toRightOf="@id/iv_company_logo"
+                    android:text="移动互联网/50-100人/国企"
+                    android:textColor="@color/common_light_gray_txt"
+                    android:textSize="@dimen/middle_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/icon_arrow_right" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <!-- 顶部基本信息 -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/white"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:id="@+id/tv_job_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/job_desc"
+                android:textColor="@color/common_black_txt"
+                android:textSize="@dimen/large_text_size" />
+
+            <View
+                android:id="@+id/light_view3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/tv_job_desc"
+                android:layout_marginBottom="10dp"
+                android:background="@color/common_gray_line" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+    <include layout="@layout/job_detail_tab_bottom" />
+
+</LinearLayout>

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/title_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_height" />
+
+    <!--内容区域-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_content_bg"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <!-- 学校 -->
+            <LinearLayout
+                android:id="@+id/btn_school"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/small_item_height"
+                android:background="@drawable/item_bg_select"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="@string/school"
+                    android:textColor="@color/common_black_txt"
+                    android:textSize="@dimen/middle_text_size" />
+
+                <EditText
+                    android:id="@+id/tv_school"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:hint="@string/school_name"
+                    android:maxLength="15"
+                    android:inputType="text"
+                    android:lines="4"
+                    android:padding="15dp"
+                    android:textColor="@color/common_blue_txt"
+                    android:textColorHint="@color/common_light_gray_txt"
+                    android:textSize="@dimen/small_medium_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/icon_arrow_right" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/common_gray_line" />
+
+            <!-- 学历/学位 -->
+            <LinearLayout
+                android:id="@+id/btn_degree"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/small_item_height"
+                android:background="@drawable/item_bg_select"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="@string/degree"
+                    android:textColor="@color/common_black_txt"
+                    android:textSize="@dimen/middle_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_degree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:textSize="@dimen/small_medium_text_size"
+                    android:textColor="@color/common_light_gray_txt"
+                    android:text="@string/not_null"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/icon_arrow_right" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/common_gray_line" />
+
+            <!-- 专业名称 -->
+            <LinearLayout
+                android:id="@+id/btn_profession"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/small_item_height"
+                android:background="@drawable/item_bg_select"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="@string/profession"
+                    android:textColor="@color/common_black_txt"
+                    android:textSize="@dimen/middle_text_size" />
+
+
+                <EditText
+                    android:id="@+id/tv_profession"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:hint="@string/professional"
+                    android:maxLength="15"
+                    android:inputType="text"
+                    android:lines="4"
+                    android:padding="15dp"
+                    android:textColor="@color/common_blue_txt"
+                    android:textColorHint="@color/common_light_gray_txt"
+                    android:textSize="@dimen/small_medium_text_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/icon_arrow_right" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/common_gray_line" />
+
+            <!-- 入学时间 -->
+            <LinearLayout
+                android:id="@+id/btn_enter_school"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/small_item_height"
+                android:background="@drawable/item_bg_select"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="@string/enter_school_date"
+                    android:textColor="@color/common_black_txt"
+                    android:textSize="@dimen/middle_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_enter_school_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:textSize="@dimen/small_medium_text_size"
+                    android:textColor="@color/common_light_gray_txt"
+                    android:text="@string/not_set"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/icon_arrow_right" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/common_gray_line" />
+
+            <!-- 毕业时间 -->
+            <LinearLayout
+                android:id="@+id/btn_finish_school"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/small_item_height"
+                android:background="@drawable/item_bg_select"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="@string/finish_school_date"
+                    android:textColor="@color/common_black_txt"
+                    android:textSize="@dimen/middle_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_finish_school_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:textSize="@dimen/small_medium_text_size"
+                    android:textColor="@color/common_light_gray_txt"
+                    android:text="@string/not_set"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/icon_arrow_right" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

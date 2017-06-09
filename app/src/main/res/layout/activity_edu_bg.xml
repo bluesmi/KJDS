@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/title_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_height" />
+
+    <!--内容区域-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_content_bg"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/btn_add_edu_bg"
+            android:layout_margin="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/small_item_height"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@drawable/btn_blue_bg_shape">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_add"/>
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/large_text_size"
+                android:text="@string/add_edu_bg"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+
+        <!-- item -->
+        <RelativeLayout
+            android:id="@+id/btn_enter_detail"
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:layout_height="@dimen/large_item_height">
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:id="@+id/tv_school"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="长沙学院"
+                android:textSize="@dimen/middle_text_size"
+                android:textColor="@color/common_black_txt"/>
+
+            <TextView
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_alignParentBottom="true"
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2011-09——2015-06"
+                android:textSize="@dimen/small_text_size"
+                android:textColor="@color/common_light_gray_txt"/>
+
+            <TextView
+                android:layout_marginLeft="15dp"
+                android:id="@+id/tv_other_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="本科 | 软件工程"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/small_medium_text_size"
+                android:textColor="@color/common_gray_txt"/>
+
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/icon_arrow_right" />
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

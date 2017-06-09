@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/layout_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/bottom_tab_height" >
+
+        <RadioGroup
+            android:id="@+id/tabs_rg"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/bottom_tab_height"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/white"
+            android:orientation="horizontal" >
+            <!-- 首页-->
+            <RadioButton
+                android:id="@+id/index_tab_rb"
+                style="@style/bottomStyle"
+                android:drawableTop="@drawable/index_tab_icon_select"
+                android:text="@string/index_text"
+                android:textColor="@drawable/tab_text_color_select" />
+
+            <!-- 简历  -->
+            <RadioButton
+                android:id="@+id/resume_tab_rb"
+                style="@style/bottomStyle"
+                android:drawableTop="@drawable/resume_tab_icon_select"
+                android:text="@string/resume_text"
+                android:textColor="@drawable/tab_text_color_select" />
+
+            <!-- 我的  -->
+            <RadioButton
+                android:id="@+id/my_tab_rb"
+                style="@style/bottomStyle"
+                android:drawableTop="@drawable/my_tab_icon_select"
+                android:text="@string/my_text"
+                android:textColor="@drawable/tab_text_color_select" />
+        </RadioGroup>
+    </RelativeLayout>
+
+</LinearLayout>
