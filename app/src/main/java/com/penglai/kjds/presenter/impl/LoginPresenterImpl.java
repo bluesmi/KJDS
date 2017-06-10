@@ -52,9 +52,9 @@ public class LoginPresenterImpl implements Presenter {
                 String msg = loginRes.getMsg();
                 UserData data =loginRes.getData();
 
-                if(data == null){
-                    return  ;
-                }
+//                if(data == null){
+//                    return  ;
+//                }
                 if(code == 0){        //是否成功登陆
                     LogUtils.error("data 中的数值"+data.getUserName()+data.getUserId()+data.getToken());
                     //存储用户id和用户名

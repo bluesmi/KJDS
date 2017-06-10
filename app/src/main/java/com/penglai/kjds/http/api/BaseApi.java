@@ -21,7 +21,7 @@ public interface BaseApi {
      * @return
      */
     @GET("Common.ashx")
-    Call<LoginRes> login(@QueryMap Map<String, String> params);
+    Call<BaseRes> login(@QueryMap Map<String, String> params);
 
     /**
      * 修改密码

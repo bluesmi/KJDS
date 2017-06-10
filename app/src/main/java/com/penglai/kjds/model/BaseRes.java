@@ -5,15 +5,15 @@ package com.penglai.kjds.model;
  *  * 邮箱：gongzhiqing@xiyundata.com
  *  
  */
-public class BaseRes extends BaseResRoot {
+public class BaseRes<T> extends BaseResRoot {
 
-    public String data;
+    public T data;
 
-    public String getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(T data) {
         this.data = data;
     }
 }

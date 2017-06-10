@@ -2,14 +2,19 @@ package com.penglai.kjds.http.api.user;
 
 import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.penglai.kjds.http.RequestCallback;
 import com.penglai.kjds.http.api.BaseService;
 import com.penglai.kjds.http.api.BaseApi;
 import com.penglai.kjds.model.BaseRes;
 import com.penglai.kjds.model.user.LoginRes;
+import com.penglai.kjds.model.user.UserData;
+import com.penglai.kjds.utils.JSONUtil;
 import com.penglai.kjds.utils.LogUtils;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,17 +46,31 @@ public class UserService extends BaseService {
         params.put("data", strJson);
         LogUtils.error("loginResp","传入参数"+strJson);
         Log.d("UserService", "login: "+params);
-        Call<LoginRes> call = apiStr.login(params);
-        call.enqueue(new Callback<LoginRes>() {
+        Call<BaseRes> call = apiStr.login(params);
+        call.enqueue(new Callback<BaseRes>() {
             @Override
-            public void onResponse(Call<LoginRes> call, Response<LoginRes> response) {
+            public void onResponse(Call<BaseRes> call, Response<BaseRes> response) {
                 //得到返回的数据
                 LogUtils.error("loginResp","is success  "+response.body());
-                callback.onSuccess(response != null ? response.body() : null);
+                if(null != response){
+                    LoginRes loginRes = new LoginRes();
+                    loginRes.setCode(response.body().getCode());
+                    loginRes.setMsg(response.body().getMsg());
+                    if("".equals(response.body().getData())){
+                        loginRes.setData(null);
+                    }else {
+//                        JSON.parseObject(js, new TypeReference<Result<User>>(){});
+//                        UserData userData = JSON.parseObject(response.body().getData(),new TypeReference<UserData>());
+                        System.out.println(response.body().getData());
+                        loginRes.setData(JSONUtil.getUserData((Map) response.body().getData()));
+                    }
+                    callback.onSuccess(loginRes);
+                }
+
             }
 
             @Override
-            public void onFailure(Call<LoginRes> call, Throwable t) {
+            public void onFailure(Call<BaseRes> call, Throwable t) {
                 LogUtils.error("loginResp","is error"+t.getMessage());
                 t.printStackTrace();
 //                Log.d("UserService", "onFailure: "+);
