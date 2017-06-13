@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         rgsChange(R.id.index_tab_rb, true);
         //设置菜单切换
         FragmentTabAdapter.FragmentWraper wraper = new FragmentTabAdapter.FragmentWraper();
-        wraper.setHealthFrg(IndexFragment.getInstance());
+        wraper.setHealthFrg( IndexFragment.getInstance());
         wraper.setRelativeFrg(ResumeFragment.getInstance());
         wraper.setMyFrg(MyFragment.getInstance());
 

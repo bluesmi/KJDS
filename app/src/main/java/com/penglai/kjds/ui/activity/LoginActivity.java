@@ -129,10 +129,11 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @Override
     public void loginSuccess() {
         UiUtils.showToast(mContext,"登录成功");
+
         //跳转至主页面
         startActivity(new Intent(mContext, MainActivity.class));
 
-//        finish();
+        finish();
     }
 
 

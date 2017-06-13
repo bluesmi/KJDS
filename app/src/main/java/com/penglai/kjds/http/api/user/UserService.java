@@ -10,6 +10,8 @@ import com.penglai.kjds.http.api.BaseApi;
 import com.penglai.kjds.model.BaseRes;
 import com.penglai.kjds.model.user.LoginRes;
 import com.penglai.kjds.model.user.UserData;
+import com.penglai.kjds.model.user.UserInfo;
+import com.penglai.kjds.model.user.UserInfoRes;
 import com.penglai.kjds.utils.JSONUtil;
 import com.penglai.kjds.utils.LogUtils;
 
@@ -96,13 +98,51 @@ public class UserService extends BaseService {
             @Override
             public void onResponse(Call<BaseRes> call, Response<BaseRes> response) {
                 //得到返回的数据
-                LogUtils.error("loginResp","is success  "+response.body());
+                LogUtils.error("modifyResp","is success  "+response.body());
                 callback.onSuccess(response != null ? response.body() : null);
             }
 
             @Override
             public void onFailure(Call<BaseRes> call, Throwable t) {
-                LogUtils.error("loginResp","is error"+t.getMessage());
+                LogUtils.error("modifyResp","is error"+t.getMessage());
+                callback.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    public static void getUserInfo(String opSign, String strJson, final RequestCallback<UserInfoRes> callback){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("data",strJson);
+        params.put("op",opSign);
+
+        LogUtils.error("UserInfo","传入参数"+strJson);
+        Call<BaseRes> call = apiStr.getUserInfo(params);
+        call.enqueue(new Callback<BaseRes>() {
+            @Override
+            public void onResponse(Call<BaseRes> call, Response<BaseRes> response) {
+                //得到返回的数据
+                LogUtils.error("UserInfo","is success  "+response.body());
+                if(null != response){
+                    UserInfoRes userInfoRes = new UserInfoRes();
+                    userInfoRes.setCode(response.body().getCode());
+                    userInfoRes.setMsg(response.body().getMsg());
+                    if("".equals(response.body().getData())){
+                        userInfoRes.setData(null);
+                    }else {
+//                        JSON.parseObject(js, new TypeReference<Result<User>>(){});
+//                        UserData userData = JSON.parseObject(response.body().getData(),new TypeReference<UserData>());
+                        System.out.println(response.body().getData());
+                        userInfoRes.setData(JSONUtil.getUserInfo((Map) response.body().getData()));
+                    }
+                    callback.onSuccess(userInfoRes);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<BaseRes> call, Throwable t) {
+                t.printStackTrace();
+                LogUtils.error("UserInfo","is error  "+t.getMessage());
                 callback.onFailure(t.getMessage());
             }
         });

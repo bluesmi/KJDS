@@ -7,6 +7,7 @@ import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.QueryMap;
 
 /**
@@ -31,5 +32,7 @@ public interface BaseApi {
     @GET("Common.ashx")
     Call<BaseRes> modifyPwd(@QueryMap Map<String, String> params);
 
+    @POST("Common.ashx")
+    Call<BaseRes>  getUserInfo(@QueryMap Map<String,String> params);
 
 }

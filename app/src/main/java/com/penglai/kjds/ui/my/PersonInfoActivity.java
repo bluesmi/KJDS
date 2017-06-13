@@ -28,11 +28,18 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.bumptech.glide.Glide;
 import com.penglai.kjds.R;
+import com.penglai.kjds.model.user.UserInfo;
+import com.penglai.kjds.model.user.UserInfoReq;
+import com.penglai.kjds.presenter.impl.GetUserInfoPresenterImpl;
+import com.penglai.kjds.presenter.implView.GetUserInfoView;
 import com.penglai.kjds.ui.base.BaseActivity;
 import com.penglai.kjds.ui.view.widget.CircleImageView;
 import com.penglai.kjds.ui.view.widget.PopWindowView;
 import com.penglai.kjds.utils.PickerUtils;
+import com.penglai.kjds.utils.SettingPrefUtils;
 import com.penglai.kjds.utils.UiUtils;
 
 import java.io.File;
@@ -52,7 +59,7 @@ import cn.qqtheme.framework.picker.OptionPicker;
  *  * 邮箱：gongzhiqing@xiyundata.com
  *  
  */
-public class PersonInfoActivity extends BaseActivity {
+public class PersonInfoActivity extends BaseActivity implements GetUserInfoView{
 
     @BindView(R.id.index_top_layout)
     LinearLayout indexTopLayout;
@@ -84,6 +91,8 @@ public class PersonInfoActivity extends BaseActivity {
 
     private PopupWindow mPopWindow;
 
+    private GetUserInfoPresenterImpl presenter;
+
     //请求相机
     private static final int REQUEST_CAPTURE = 100;
     //请求相册
@@ -114,6 +123,7 @@ public class PersonInfoActivity extends BaseActivity {
     }
 
     protected void initData() {
+        presenter = new GetUserInfoPresenterImpl(mContext,this);
         //初始化标题栏布局
         indexTopLayout.setVisibility(View.GONE);
         commonTopLayout.setVisibility(View.VISIBLE);
@@ -128,6 +138,10 @@ public class PersonInfoActivity extends BaseActivity {
         btnBase.setTextColor(Color.parseColor("#EFEFEF"));
         commonTopLayout.setBackgroundColor(topBackgroundColor);
         UiUtils.showToast(mContext,getIntent().getExtras()+"");
+        String userId = SettingPrefUtils.getUid();
+        if(null != userId && !"".equals(userId)){
+            presenter.getUserInfo("getUserInfo", JSON.toJSONString(new UserInfoReq(userId)));
+        }
     }
 
     @Override
@@ -429,6 +443,50 @@ public class PersonInfoActivity extends BaseActivity {
     }
 
 
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showError(String error) {
+
+    }
+
+    @Override
+    public void showUserInfo(UserInfo userInfo) {
+        Glide.with(mContext)
+             .load(userInfo.getUserImage())
+             .placeholder(R.drawable.icon_user_img)
+             .error(R.drawable.icon_user_img)
+             .into(ivUserImg);
+        String nickName = userInfo.getNickName();
+        if(null != nickName && !"".equals(nickName)) {
+            tvNickname.setText(nickName);
+            tvNickname.setTextColor(Color.parseColor("#24CD9E"));
+        }
+        String school = userInfo.getSchool();
+        if(null != school && !"".equals(school)) {
+            tvSchool.setText(school);
+            tvSchool.setTextColor(Color.parseColor("#24CD9E"));
+        }
+        int sex = Integer.parseInt(userInfo.getSex());
+        if(0 == sex || 1 == sex) {
+            String userSex = sex==0 ? "男" : "女";
+            tvSex.setText(userSex);
+            tvSex.setTextColor(Color.parseColor("#24CD9E"));
+        }
+        String birthday = userInfo.getBirthday();
+        if(null != birthday && !"".equals(birthday)) {
+            tvBirthday.setText(userInfo.getBirthday());
+            tvBirthday.setTextColor(Color.parseColor("#24CD9E"));
+        }
+    }
 }
 
 
