@@ -1,10 +1,13 @@
 package com.penglai.kjds.utils;
 
+import com.penglai.kjds.model.index.CompanyInfo;
 import com.penglai.kjds.model.resume.PersionInfo;
 import com.penglai.kjds.model.user.UserData;
 import com.penglai.kjds.model.user.UserImagePath;
 import com.penglai.kjds.model.user.UserInfo;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -50,4 +53,35 @@ public class JSONUtil {
         persionInfo.setEmail((String) data.get("Email"));
         return persionInfo;
     }
+
+
+    public static List<CompanyInfo> getCompanyInfoList( List<Map> data) {
+        List<CompanyInfo> companyIfoList = new ArrayList<CompanyInfo>();
+        for (Map map: data) {
+                companyIfoList.add(getCompanyIfo(map));
+        }
+
+        return companyIfoList;
+    }
+
+    public static CompanyInfo getCompanyIfo(Map data){
+        String id = (String) data.get("ID");
+        String companyName = (String) data.get("CompanyName");
+        String logoID = (String) data.get("LogoID");
+        String typeID = (String) data.get("TypeID");
+        String isRecommend = (String) data.get("IsRecommend");
+        String title = (String) data.get("Title");
+        String orgProp = (String) data.get("OrgProp");
+        String eduRequire = (String) data.get("EduRequire");
+        String workExperience = (String) data.get("WorkExperience");
+        String salary = (String) data.get("Salary");
+        String address = (String) data.get("Address");
+        String startTime = (String) data.get("StartTime");
+        String endTime = (String) data.get("EndTime");
+        String state = (String) data.get("State");
+        CompanyInfo companyInfo = new CompanyInfo(id, companyName, logoID, typeID, isRecommend,
+                title, orgProp, eduRequire, workExperience, salary, address, startTime, endTime, state);
+        return companyInfo;
+    }
+
 }

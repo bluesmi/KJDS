@@ -11,7 +11,7 @@ public class CompanyInfo implements Serializable {
     /**
      * 招聘ID
      */
-    private String iD;
+    private String id;
     /**
      * 公司名称
      */
@@ -65,9 +65,9 @@ public class CompanyInfo implements Serializable {
     public CompanyInfo() {
     }
 
-    public CompanyInfo(String iD, String companyName, String logoID, String typeID, String isRecommend, String title, String orgProp, String eduRequire,
+    public CompanyInfo(String id, String companyName, String logoID, String typeID, String isRecommend, String title, String orgProp, String eduRequire,
                        String workExperience, String salary, String address, String startTime, String endTime, String state) {
-        this.iD = iD;
+        this.id = id;
         this.companyName = companyName;
         this.logoID = logoID;
         this.typeID = typeID;
@@ -83,12 +83,12 @@ public class CompanyInfo implements Serializable {
         this.state = state;
     }
 
-    public String getiD() {
-        return iD;
+    public String getId() {
+        return id;
     }
 
-    public void setiD(String iD) {
-        this.iD = iD;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getCompanyName() {
@@ -202,7 +202,7 @@ public class CompanyInfo implements Serializable {
 
         CompanyInfo that = (CompanyInfo) o;
 
-        if (iD != null ? !iD.equals(that.iD) : that.iD != null) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (companyName != null ? !companyName.equals(that.companyName) : that.companyName != null)
             return false;
         if (logoID != null ? !logoID.equals(that.logoID) : that.logoID != null) return false;
@@ -226,7 +226,7 @@ public class CompanyInfo implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = iD != null ? iD.hashCode() : 0;
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (companyName != null ? companyName.hashCode() : 0);
         result = 31 * result + (logoID != null ? logoID.hashCode() : 0);
         result = 31 * result + (typeID != null ? typeID.hashCode() : 0);
@@ -246,7 +246,7 @@ public class CompanyInfo implements Serializable {
     @Override
     public String toString() {
         return "CompanyInfo{" +
-                "iD='" + iD + '\'' +
+                "id='" + id + '\'' +
                 ", companyName='" + companyName + '\'' +
                 ", logoID='" + logoID + '\'' +
                 ", typeID='" + typeID + '\'' +

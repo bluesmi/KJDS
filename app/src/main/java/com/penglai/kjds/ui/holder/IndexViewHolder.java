@@ -7,7 +7,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.penglai.kjds.R;
+import com.penglai.kjds.model.index.CompanyInfo;
 import com.penglai.kjds.ui.base.BaseViewHolder;
 import com.penglai.kjds.ui.view.listener.OnItemClickListener;
 
@@ -18,7 +20,7 @@ import butterknife.BindView;
  *  * 邮箱：gongzhiqing@xiyundata.com
  *  
  */
-public class IndexViewHolder extends BaseViewHolder<String> {
+public class IndexViewHolder extends BaseViewHolder<CompanyInfo> {
 
     @BindView(R.id.iv_company_logo)
     ImageView ivCompanyLogo;
@@ -39,12 +41,34 @@ public class IndexViewHolder extends BaseViewHolder<String> {
     @BindView(R.id.enter_detail_layout)
     RelativeLayout enterDetailLayout;
 
+    private Context mContext;
     public IndexViewHolder(Context context, ViewGroup root) {
         super(context, root, R.layout.list_item_index);
+        this.mContext = context;
     }
 
     @Override
-    protected void bindData(final String itemValue,final int position, final OnItemClickListener listener) {
+    protected void bindData(final CompanyInfo itemValue,final int position, final OnItemClickListener listener) {
+        Glide.with(mContext)
+                .load(itemValue.getLogoID())
+                .placeholder(R.drawable.icon_user_img)
+                .error(R.drawable.icon_user_img)
+                .into(ivCompanyLogo);
+        tvCompanyInfo.setText(itemValue.getCompanyName()+"|"+(Integer.parseInt(itemValue.getOrgProp())==1 ? "私企" : "国企"));
+        tvJobName.setText(itemValue.getTitle());
+        tvJobType.setText(itemValue.getTypeID());
+        if("False".equals(itemValue.getIsRecommend())){
+            tvHot.setVisibility(View.GONE);
+        }
+        tvOtherInfo.setText(itemValue.getAddress());
+        tvPay.setText(itemValue.getSalary());
+        String startTime = itemValue.getStartTime();
+        String endTime = itemValue.getEndTime();
+        if(null != startTime && null != endTime) {
+            tvTime.setText(startTime.substring(0, 10) + "-" + endTime.substring(0, 10));
+        }else {
+            tvTime.setText(startTime+"-"+endTime);
+        }
         //点击item事件
         enterDetailLayout.setOnClickListener(new View.OnClickListener() {
             @Override

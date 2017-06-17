@@ -9,15 +9,21 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.penglai.kjds.R;
+import com.penglai.kjds.model.index.CompanyInfo;
+import com.penglai.kjds.model.index.CompanyInfoReq;
+import com.penglai.kjds.presenter.impl.GetHotRecommendPresenterImpl;
+import com.penglai.kjds.presenter.implView.GetHotRecommendView;
 import com.penglai.kjds.ui.activity.LoginActivity;
 import com.penglai.kjds.ui.adapter.IndexAdapter;
 import com.penglai.kjds.ui.base.BaseFragment;
 import com.penglai.kjds.ui.view.listener.OnItemClickListener;
 import com.penglai.kjds.ui.view.widget.banner.CustomerTopBanner;
+import com.penglai.kjds.utils.SettingPrefUtils;
 import com.penglai.kjds.utils.UiUtils;
 
 import java.util.ArrayList;
@@ -34,7 +40,7 @@ import butterknife.OnClick;
  *  * 邮箱：gongzhiqing@xiyundata.com
  *  
  */
-public class IndexFragment extends BaseFragment implements View.OnClickListener {
+public class IndexFragment extends BaseFragment implements View.OnClickListener,GetHotRecommendView {
 
     @BindView(R.id.index_top_layout)
     LinearLayout indexTopLayout;
@@ -51,6 +57,8 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
     private static IndexFragment instance;
     private IndexAdapter adapter;
 
+    private GetHotRecommendPresenterImpl hotRecommendPresenter;
+    private List<CompanyInfo> companyInfoList;
     public IndexFragment() {
         super();
     }
@@ -75,6 +83,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     public void initData() {
+        hotRecommendPresenter = new GetHotRecommendPresenterImpl(mContext,this);
         indexTopLayout.setVisibility(View.VISIBLE);
         commonTopLayout.setVisibility(View.GONE);
         //初始化XRecyclerView
@@ -89,13 +98,15 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
         //设置适配器
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        //TODO 暂时用假数据填充
-        List<String> mInfos = new ArrayList<>();
-        mInfos.add("123");
-        mInfos.add("1234");
-        mInfos.add("12");
+        String userId = SettingPrefUtils.getUid();
+        if(null != userId && !"".equals(userId)) {
+            hotRecommendPresenter.getHotRecommend("getHotRecommend", JSON.toJSONString(new CompanyInfoReq(userId,0,0)));
+
+        }else {
+            hotRecommendPresenter.getHotRecommend("getHotRecommend", JSON.toJSONString(new CompanyInfoReq("",0,0)));
+        }
         //设置数据
-        adapter.refreshData(mInfos);
+        adapter.refreshData(companyInfoList);
         //设置刷新
         mRecyclerView.refresh();
         //设置上拉刷新、下拉加载、item点击事件监听
@@ -162,6 +173,15 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
         mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {                 //下拉刷新
+                String userId = SettingPrefUtils.getUid();
+                if(null != userId && !"".equals(userId)) {
+                    hotRecommendPresenter.getHotRecommend("getHotRecommend", JSON.toJSONString(new CompanyInfoReq(userId,0,0)));
+
+                }else {
+                    hotRecommendPresenter.getHotRecommend("getHotRecommend", JSON.toJSONString(new CompanyInfoReq("",0,0)));
+                }
+                //设置数据
+                adapter.refreshData(companyInfoList);
                 //结束刷新
                 mRecyclerView.refreshComplete();
                 //通知更新
@@ -179,9 +199,9 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
             }
         });
 
-        adapter.setOnClickListener(new OnItemClickListener<String>() {
+        adapter.setOnClickListener(new OnItemClickListener<CompanyInfo>() {
             @Override
-            public void onItemClick(String itemValue, int viewID, int position) {
+            public void onItemClick(CompanyInfo itemValue, int viewID, int position) {
                 //跳转至职位/岗位详情
                 startActivity(new Intent(mContext, JobDetailActivity.class));
             }
@@ -235,4 +255,16 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
         }
     }
 
+    @Override
+    public void showError(String error) {
+
+    }
+
+    @Override
+    public void showHotCompany(List<CompanyInfo> companyInfoList) {
+           this.companyInfoList = companyInfoList;
+        //设置数据
+        adapter.refreshData(this.companyInfoList);
+
+    }
 }
