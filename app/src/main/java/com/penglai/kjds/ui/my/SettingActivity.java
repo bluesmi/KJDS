@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.penglai.kjds.R;
 import com.penglai.kjds.ui.base.BaseActivity;
+import com.penglai.kjds.ui.my.changeview.SettingChargeView;
 import com.penglai.kjds.utils.DataCleanManagerUtils;
 import com.penglai.kjds.utils.PopWindowUtil;
 
@@ -27,7 +28,7 @@ import butterknife.OnClick;
  *  * 邮箱：gongzhiqing@xiyundata.com
  *  
  */
-public class SettingActivity extends BaseActivity {
+public class SettingActivity extends BaseActivity implements SettingChargeView{
 
     @BindView(R.id.index_top_layout)
     LinearLayout indexTopLayout;
@@ -82,14 +83,8 @@ public class SettingActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.clear_cache_layout:                          //清除缓存
-                PopWindowUtil.confirmCleanCache(mContext,getContentView(),this);
-                String cache = "0KB";
-                try {
-                    cache = DataCleanManagerUtils.getTotalCacheSize(mContext);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                tvCache.setText(cache);
+                PopWindowUtil.confirmCleanCache(mContext,getContentView(),this,this);
+
                 break;
             case R.id.update_version_layout:                   //版本更新
                 PopWindowUtil.checkUpdateSystem(mContext,getContentView(),this);
@@ -114,6 +109,22 @@ public class SettingActivity extends BaseActivity {
                 finish();
                 break;
         }
+
+    }
+
+    @Override
+    public void onSuccess() {
+        String cache = "0KB";
+        try {
+            cache = DataCleanManagerUtils.getTotalCacheSize(mContext);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        tvCache.setText(cache);
+    }
+
+    @Override
+    public void onFailure(String message) {
 
     }
 }

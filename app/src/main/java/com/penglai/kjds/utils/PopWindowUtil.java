@@ -10,6 +10,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.penglai.kjds.R;
+import com.penglai.kjds.ui.my.changeview.SettingChargeView;
 import com.penglai.kjds.ui.view.widget.PopWindowView;
 
 import butterknife.BindView;
@@ -77,7 +78,7 @@ public class PopWindowUtil {
         });
 
     }
-    public static void confirmCleanCache(final Context mContext, View view, Activity activity){
+    public static void confirmCleanCache(final Context mContext, final View view, Activity activity, final SettingChargeView settingChargeView){
         init(mContext);
         tvTitle.setText("清除缓存");
         tvContent.setText("删除应用缓存\n" + "不会删除个人信息和设置");
@@ -95,7 +96,7 @@ public class PopWindowUtil {
                     return true;
                 }
                 //否则default，往下dispatch事件:关掉popupWindow，
-
+                settingChargeView.onFailure("");
                 return false;
             }
         });
@@ -114,6 +115,7 @@ public class PopWindowUtil {
                 UiUtils.showToast(mContext,"确定删除缓存");
                 //权限判断
                 DataCleanManagerUtils.clearAllCache(mContext);
+               settingChargeView.onSuccess();
                 mPopWindow.dismiss();
             }
         });
