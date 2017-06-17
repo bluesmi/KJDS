@@ -5,9 +5,13 @@ import com.penglai.kjds.model.user.LoginRes;
 
 import java.util.Map;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 /**
@@ -32,7 +36,26 @@ public interface BaseApi {
     @GET("Common.ashx")
     Call<BaseRes> modifyPwd(@QueryMap Map<String, String> params);
 
+    /**
+     * 获取用户信息
+     * @param params
+     * @return
+     */
     @POST("Common.ashx")
     Call<BaseRes>  getUserInfo(@QueryMap Map<String,String> params);
 
+    /**
+     * 上传用户头像
+     */
+    @Multipart
+    @POST("Common.ashx")
+    Call<BaseRes>  uploadUserImg(@QueryMap Map<String, String> params, @Part MultipartBody.Part data);
+
+    /**
+     * 修改用户基本信息
+     * @param params
+     * @return
+     */
+    @POST("Common.ashx")
+    Call<BaseRes> modifyUserInfo(@QueryMap Map<String, String> params);
 }

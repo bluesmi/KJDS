@@ -193,7 +193,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener 
         switch (view.getId()) {
             case R.id.btn_login:                    //用户登陆
                 UiUtils.showToast(mContext, "登陆");
-                startActivity(new Intent(mContext, LoginActivity.class));
+                startActivityForResult(new Intent(mContext, LoginActivity.class),0);
                 break;
 
             case R.id.search_layout:            //搜索

@@ -31,10 +31,13 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.penglai.kjds.R;
+import com.penglai.kjds.model.user.ModifyUserInfoReq;
 import com.penglai.kjds.model.user.UserInfo;
 import com.penglai.kjds.model.user.UserInfoReq;
 import com.penglai.kjds.presenter.impl.GetUserInfoPresenterImpl;
+import com.penglai.kjds.presenter.impl.UploadUserImgPresenterImpl;
 import com.penglai.kjds.presenter.implView.GetUserInfoView;
+import com.penglai.kjds.presenter.implView.UploadUserImgView;
 import com.penglai.kjds.ui.base.BaseActivity;
 import com.penglai.kjds.ui.view.widget.CircleImageView;
 import com.penglai.kjds.ui.view.widget.PopWindowView;
@@ -59,7 +62,7 @@ import cn.qqtheme.framework.picker.OptionPicker;
  *  * 邮箱：gongzhiqing@xiyundata.com
  *  
  */
-public class PersonInfoActivity extends BaseActivity implements GetUserInfoView{
+public class PersonInfoActivity extends BaseActivity implements UploadUserImgView{
 
     @BindView(R.id.index_top_layout)
     LinearLayout indexTopLayout;
@@ -91,7 +94,11 @@ public class PersonInfoActivity extends BaseActivity implements GetUserInfoView{
 
     private PopupWindow mPopWindow;
 
-    private GetUserInfoPresenterImpl presenter;
+
+
+    private UploadUserImgPresenterImpl uploadUserImgPresenter;
+
+
 
     //请求相机
     private static final int REQUEST_CAPTURE = 100;
@@ -123,7 +130,8 @@ public class PersonInfoActivity extends BaseActivity implements GetUserInfoView{
     }
 
     protected void initData() {
-        presenter = new GetUserInfoPresenterImpl(mContext,this);
+
+        uploadUserImgPresenter = new UploadUserImgPresenterImpl(mContext,this);
         //初始化标题栏布局
         indexTopLayout.setVisibility(View.GONE);
         commonTopLayout.setVisibility(View.VISIBLE);
@@ -138,9 +146,10 @@ public class PersonInfoActivity extends BaseActivity implements GetUserInfoView{
         btnBase.setTextColor(Color.parseColor("#EFEFEF"));
         commonTopLayout.setBackgroundColor(topBackgroundColor);
         UiUtils.showToast(mContext,getIntent().getExtras()+"");
-        String userId = SettingPrefUtils.getUid();
-        if(null != userId && !"".equals(userId)){
-            presenter.getUserInfo("getUserInfo", JSON.toJSONString(new UserInfoReq(userId)));
+        Intent intent = getIntent();
+        UserInfo userInfo = (UserInfo) intent.getSerializableExtra("userInfo");
+        if(null != userInfo){
+            showUserInfo(userInfo);
         }
     }
 
@@ -443,22 +452,22 @@ public class PersonInfoActivity extends BaseActivity implements GetUserInfoView{
     }
 
 
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
 
     @Override
     public void showError(String error) {
 
     }
 
+    /**
+     * 保存下图片的信息
+     * @param path
+     */
     @Override
+    public void saveUserImgPath(String path) {
+
+    }
+
+
     public void showUserInfo(UserInfo userInfo) {
         Glide.with(mContext)
              .load(userInfo.getUserImage())
@@ -483,7 +492,8 @@ public class PersonInfoActivity extends BaseActivity implements GetUserInfoView{
         }
         String birthday = userInfo.getBirthday();
         if(null != birthday && !"".equals(birthday)) {
-            tvBirthday.setText(userInfo.getBirthday());
+            birthday = birthday.substring(0,10);
+            tvBirthday.setText(birthday);
             tvBirthday.setTextColor(Color.parseColor("#24CD9E"));
         }
     }

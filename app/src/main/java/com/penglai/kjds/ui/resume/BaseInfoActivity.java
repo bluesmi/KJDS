@@ -1,5 +1,6 @@
 package com.penglai.kjds.ui.resume;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.view.View;
@@ -9,9 +10,16 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.penglai.kjds.R;
+import com.penglai.kjds.model.resume.PersionInfo;
+import com.penglai.kjds.model.user.UserInfoReq;
+import com.penglai.kjds.presenter.impl.GetPersionInfoPresenter;
+import com.penglai.kjds.presenter.impl.GetUserInfoPresenterImpl;
+import com.penglai.kjds.presenter.implView.GetPersionInfoView;
 import com.penglai.kjds.ui.base.BaseActivity;
 import com.penglai.kjds.utils.PickerUtils;
+import com.penglai.kjds.utils.SettingPrefUtils;
 
 import butterknife.BindBitmap;
 import butterknife.BindColor;
@@ -71,6 +79,7 @@ public class BaseInfoActivity extends BaseActivity {
     int topColor;
 
 
+
     @Override
     protected View getContentView() {
         return inflateView(R.layout.activity_base_info);
@@ -84,6 +93,7 @@ public class BaseInfoActivity extends BaseActivity {
     }
 
     protected void initData() {
+
         //初始化标题栏布局
         indexTopLayout.setVisibility(View.GONE);
         commonTopLayout.setVisibility(View.VISIBLE);
@@ -96,6 +106,11 @@ public class BaseInfoActivity extends BaseActivity {
         tvSex.setTextColor(txtColor);
         btnBase.setText(save);
         btnBack.setImageBitmap(commonBack);
+        Intent intent = getIntent();
+        PersionInfo persionInfo = (PersionInfo) intent.getSerializableExtra("persionInfo");
+        if(null != persionInfo){
+            showPersionInfo(persionInfo);
+        }
     }
 
     @OnClick({R.id.btn_back, R.id.btn_base, R.id.btn_username, R.id.btn_school,
@@ -154,5 +169,38 @@ public class BaseInfoActivity extends BaseActivity {
             case R.id.btn_email:                                                     //邮箱
                 break;
         }
+    }
+
+    public void showPersionInfo(PersionInfo persionInfo) {
+       String userName = persionInfo.getTrueName();
+       if(userName != null && !"".equals(userName))
+        tvUsername.setText(userName);
+        String phone = persionInfo.getPhone();
+        if(null != phone && !"".equals(phone))
+        tvPhone.setText(phone);
+        String birthday = persionInfo.getBirthDate();
+        if(null != birthday && !"".equals(birthday)) {
+            tvBirthday.setText(birthday.substring(0, 10));
+        }
+        String address = persionInfo.getAddress();
+        if(null != address && !"".equals(address))
+        tvCity.setText(address);
+        String school = persionInfo.getEducation();
+        if(null != school && !"".equals(school))
+        tvSchool.setText(school);
+        String sex = persionInfo.getGender();
+        if(null != sex && !"".equals(sex)) {
+            sex = Integer.parseInt(sex) == 0 ? "男" : "女";
+            tvSex.setText(sex);
+            tvSex.setTextColor(Color.parseColor("#24CD9E"));
+        }
+        String email = persionInfo.getEmail();
+        if(null != email && !"".equals(email))
+        tvEmail.setText(email);
+
+        tvEmail.setTextColor(Color.parseColor("#24CD9E"));
+        tvBirthday.setTextColor(Color.parseColor("#24CD9E"));
+        tvCity.setTextColor(Color.parseColor("#24CD9E"));
+
     }
 }

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.penglai.kjds.R;
 import com.penglai.kjds.ui.base.BaseActivity;
+import com.penglai.kjds.utils.DataCleanManagerUtils;
 import com.penglai.kjds.utils.PopWindowUtil;
 
 import butterknife.BindBitmap;
@@ -67,6 +68,13 @@ public class SettingActivity extends BaseActivity {
         tvTitle.setTextColor(txtColor);
         commonTopLayout.setBackgroundColor(topBackgroundColor);
         btnBack.setImageBitmap(commonBack);
+        String cache = "0KB";
+        try {
+            cache = DataCleanManagerUtils.getTotalCacheSize(mContext);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        tvCache.setText(cache);
     }
 
     @OnClick({R.id.clear_cache_layout, R.id.update_version_layout,R.id.btn_user_logout,
@@ -75,6 +83,13 @@ public class SettingActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.clear_cache_layout:                          //清除缓存
                 PopWindowUtil.confirmCleanCache(mContext,getContentView(),this);
+                String cache = "0KB";
+                try {
+                    cache = DataCleanManagerUtils.getTotalCacheSize(mContext);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                tvCache.setText(cache);
                 break;
             case R.id.update_version_layout:                   //版本更新
                 PopWindowUtil.checkUpdateSystem(mContext,getContentView(),this);

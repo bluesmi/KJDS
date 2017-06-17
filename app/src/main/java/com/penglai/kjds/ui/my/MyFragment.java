@@ -1,12 +1,20 @@
 package com.penglai.kjds.ui.my;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.bumptech.glide.Glide;
 import com.penglai.kjds.R;
+import com.penglai.kjds.model.user.UserInfo;
+import com.penglai.kjds.model.user.UserInfoReq;
+import com.penglai.kjds.presenter.impl.GetUserInfoPresenterImpl;
+import com.penglai.kjds.presenter.implView.GetUserInfoView;
 import com.penglai.kjds.ui.base.BaseFragment;
 import com.penglai.kjds.ui.view.widget.CircleImageView;
+import com.penglai.kjds.utils.SettingPrefUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,17 +27,20 @@ import butterknife.OnClick;
  *  * 邮箱：gongzhiqing@xiyundata.com
  *  
  */
-public class MyFragment extends BaseFragment {
+public class MyFragment extends BaseFragment implements GetUserInfoView {
 
     public final static  String TAG = MyFragment.class.getSimpleName();
     private View contentView;
-
+    private GetUserInfoPresenterImpl userInfoPresenter;
     private static MyFragment instance;
     @BindView(R.id.iv_user_img)
     CircleImageView ivUserImg;
     @BindView(R.id.tv_username)
     TextView tvUsername;
 
+    private GetUserInfoPresenterImpl presenter;
+
+    private UserInfo userInfo;
     public MyFragment() {
         super();
     }
@@ -55,7 +66,11 @@ public class MyFragment extends BaseFragment {
 
     @Override
     public void initData() {
-
+        presenter = new GetUserInfoPresenterImpl(mContext,this);
+        String userId = SettingPrefUtils.getUid();
+        if(null != userId && !"".equals(userId)){
+            presenter.getUserInfo("getUserInfo", JSON.toJSONString(new UserInfoReq(userId)));
+        }
     }
 
 
@@ -63,8 +78,10 @@ public class MyFragment extends BaseFragment {
             R.id.my_msg_layout,R.id.my_settting_layout})
     public void onClick(View v){
         switch (v.getId()) {
-            case R.id.edit_layout:                       //编辑用户资料
-                startActivity(new Intent(mContext,PersonInfoActivity.class));
+            case R.id.edit_layout://编辑用户资料
+                Intent intent = new Intent(mContext,PersonInfoActivity.class);
+                intent.putExtra("userInfo",userInfo);
+                startActivity(intent);
                 break;
 
             case R.id.my_deliver_layout:           //我的投递
@@ -89,5 +106,35 @@ public class MyFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showError(String error) {
+
+    }
+
+    @Override
+    public void showUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
+        String nickName = userInfo.getNickName();
+        if(null != nickName && !"".equals(nickName)) {
+            tvUsername.setText(nickName);
+            tvUsername.setTextColor(Color.parseColor("#24CD9E"));
+        }
+        Glide.with(mContext)
+                .load(userInfo.getUserImage())
+                .placeholder(R.drawable.icon_user_img)
+                .error(R.drawable.icon_user_img)
+                .into(ivUserImg);
     }
 }

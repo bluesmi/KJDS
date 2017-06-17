@@ -10,5 +10,5 @@ public class BuildConfig {
     //base url
 //    public static final String KJDS_BASE_SERVER = "http://192.168.31.6/";
 
-    public static final String KJDS_BASE_SERVER = "http://120.24.159.138:8011/kjds.interface/";
+    public static final String KJDS_BASE_SERVER = "http://120.24.159.138:8018";
 }

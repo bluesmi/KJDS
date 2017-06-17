@@ -7,9 +7,15 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.penglai.kjds.R;
+import com.penglai.kjds.model.resume.PersionInfo;
+import com.penglai.kjds.model.user.UserInfoReq;
+import com.penglai.kjds.presenter.impl.GetPersionInfoPresenter;
+import com.penglai.kjds.presenter.implView.GetPersionInfoView;
 import com.penglai.kjds.ui.base.BaseFragment;
 import com.penglai.kjds.ui.view.widget.CircleImageView;
+import com.penglai.kjds.utils.SettingPrefUtils;
 
 import butterknife.BindColor;
 import butterknife.BindString;
@@ -24,7 +30,7 @@ import butterknife.OnClick;
  *  * 邮箱：gongzhiqing@xiyundata.com
  *  
  */
-public class ResumeFragment extends BaseFragment {
+public class ResumeFragment extends BaseFragment implements GetPersionInfoView {
 
     public final static String TAG = ResumeFragment.class.getSimpleName();
     private static ResumeFragment instance;
@@ -59,7 +65,12 @@ public class ResumeFragment extends BaseFragment {
     int topBg;
     @BindColor(R.color.white)
     int titleBg;
+    private GetPersionInfoPresenter persionInfoPresenter;
 
+    /**
+     * 基本信息
+     */
+    private PersionInfo persionInfo;
     public ResumeFragment() {
         super();
     }
@@ -84,13 +95,17 @@ public class ResumeFragment extends BaseFragment {
 
     @Override
     public void initData() {
+        persionInfoPresenter = new GetPersionInfoPresenter(mContext,this);
         indexTopLayout.setVisibility(View.GONE);
         commonTopLayout.setVisibility(View.VISIBLE);
         commonTopLayout.setBackgroundColor(topBg);
         btnBack.setVisibility(View.GONE);
         tvTitle.setTextColor(titleBg);
         tvTitle.setText(title);
-
+        String userId = SettingPrefUtils.getUid();
+        if(null != userId && !"".equals(userId)){
+            persionInfoPresenter.getPersionInfo("getPersionInfo", JSON.toJSONString(new UserInfoReq(userId)));
+        }
     }
 
     //点击事件
@@ -107,7 +122,9 @@ public class ResumeFragment extends BaseFragment {
                 break;
 
             case R.id.btn_base_info:                                             //基本信息
-                startActivity(new Intent(mContext,BaseInfoActivity.class));
+                Intent intent = new Intent(mContext,BaseInfoActivity.class);
+                intent.putExtra("persionInfo",persionInfo);
+                startActivity(intent);
                 break;
 
             case R.id.btn_edu_bg:                                                //教育背景
@@ -130,4 +147,13 @@ public class ResumeFragment extends BaseFragment {
         unbinder.unbind();
     }
 
+    @Override
+    public void showError(String error) {
+
+    }
+
+    @Override
+    public void showPersionInfo(PersionInfo persionInfo) {
+        this.persionInfo = persionInfo;
+    }
 }

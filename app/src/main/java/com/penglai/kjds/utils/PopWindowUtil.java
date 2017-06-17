@@ -113,7 +113,7 @@ public class PopWindowUtil {
             public void onClick(View v) {
                 UiUtils.showToast(mContext,"确定删除缓存");
                 //权限判断
-
+                DataCleanManagerUtils.clearAllCache(mContext);
                 mPopWindow.dismiss();
             }
         });

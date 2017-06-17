@@ -8,16 +8,22 @@ import com.penglai.kjds.http.RequestCallback;
 import com.penglai.kjds.http.api.BaseService;
 import com.penglai.kjds.http.api.BaseApi;
 import com.penglai.kjds.model.BaseRes;
+import com.penglai.kjds.model.user.EmptyEntity;
 import com.penglai.kjds.model.user.LoginRes;
 import com.penglai.kjds.model.user.UserData;
+import com.penglai.kjds.model.user.UserImagePath;
 import com.penglai.kjds.model.user.UserInfo;
 import com.penglai.kjds.model.user.UserInfoRes;
 import com.penglai.kjds.utils.JSONUtil;
 import com.penglai.kjds.utils.LogUtils;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -143,6 +149,47 @@ public class UserService extends BaseService {
             public void onFailure(Call<BaseRes> call, Throwable t) {
                 t.printStackTrace();
                 LogUtils.error("UserInfo","is error  "+t.getMessage());
+                callback.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    public static void uploadUserImg(String opSign, String imgPath, final RequestCallback<BaseRes<UserImagePath>> callback){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("data",JSON.toJSONString(new EmptyEntity()));
+        params.put("op",opSign);
+        File file = new File(imgPath);
+        final RequestBody requestBody = RequestBody.create(MediaType.parse("image/jpg"),file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("picture",file.getName(),requestBody);
+        Call<BaseRes> call = apiStr.uploadUserImg(params,body);
+        call.enqueue(new Callback<BaseRes>() {
+            @Override
+            public void onResponse(Call<BaseRes> call, Response<BaseRes> response) {
+                //得到返回的数据
+                LogUtils.error("uploadUserImg","is success  "+response.body());
+
+                if(null != response){
+                    BaseRes<UserImagePath> userImagePathBaseRes = new BaseRes<UserImagePath>();
+                    userImagePathBaseRes.setCode(response.body().getCode());
+                    userImagePathBaseRes.setMsg(response.body().getMsg());
+
+                    if("".equals(response.body().getData())){
+                        userImagePathBaseRes.setData(null);
+                    }else {
+//                        JSON.parseObject(js, new TypeReference<Result<User>>(){});
+//                        UserData userData = JSON.parseObject(response.body().getData(),new TypeReference<UserData>());
+                        System.out.println(response.body().getData());
+                        userImagePathBaseRes.setData(JSONUtil.getUserImagePath((Map) response.body().getData()));
+                    }
+                    callback.onSuccess(userImagePathBaseRes);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<BaseRes> call, Throwable t) {
+                t.printStackTrace();
+                LogUtils.error("uploadUserImg","is error  "+t.getMessage());
                 callback.onFailure(t.getMessage());
             }
         });

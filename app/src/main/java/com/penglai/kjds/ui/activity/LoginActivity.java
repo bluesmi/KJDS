@@ -131,7 +131,9 @@ public class LoginActivity extends BaseActivity implements LoginView {
         UiUtils.showToast(mContext,"登录成功");
 
         //跳转至主页面
-        startActivity(new Intent(mContext, MainActivity.class));
+        Intent intent = new Intent(mContext, MainActivity.class);
+        setResult(RESULT_OK,intent);
+//        startActivityForResult(,0);
 
         finish();
     }
