@@ -10,6 +10,7 @@ import com.penglai.kjds.model.index.CompanyInfo;
 import com.penglai.kjds.utils.JSONUtil;
 import com.penglai.kjds.utils.LogUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,7 +54,7 @@ public class IndexService {
                     baseResArray.setMsg(response.body().getMsg());
 
                     if (response.body().getData().isEmpty()) {
-                        baseResArray.setData(null);
+                        baseResArray.setData(new ArrayList<CompanyInfo>());
                     } else {
 //                        JSON.parseObject(js, new TypeReference<Result<User>>(){});
 //                        UserData userData = JSON.parseObject(response.body().getData(),new TypeReference<UserData>());
