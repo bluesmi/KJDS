@@ -1,6 +1,7 @@
 package com.penglai.kjds.ui.index;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -33,6 +34,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * 首页
  * <p/>
@@ -59,6 +62,8 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
 
     private GetHotRecommendPresenterImpl hotRecommendPresenter;
     private List<CompanyInfo> companyInfoList;
+
+    private static final int LOGIN_RESULT = 0;
     public IndexFragment() {
         super();
     }
@@ -98,15 +103,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
         //设置适配器
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        String userId = SettingPrefUtils.getUid();
-        if(null != userId && !"".equals(userId)) {
-            hotRecommendPresenter.getHotRecommend("getHotRecommend", JSON.toJSONString(new CompanyInfoReq(userId,0,0)));
-
-        }else {
-            hotRecommendPresenter.getHotRecommend("getHotRecommend", JSON.toJSONString(new CompanyInfoReq("",0,0)));
-        }
-        //设置数据
-        adapter.refreshData(companyInfoList);
+        refreshData();
         //设置刷新
         mRecyclerView.refresh();
         //设置上拉刷新、下拉加载、item点击事件监听
@@ -173,15 +170,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
         mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {                 //下拉刷新
-                String userId = SettingPrefUtils.getUid();
-                if(null != userId && !"".equals(userId)) {
-                    hotRecommendPresenter.getHotRecommend("getHotRecommend", JSON.toJSONString(new CompanyInfoReq(userId,0,0)));
-
-                }else {
-                    hotRecommendPresenter.getHotRecommend("getHotRecommend", JSON.toJSONString(new CompanyInfoReq("",0,0)));
-                }
-                //设置数据
-                adapter.refreshData(companyInfoList);
+                refreshData();
                 //结束刷新
                 mRecyclerView.refreshComplete();
                 //通知更新
@@ -208,12 +197,23 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
         });
     }
 
+    private void refreshData(){
+        String userId = SettingPrefUtils.getUid();
+        if(null != userId && !"".equals(userId)) {
+            hotRecommendPresenter.getHotRecommend("getHotRecommend", JSON.toJSONString(new CompanyInfoReq(userId,0,0)));
+
+        }else {
+            hotRecommendPresenter.getHotRecommend("getHotRecommend", JSON.toJSONString(new CompanyInfoReq("",0,0)));
+        }
+        //设置数据
+        adapter.refreshData(companyInfoList);
+    }
     @OnClick({R.id.btn_login, R.id.search_layout})
     public void skipToClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:                    //用户登陆
                 UiUtils.showToast(mContext, "登陆");
-                startActivityForResult(new Intent(mContext, LoginActivity.class),0);
+                startActivityForResult(new Intent(mContext, LoginActivity.class),LOGIN_RESULT);
                 break;
 
             case R.id.search_layout:            //搜索
@@ -266,5 +266,17 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
         //设置数据
         adapter.refreshData(this.companyInfoList);
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case LOGIN_RESULT: //调用系统相机返回
+                if (resultCode == RESULT_OK) {
+                    refreshData();
+                }
+                break;
+        }
     }
 }
