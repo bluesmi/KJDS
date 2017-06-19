@@ -2,6 +2,7 @@ package com.penglai.kjds.ui.my;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,6 +21,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * 我的
  * <p>
@@ -30,6 +33,7 @@ import butterknife.OnClick;
 public class MyFragment extends BaseFragment implements GetUserInfoView {
 
     public final static  String TAG = MyFragment.class.getSimpleName();
+    private static final int MODIFY_USER_INFO = 0 ;
     private View contentView;
     private GetUserInfoPresenterImpl userInfoPresenter;
     private static MyFragment instance;
@@ -81,7 +85,7 @@ public class MyFragment extends BaseFragment implements GetUserInfoView {
             case R.id.edit_layout://编辑用户资料
                 Intent intent = new Intent(mContext,PersonInfoActivity.class);
                 intent.putExtra("userInfo",userInfo);
-                startActivity(intent);
+                startActivityForResult(intent,MODIFY_USER_INFO);
                 break;
 
             case R.id.my_deliver_layout:           //我的投递
@@ -129,12 +133,26 @@ public class MyFragment extends BaseFragment implements GetUserInfoView {
         String nickName = userInfo.getNickName();
         if(null != nickName && !"".equals(nickName)) {
             tvUsername.setText(nickName);
-            tvUsername.setTextColor(Color.parseColor("#24CD9E"));
         }
         Glide.with(mContext)
                 .load(userInfo.getUserImage())
                 .placeholder(R.drawable.icon_user_img)
                 .error(R.drawable.icon_user_img)
                 .into(ivUserImg);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case MODIFY_USER_INFO: //修改信息返回
+                if (resultCode == RESULT_OK) {
+                    String userId = SettingPrefUtils.getUid();
+                    if (null != userId && !"".equals(userId)) {
+                        presenter.getUserInfo("getUserInfo", JSON.toJSONString(new UserInfoReq(userId)));
+                    }
+                }
+                break;
+        }
     }
 }

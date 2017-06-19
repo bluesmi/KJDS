@@ -47,7 +47,7 @@ public class ModifyPwdPresenterImpl implements Presenter {
                 int code = baseRes.getCode();
                 String msg = baseRes.getMsg();
                 LogUtils.error("code","响应码"+code);
-                if(code == 0){        //是否成功登陆
+                if(code == 0 || "没有修改任何信息".equals(msg)){        //是否成功登陆
                     mModifyPwdView.modifySuccess();
                 }else{
                     UiUtils.showToast(mContext,msg);

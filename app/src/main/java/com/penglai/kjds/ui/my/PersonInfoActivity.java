@@ -35,8 +35,10 @@ import com.penglai.kjds.model.user.ModifyUserInfoReq;
 import com.penglai.kjds.model.user.UserInfo;
 import com.penglai.kjds.model.user.UserInfoReq;
 import com.penglai.kjds.presenter.impl.GetUserInfoPresenterImpl;
+import com.penglai.kjds.presenter.impl.ModifyUserInfoPresenterImpl;
 import com.penglai.kjds.presenter.impl.UploadUserImgPresenterImpl;
 import com.penglai.kjds.presenter.implView.GetUserInfoView;
+import com.penglai.kjds.presenter.implView.ModifyUserInfoView;
 import com.penglai.kjds.presenter.implView.UploadUserImgView;
 import com.penglai.kjds.ui.base.BaseActivity;
 import com.penglai.kjds.ui.view.widget.CircleImageView;
@@ -62,7 +64,7 @@ import cn.qqtheme.framework.picker.OptionPicker;
  *  * 邮箱：gongzhiqing@xiyundata.com
  *  
  */
-public class PersonInfoActivity extends BaseActivity implements UploadUserImgView{
+public class PersonInfoActivity extends BaseActivity implements UploadUserImgView,ModifyUserInfoView{
 
     @BindView(R.id.index_top_layout)
     LinearLayout indexTopLayout;
@@ -95,10 +97,17 @@ public class PersonInfoActivity extends BaseActivity implements UploadUserImgVie
     private PopupWindow mPopWindow;
 
 
-
+    /**
+     * 上传头像
+     */
     private UploadUserImgPresenterImpl uploadUserImgPresenter;
 
+    /**
+     * 修改用户信息
+     */
+    private ModifyUserInfoPresenterImpl modifyUserInfoPresenter;
 
+    private String logImagePath;
 
     //请求相机
     private static final int REQUEST_CAPTURE = 100;
@@ -132,6 +141,8 @@ public class PersonInfoActivity extends BaseActivity implements UploadUserImgVie
     protected void initData() {
 
         uploadUserImgPresenter = new UploadUserImgPresenterImpl(mContext,this);
+        modifyUserInfoPresenter = new ModifyUserInfoPresenterImpl(mContext,this);
+        logImagePath = "";
         //初始化标题栏布局
         indexTopLayout.setVisibility(View.GONE);
         commonTopLayout.setVisibility(View.VISIBLE);
@@ -206,9 +217,18 @@ public class PersonInfoActivity extends BaseActivity implements UploadUserImgVie
                 break;
             case R.id.btn_base:                                                      //保存信息
                 UiUtils.showToast(mContext,"保存");
+                saveUserInfo();
                 break;
 
         }
+    }
+
+    private void saveUserInfo() {
+        String userId = SettingPrefUtils.getUid();
+        String nickName = (String) tvNickname.getText();
+        int sex = "男".equals(tvSex.getText()) ? 0 : ("女".equals(tvSex.getText()) ? 1 : -1);
+        String birthday = "".equals(tvBirthday.getText()) ? "" : (String) tvBirthday.getText();
+        modifyUserInfoPresenter.modifyUserInfo("modifyUserInfo",JSON.toJSONString(new ModifyUserInfoReq(userId,nickName,sex,birthday,logImagePath)));
     }
 
     private void loadUserImage(){
@@ -456,6 +476,13 @@ public class PersonInfoActivity extends BaseActivity implements UploadUserImgVie
     @Override
     public void showError(String error) {
 
+    }
+
+    @Override
+    public void modifySuccess() {
+        Intent intent = new Intent(mContext,MyFragment.class);
+        setResult(RESULT_OK,intent);
+        finish();
     }
 
     /**

@@ -154,6 +154,12 @@ public class UserService extends BaseService {
         });
     }
 
+    /**
+     * 上传头像
+     * @param opSign
+     * @param imgPath
+     * @param callback
+     */
     public static void uploadUserImg(String opSign, String imgPath, final RequestCallback<BaseRes<UserImagePath>> callback){
         HashMap<String, String> params = new HashMap<>();
         params.put("data",JSON.toJSONString(new EmptyEntity()));
@@ -190,6 +196,42 @@ public class UserService extends BaseService {
             public void onFailure(Call<BaseRes> call, Throwable t) {
                 t.printStackTrace();
                 LogUtils.error("uploadUserImg","is error  "+t.getMessage());
+                callback.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    /**
+     * 修改用户个人信息
+     * @param opSign
+     * @param strJson
+     * @param callback
+     */
+    public static void modifyUserInfo(String opSign, String strJson, final RequestCallback<BaseRes<String>> callback){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("data",strJson);
+        params.put("op",opSign);
+        Call<BaseRes> call = apiStr.modifyUserInfo(params);
+        call.enqueue(new Callback<BaseRes>() {
+            @Override
+            public void onResponse(Call<BaseRes> call, Response<BaseRes> response) {
+                //得到返回的数据
+                LogUtils.error("modifyUserInfo","is success  "+response.body());
+
+                if(null != response){
+                    BaseRes<String> modifyUserInfoRes = new BaseRes<String>();
+                    modifyUserInfoRes.setCode(response.body().getCode());
+                    modifyUserInfoRes.setMsg(response.body().getMsg());
+                    modifyUserInfoRes.setData((String) response.body().getData());
+                    callback.onSuccess(modifyUserInfoRes);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<BaseRes> call, Throwable t) {
+                t.printStackTrace();
+                LogUtils.error("modifyUserInfo","is error  "+t.getMessage());
                 callback.onFailure(t.getMessage());
             }
         });

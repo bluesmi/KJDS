@@ -36,4 +36,5 @@ dependencies {
     compile 'com.alibaba:fastjson:1.2.12'
     compile files('libs/sun.misc.BASE64Decoder.jar')
     compile files('libs/AndroidPicker-1.4.5.jar')
+    compile files('libs/AMap_Location_V3.4.0_20170427.jar')
 }
