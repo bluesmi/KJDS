@@ -17,8 +17,12 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.penglai.kjds.R;
 import com.penglai.kjds.model.index.CompanyInfo;
 import com.penglai.kjds.model.index.CompanyInfoReq;
+import com.penglai.kjds.model.resume.PersionInfo;
+import com.penglai.kjds.model.user.UserInfoReq;
 import com.penglai.kjds.presenter.impl.GetHotRecommendPresenterImpl;
+import com.penglai.kjds.presenter.impl.GetPersionInfoPresenter;
 import com.penglai.kjds.presenter.implView.GetHotRecommendView;
+import com.penglai.kjds.presenter.implView.GetPersionInfoView;
 import com.penglai.kjds.ui.activity.LoginActivity;
 import com.penglai.kjds.ui.adapter.IndexAdapter;
 import com.penglai.kjds.ui.base.BaseFragment;
@@ -59,8 +63,12 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
     private View contentView;
     private static IndexFragment instance;
     private IndexAdapter adapter;
-
+    /**
+     * 热门推荐
+     */
     private GetHotRecommendPresenterImpl hotRecommendPresenter;
+
+
     private List<CompanyInfo> companyInfoList;
 
     private static final int LOGIN_RESULT = 0;
@@ -89,6 +97,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
     @Override
     public void initData() {
         hotRecommendPresenter = new GetHotRecommendPresenterImpl(mContext,this);
+
         indexTopLayout.setVisibility(View.VISIBLE);
         commonTopLayout.setVisibility(View.GONE);
         //初始化XRecyclerView
@@ -108,6 +117,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
         mRecyclerView.refresh();
         //设置上拉刷新、下拉加载、item点击事件监听
         setEventLister();
+
     }
 
     /**
@@ -259,6 +269,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
     public void showError(String error) {
 
     }
+
 
     @Override
     public void showHotCompany(List<CompanyInfo> companyInfoList) {

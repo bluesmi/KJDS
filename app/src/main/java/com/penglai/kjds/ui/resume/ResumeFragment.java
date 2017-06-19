@@ -1,6 +1,7 @@
 package com.penglai.kjds.ui.resume;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -8,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.bumptech.glide.Glide;
 import com.penglai.kjds.R;
 import com.penglai.kjds.model.resume.PersionInfo;
 import com.penglai.kjds.model.user.UserInfoReq;
@@ -30,7 +32,7 @@ import butterknife.OnClick;
  *  * 邮箱：gongzhiqing@xiyundata.com
  *  
  */
-public class ResumeFragment extends BaseFragment implements GetPersionInfoView {
+public class ResumeFragment extends BaseFragment implements GetPersionInfoView{
 
     public final static String TAG = ResumeFragment.class.getSimpleName();
     private static ResumeFragment instance;
@@ -65,7 +67,12 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView {
     int topBg;
     @BindColor(R.color.white)
     int titleBg;
+
+    /**
+     * 简历中个人信息
+     */
     private GetPersionInfoPresenter persionInfoPresenter;
+
 
     /**
      * 基本信息
@@ -102,6 +109,7 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView {
         btnBack.setVisibility(View.GONE);
         tvTitle.setTextColor(titleBg);
         tvTitle.setText(title);
+
         String userId = SettingPrefUtils.getUid();
         if(null != userId && !"".equals(userId)){
             persionInfoPresenter.getPersionInfo("getPersionInfo", JSON.toJSONString(new UserInfoReq(userId)));
@@ -147,6 +155,10 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView {
         unbinder.unbind();
     }
 
+
+
+
+
     @Override
     public void showError(String error) {
 
@@ -155,5 +167,22 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView {
     @Override
     public void showPersionInfo(PersionInfo persionInfo) {
         this.persionInfo = persionInfo;
+        showOtherInfo(persionInfo);
+    }
+    private void showOtherInfo(PersionInfo persionInfo){
+        String userName = persionInfo.getTrueName();
+        if(userName != null && !"".equals(userName))
+            tvUsername.setText(userName);
+        Glide.with(mContext)
+                .load(persionInfo.getHeadPicID())
+                .placeholder(R.drawable.icon_user_img)
+                .error(R.drawable.icon_user_img)
+                .into(ivUserImg);
+        String sex = persionInfo.getGender();
+        String education = persionInfo.getEducation();
+        if(null != sex && !"".equals(sex) && null != education && !"".equals(education)) {
+            sex = Integer.parseInt(sex) == 0 ? "男" : "女";
+            tvOtherInfo.setText(sex+" | "+education);
+        }
     }
 }
