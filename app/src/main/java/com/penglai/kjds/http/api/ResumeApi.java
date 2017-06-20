@@ -1,6 +1,7 @@
 package com.penglai.kjds.http.api;
 
 import com.penglai.kjds.model.BaseRes;
+import com.penglai.kjds.model.BaseResArray;
 
 import java.util.Map;
 
@@ -20,4 +21,22 @@ public interface ResumeApi {
      */
     @POST("Common.ashx")
     Call<BaseRes> getPersionInfo(@QueryMap Map<String,String> params);
+
+    /**
+     * 修改用户的基本信息
+     * @param params
+     * @return
+     */
+    @POST("Common.ashx")
+    Call<BaseRes<String>> modifyPersionInfo(@QueryMap Map<String,String> params);
+
+     /**
+     * 获取教育背景
+     * @param params
+     * @return
+     */
+     @POST("Common.ashx")
+    Call<BaseResArray> getEduBgList(@QueryMap Map<String,String> params);
+
+
 }

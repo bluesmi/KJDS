@@ -1,6 +1,7 @@
 package com.penglai.kjds.utils;
 
 import com.penglai.kjds.model.index.CompanyInfo;
+import com.penglai.kjds.model.resume.EduBgInfo;
 import com.penglai.kjds.model.resume.PersionInfo;
 import com.penglai.kjds.model.user.UserData;
 import com.penglai.kjds.model.user.UserImagePath;
@@ -84,4 +85,24 @@ public class JSONUtil {
         return companyInfo;
     }
 
+    public static List<EduBgInfo> getEduBgInfoList(List<Map> data) {
+        List<EduBgInfo> eduBgInfoList = new ArrayList<EduBgInfo>();
+        for (Map map:data) {
+            eduBgInfoList.add(getEduBgInfo(map));
+        }
+
+        return eduBgInfoList;
+    }
+
+    public static EduBgInfo getEduBgInfo(Map map) {
+        EduBgInfo eduBgInfo = new EduBgInfo();
+        eduBgInfo.setID((String) map.get("ID"));
+        eduBgInfo.setAcademy((String) map.get("Academy"));
+        eduBgInfo.setUserID((String) map.get("UserID"));
+        eduBgInfo.setSchoolName((String) map.get("SchoolName"));
+        eduBgInfo.setProfessional((String) map.get("Professional"));
+        eduBgInfo.setStartTime((String) map.get("StartTime"));
+        eduBgInfo.setEndTime((String) map.get("EndTime"));
+        return eduBgInfo;
+    }
 }

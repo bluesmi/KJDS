@@ -2,14 +2,25 @@ package com.penglai.kjds.ui.resume;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.penglai.kjds.R;
+import com.penglai.kjds.model.resume.EduBgInfo;
+import com.penglai.kjds.model.user.UserInfoReq;
+import com.penglai.kjds.presenter.impl.GetEduBgListPresenterImpl;
+import com.penglai.kjds.presenter.implView.GetEduBgListView;
+import com.penglai.kjds.ui.adapter.EduBgAdapter;
 import com.penglai.kjds.ui.base.BaseActivity;
+import com.penglai.kjds.utils.SettingPrefUtils;
+
+import java.util.List;
 
 import butterknife.BindBitmap;
 import butterknife.BindColor;
@@ -25,7 +36,7 @@ import butterknife.OnClick;
  *  * 邮箱：gongzhiqing@xiyundata.com
  *  
  */
-public class EduBgActivity extends BaseActivity {
+public class EduBgActivity extends BaseActivity implements GetEduBgListView {
 
     @BindView(R.id.index_top_layout)
     LinearLayout indexTopLayout;
@@ -49,7 +60,18 @@ public class EduBgActivity extends BaseActivity {
     String title;
     @BindColor(R.color.app_bg)
     int txtColor;
+    @BindView(R.id.xrv_view)
+    XRecyclerView mRecyclerView;
 
+
+    /**
+     * 教育背景列表
+     */
+    private List<EduBgInfo> eduBgInfoList;
+
+    private EduBgAdapter adapter;
+
+    private GetEduBgListPresenterImpl eduBgListPresenter;
     @Override
     protected View getContentView() {
         return inflateView(R.layout.activity_edu_bg);
@@ -63,6 +85,7 @@ public class EduBgActivity extends BaseActivity {
     }
 
     protected void initData() {
+        eduBgListPresenter = new GetEduBgListPresenterImpl(mContext,this);
        //初始化标题栏布局
         indexTopLayout.setVisibility(View.GONE);
         commonTopLayout.setVisibility(View.VISIBLE);
@@ -70,6 +93,29 @@ public class EduBgActivity extends BaseActivity {
         tvTitle.setText(title);
         tvTitle.setTextColor(txtColor);
         btnBack.setImageBitmap(commonBack);
+        Intent intent = getIntent();
+        eduBgInfoList = (List<EduBgInfo>) intent.getSerializableExtra("eduBgInfoList");
+        if (adapter == null) {
+            adapter = new EduBgAdapter();
+        }
+        //设置适配器
+        mRecyclerView.setAdapter(adapter);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        adapter.refreshData(eduBgInfoList);
+        //设置刷新
+        mRecyclerView.refresh();
+    }
+
+    private void refreshData() {
+        String userId = SettingPrefUtils.getUid();
+        if(null != userId && !"".equals(userId)) {
+            eduBgListPresenter.getEduBgList("getEduBgList",JSON.toJSONString(new UserInfoReq(userId)));
+
+        }else {
+            eduBgListPresenter.getEduBgList("getEduBgList",JSON.toJSONString(new UserInfoReq(userId)));
+        }
+        //设置数据
+        adapter.refreshData(eduBgInfoList);
     }
 
     @OnClick({R.id.btn_back, R.id.btn_add_edu_bg, R.id.btn_enter_detail})
@@ -87,5 +133,15 @@ public class EduBgActivity extends BaseActivity {
                 startActivity(new Intent(mContext,EduBgDetailActivity.class));
                 break;
         }
+    }
+
+    @Override
+    public void showError(String message) {
+
+    }
+
+    @Override
+    public void getEduViewSuccess(List<EduBgInfo> eduBgInfoList) {
+        this.eduBgInfoList = eduBgInfoList;
     }
 }

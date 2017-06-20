@@ -2,6 +2,7 @@ package com.penglai.kjds.ui.resume;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -11,19 +12,27 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.penglai.kjds.R;
+import com.penglai.kjds.model.resume.EduBgInfo;
 import com.penglai.kjds.model.resume.PersionInfo;
 import com.penglai.kjds.model.user.UserInfoReq;
+import com.penglai.kjds.presenter.impl.GetEduBgListPresenterImpl;
 import com.penglai.kjds.presenter.impl.GetPersionInfoPresenter;
+import com.penglai.kjds.presenter.implView.GetEduBgListView;
 import com.penglai.kjds.presenter.implView.GetPersionInfoView;
 import com.penglai.kjds.ui.base.BaseFragment;
 import com.penglai.kjds.ui.view.widget.CircleImageView;
 import com.penglai.kjds.utils.SettingPrefUtils;
+
+import java.io.Serializable;
+import java.util.List;
 
 import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * 简历
@@ -32,9 +41,11 @@ import butterknife.OnClick;
  *  * 邮箱：gongzhiqing@xiyundata.com
  *  
  */
-public class ResumeFragment extends BaseFragment implements GetPersionInfoView{
+public class ResumeFragment extends BaseFragment implements GetPersionInfoView,GetEduBgListView{
 
     public final static String TAG = ResumeFragment.class.getSimpleName();
+    private static final int MOFIFY_PERSION_INFO = 0;
+    private static final int GET_EDU_BG_LIST = 1;
     private static ResumeFragment instance;
     private View contentView;
 
@@ -73,11 +84,17 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView{
      */
     private GetPersionInfoPresenter persionInfoPresenter;
 
+    /**
+     * 获取教育背景
+     */
+    private GetEduBgListPresenterImpl eduBgListPresenter;
 
     /**
      * 基本信息
      */
     private PersionInfo persionInfo;
+
+    private List<EduBgInfo> eduBgInfoList;
     public ResumeFragment() {
         super();
     }
@@ -103,6 +120,7 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView{
     @Override
     public void initData() {
         persionInfoPresenter = new GetPersionInfoPresenter(mContext,this);
+        eduBgListPresenter = new GetEduBgListPresenterImpl(mContext,this);
         indexTopLayout.setVisibility(View.GONE);
         commonTopLayout.setVisibility(View.VISIBLE);
         commonTopLayout.setBackgroundColor(topBg);
@@ -113,6 +131,7 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView{
         String userId = SettingPrefUtils.getUid();
         if(null != userId && !"".equals(userId)){
             persionInfoPresenter.getPersionInfo("getPersionInfo", JSON.toJSONString(new UserInfoReq(userId)));
+            eduBgListPresenter.getEduBgList("getEduBgList",JSON.toJSONString(new UserInfoReq(userId)));
         }
     }
 
@@ -132,11 +151,19 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView{
             case R.id.btn_base_info:                                             //基本信息
                 Intent intent = new Intent(mContext,BaseInfoActivity.class);
                 intent.putExtra("persionInfo",persionInfo);
-                startActivity(intent);
+                startActivityForResult(intent,MOFIFY_PERSION_INFO);
                 break;
 
             case R.id.btn_edu_bg:                                                //教育背景
-                startActivity(new Intent(mContext,EduBgActivity.class));
+                try {
+                    Intent eduBgIntent = new Intent(mContext,EduBgActivity.class);
+                    eduBgIntent.putExtra("eduBgInfoList", (Serializable) eduBgInfoList);
+                    startActivityForResult(eduBgIntent,GET_EDU_BG_LIST);
+                }catch (Exception e){
+                    e.printStackTrace();
+                    System.out.println(e.getMessage());
+                }
+                System.out.println("");
                 break;
 
             case R.id.btn_work_experience:                               //实习/工作经历
@@ -165,6 +192,11 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView{
     }
 
     @Override
+    public void getEduViewSuccess(List<EduBgInfo> eduBgInfoList) {
+        this.eduBgInfoList = eduBgInfoList;
+    }
+
+    @Override
     public void showPersionInfo(PersionInfo persionInfo) {
         this.persionInfo = persionInfo;
         showOtherInfo(persionInfo);
@@ -183,6 +215,29 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView{
         if(null != sex && !"".equals(sex) && null != education && !"".equals(education)) {
             sex = Integer.parseInt(sex) == 0 ? "男" : "女";
             tvOtherInfo.setText(sex+" | "+education);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case MOFIFY_PERSION_INFO: //修改信息返回
+                if (resultCode == RESULT_OK) {
+                    String userId = SettingPrefUtils.getUid();
+                    if (null != userId && !"".equals(userId)) {
+                        persionInfoPresenter.getPersionInfo("getPersionInfo", JSON.toJSONString(new UserInfoReq(userId)));
+                    }
+                }
+                break;
+            case GET_EDU_BG_LIST: //修改信息返回
+                if (resultCode == RESULT_OK) {
+                    String userId = SettingPrefUtils.getUid();
+                    if (null != userId && !"".equals(userId)) {
+                        eduBgListPresenter.getEduBgList("getEduBgList",JSON.toJSONString(new UserInfoReq(userId)));
+                    }
+                }
+                break;
         }
     }
 }

@@ -12,11 +12,14 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.penglai.kjds.R;
+import com.penglai.kjds.model.resume.ModifyPersionInfoReq;
 import com.penglai.kjds.model.resume.PersionInfo;
 import com.penglai.kjds.model.user.UserInfoReq;
 import com.penglai.kjds.presenter.impl.GetPersionInfoPresenter;
 import com.penglai.kjds.presenter.impl.GetUserInfoPresenterImpl;
+import com.penglai.kjds.presenter.impl.ModifyPersionInfoPresenterImpl;
 import com.penglai.kjds.presenter.implView.GetPersionInfoView;
+import com.penglai.kjds.presenter.implView.ModifyPersionInfoView;
 import com.penglai.kjds.ui.base.BaseActivity;
 import com.penglai.kjds.utils.PickerUtils;
 import com.penglai.kjds.utils.SettingPrefUtils;
@@ -37,7 +40,7 @@ import cn.qqtheme.framework.picker.OptionPicker;
  *  * 邮箱：gongzhiqing@xiyundata.com
  *  
  */
-public class BaseInfoActivity extends BaseActivity {
+public class BaseInfoActivity extends BaseActivity implements ModifyPersionInfoView{
 
     @BindView(R.id.index_top_layout)
     LinearLayout indexTopLayout;
@@ -78,7 +81,12 @@ public class BaseInfoActivity extends BaseActivity {
     @BindColor(R.color.white)
     int topColor;
 
+    /**
+     * 修改信息
+     */
+    private ModifyPersionInfoPresenterImpl modifyPersionInfoPresenter;
 
+    private ModifyPersionInfoReq modifyPersionInfoReq;
 
     @Override
     protected View getContentView() {
@@ -93,7 +101,8 @@ public class BaseInfoActivity extends BaseActivity {
     }
 
     protected void initData() {
-
+        modifyPersionInfoPresenter = new ModifyPersionInfoPresenterImpl(mContext,this);
+        modifyPersionInfoReq = new ModifyPersionInfoReq();
         //初始化标题栏布局
         indexTopLayout.setVisibility(View.GONE);
         commonTopLayout.setVisibility(View.VISIBLE);
@@ -122,6 +131,8 @@ public class BaseInfoActivity extends BaseActivity {
                 break;
 
             case R.id.btn_base:                                                     //保存信息
+                resetModifyPersionInfoReq();
+                modifyPersionInfoPresenter.modifyPersionInfo("modifyPersionInfo",JSON.toJSONString(modifyPersionInfoReq));
                 break;
 
             case R.id.btn_username:                                             //姓名
@@ -201,6 +212,41 @@ public class BaseInfoActivity extends BaseActivity {
         tvEmail.setTextColor(Color.parseColor("#24CD9E"));
         tvBirthday.setTextColor(Color.parseColor("#24CD9E"));
         tvCity.setTextColor(Color.parseColor("#24CD9E"));
+        initModifyPersionInfoReq(persionInfo);
+    }
 
+    private void initModifyPersionInfoReq(PersionInfo persionInfo){
+        modifyPersionInfoReq.setUserId(persionInfo.getUserID());
+        modifyPersionInfoReq.setAddress(persionInfo.getAddress());
+        modifyPersionInfoReq.setBirthDate(persionInfo.getBirthDate());
+        modifyPersionInfoReq.setEducation(persionInfo.getEducation());
+        modifyPersionInfoReq.setEmail(persionInfo.getEmail());
+        modifyPersionInfoReq.setTrueName(persionInfo.getTrueName());
+        modifyPersionInfoReq.setUserImg(persionInfo.getHeadPicID());
+        modifyPersionInfoReq.setGender("男".equals(persionInfo.getGender()) ? 0 : ("女".equals(persionInfo.getGender()) ? 1 : -1));
+        modifyPersionInfoReq.setPhone(persionInfo.getPhone());
+    }
+
+    private void resetModifyPersionInfoReq(){
+        modifyPersionInfoReq.setAddress(tvCity.getText().toString());
+        modifyPersionInfoReq.setBirthDate(tvBirthday.getText().toString());
+        modifyPersionInfoReq.setPhone(tvPhone.getText().toString());
+        modifyPersionInfoReq.setEducation( tvSchool.getText().toString());
+        modifyPersionInfoReq.setEmail( tvEmail.getText().toString());
+        modifyPersionInfoReq.setTrueName(tvUsername.getText().toString());
+        String sex =  tvSex.getText().toString();
+        modifyPersionInfoReq.setGender("男".equals(sex) ? 0 : ("女".equals(sex) ? 1 : -1));
+    }
+
+    @Override
+    public void showError(String message) {
+
+    }
+
+    @Override
+    public void modifyPersionInfoSuccess() {
+        Intent intent = new Intent(mContext,ResumeFragment.class);
+        setResult(RESULT_OK,intent);
+        finish();
     }
 }
