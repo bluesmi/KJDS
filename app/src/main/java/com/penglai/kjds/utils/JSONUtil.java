@@ -1,6 +1,7 @@
 package com.penglai.kjds.utils;
 
 import com.penglai.kjds.model.index.CompanyInfo;
+import com.penglai.kjds.model.resume.AssessInfoRes;
 import com.penglai.kjds.model.resume.EduBgInfo;
 import com.penglai.kjds.model.resume.PersionInfo;
 import com.penglai.kjds.model.user.UserData;
@@ -104,5 +105,13 @@ public class JSONUtil {
         eduBgInfo.setStartTime((String) map.get("startTime"));
         eduBgInfo.setEndTime((String) map.get("endTime"));
         return eduBgInfo;
+    }
+
+
+    public static AssessInfoRes getAssessInfoRes(Map data) {
+        AssessInfoRes info = new AssessInfoRes();
+        info.setAssessId((String) data.get("assessId"));
+        info.setContent((String) data.get("content"));
+        return info;
     }
 }

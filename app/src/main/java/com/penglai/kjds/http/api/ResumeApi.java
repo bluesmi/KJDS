@@ -46,5 +46,30 @@ public interface ResumeApi {
     @POST("Common.ashx")
     Call<BaseRes> modifyEduBgInfo(@QueryMap Map<String,String> params);
 
+    /**
+     * 删除教育背景
+     * @param params
+     * @return
+     */
+    @POST("Common.ashx")
+    Call<BaseRes> delEduBgInfo(@QueryMap Map<String,String> params);
+
+
+    /**
+     * 获取自我评价
+     * @param params
+     * @return
+     */
+    @POST("Common.ashx")
+    Call<BaseRes> getAssessInfo(@QueryMap Map<String,String> params);
+
+    /**
+     * 新增、修改自我评价
+     * @param params
+     * @return
+     */
+    @POST("Common.ashx")
+    Call<BaseRes> modifyAssessInfo(@QueryMap Map<String,String> params);
+
 
 }

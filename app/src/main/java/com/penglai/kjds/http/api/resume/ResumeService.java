@@ -6,6 +6,7 @@ import com.penglai.kjds.http.RequestCallback;
 import com.penglai.kjds.http.api.ResumeApi;
 import com.penglai.kjds.model.BaseRes;
 import com.penglai.kjds.model.BaseResArray;
+import com.penglai.kjds.model.resume.AssessInfoRes;
 import com.penglai.kjds.model.resume.EduBgInfo;
 import com.penglai.kjds.model.resume.PersionInfoRes;
 import com.penglai.kjds.utils.JSONUtil;
@@ -166,6 +167,93 @@ public class ResumeService {
             @Override
             public void onFailure(Call<BaseRes> call, Throwable t) {
                 LogUtils.error("modifyEduBgInfo","is error"+t.getMessage());
+                t.printStackTrace();
+//                Log.d("UserService", "onFailure: "+);
+                callback.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    public static void delEduBgInfo(String opSign,String strJson, final RequestCallback<BaseRes<String>> callback){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("op", opSign);
+//        strJson = "["+strJson+"]";
+        //转成Json字符串
+        params.put("data", strJson);
+        LogUtils.error("delEduBgInfo","传入参数"+strJson);
+        Log.d("ResumeService", "delEduBgInfo: "+params);
+        Call<BaseRes> call =apiStr.delEduBgInfo(params);
+        call.enqueue(new Callback<BaseRes>() {
+            @Override
+            public void onResponse(Call<BaseRes> call, Response<BaseRes> response) {
+                LogUtils.error("delEduBgInfo","is success  "+response.body());
+                callback.onSuccess(null != response ? response.body() : null);
+            }
+
+            @Override
+            public void onFailure(Call<BaseRes> call, Throwable t) {
+                LogUtils.error("delEduBgInfo","is error"+t.getMessage());
+                t.printStackTrace();
+//                Log.d("UserService", "onFailure: "+);
+                callback.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    public static void getAssessInfo(String opSign,String strJson, final RequestCallback<BaseRes<AssessInfoRes>> callback){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("op", opSign);
+//        strJson = "["+strJson+"]";
+        //转成Json字符串
+        params.put("data", strJson);
+        LogUtils.error("getAssessInfo","传入参数"+strJson);
+        Log.d("ResumeService", "getAssessInfo: "+params);
+        Call<BaseRes> call = apiStr.getAssessInfo(params);
+        call.enqueue(new Callback<BaseRes>() {
+            @Override
+            public void onResponse(Call<BaseRes> call, Response<BaseRes> response) {
+                LogUtils.error("getAssessInfo", "is success  " + response.body());
+                if (null != response) {
+                    BaseRes<AssessInfoRes> infoResBaseRes = new BaseRes<AssessInfoRes>();
+                    infoResBaseRes.setCode(response.body().getCode());
+                    infoResBaseRes.setMsg(response.body().getMsg());
+                    if("".equals(response.body().getData())){
+                        infoResBaseRes.setData(null);
+                    }else {
+                        infoResBaseRes.setData(JSONUtil.getAssessInfoRes((Map)response.body().getData()));
+                    }
+                    callback.onSuccess(infoResBaseRes);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseRes> call, Throwable t) {
+                LogUtils.error("getAssessInfo","is error"+t.getMessage());
+                t.printStackTrace();
+//                Log.d("UserService", "onFailure: "+);
+                callback.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    public static void modifyAssessInfo(String opSign,String strJson, final RequestCallback<BaseRes<String>> callback){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("op", opSign);
+        //转成Json字符串
+        params.put("data", strJson);
+        LogUtils.error("modifyAssessInfo","传入参数"+strJson);
+        Log.d("ResumeService", "modifyAssessInfo: "+params);
+        Call<BaseRes> call = apiStr.modifyAssessInfo(params);
+        call.enqueue(new Callback<BaseRes>() {
+            @Override
+            public void onResponse(Call<BaseRes> call, Response<BaseRes> response) {
+                LogUtils.error("modifyAssessInfo","is success  "+response.body());
+                callback.onSuccess(null != response ? response.body() : null);
+            }
+
+            @Override
+            public void onFailure(Call<BaseRes> call, Throwable t) {
+                LogUtils.error("modifyAssessInfo","is error"+t.getMessage());
                 t.printStackTrace();
 //                Log.d("UserService", "onFailure: "+);
                 callback.onFailure(t.getMessage());

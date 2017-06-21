@@ -12,11 +12,14 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.penglai.kjds.R;
+import com.penglai.kjds.model.resume.AssessInfoRes;
 import com.penglai.kjds.model.resume.EduBgInfo;
 import com.penglai.kjds.model.resume.PersionInfo;
 import com.penglai.kjds.model.user.UserInfoReq;
+import com.penglai.kjds.presenter.impl.GetAssessInfoPresenterImpl;
 import com.penglai.kjds.presenter.impl.GetEduBgListPresenterImpl;
 import com.penglai.kjds.presenter.impl.GetPersionInfoPresenter;
+import com.penglai.kjds.presenter.implView.GetAssessInfoView;
 import com.penglai.kjds.presenter.implView.GetEduBgListView;
 import com.penglai.kjds.presenter.implView.GetPersionInfoView;
 import com.penglai.kjds.ui.base.BaseFragment;
@@ -41,11 +44,12 @@ import static android.app.Activity.RESULT_OK;
  *  * 邮箱：gongzhiqing@xiyundata.com
  *  
  */
-public class ResumeFragment extends BaseFragment implements GetPersionInfoView,GetEduBgListView{
+public class ResumeFragment extends BaseFragment implements GetPersionInfoView,GetEduBgListView,GetAssessInfoView{
 
     public final static String TAG = ResumeFragment.class.getSimpleName();
     private static final int MOFIFY_PERSION_INFO = 0;
     private static final int GET_EDU_BG_LIST = 1;
+    private static final int GET_ASSESS_INFO = 2;
     private static ResumeFragment instance;
     private View contentView;
 
@@ -89,12 +93,19 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView,G
      */
     private GetEduBgListPresenterImpl eduBgListPresenter;
 
+    private GetAssessInfoPresenterImpl assessInfoPresenter;
+
     /**
      * 基本信息
      */
     private PersionInfo persionInfo;
 
     private List<EduBgInfo> eduBgInfoList;
+    /**
+     * 自我评价
+     */
+    private AssessInfoRes assessInfoRes;
+
     public ResumeFragment() {
         super();
     }
@@ -121,6 +132,7 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView,G
     public void initData() {
         persionInfoPresenter = new GetPersionInfoPresenter(mContext,this);
         eduBgListPresenter = new GetEduBgListPresenterImpl(mContext,this);
+        assessInfoPresenter = new GetAssessInfoPresenterImpl(mContext,this);
         indexTopLayout.setVisibility(View.GONE);
         commonTopLayout.setVisibility(View.VISIBLE);
         commonTopLayout.setBackgroundColor(topBg);
@@ -130,8 +142,10 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView,G
 
         String userId = SettingPrefUtils.getUid();
         if(null != userId && !"".equals(userId)){
-            persionInfoPresenter.getPersionInfo("getPersionInfo", JSON.toJSONString(new UserInfoReq(userId)));
-            eduBgListPresenter.getEduBgList("getEduBgList",JSON.toJSONString(new UserInfoReq(userId)));
+            String strJson = JSON.toJSONString(new UserInfoReq(userId));
+            persionInfoPresenter.getPersionInfo("getPersionInfo",strJson );
+            eduBgListPresenter.getEduBgList("getEduBgList",strJson);
+            assessInfoPresenter.getAssessInfo("getAssessInfo",strJson);
         }
     }
 
@@ -167,7 +181,9 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView,G
                 break;
 
             case R.id.btn_evaluation:                                           //自我评价
-                startActivity(new Intent(mContext,EvaluationActivity.class));
+                Intent assessIntent = new Intent(mContext,EvaluationActivity.class);
+                assessIntent.putExtra("assessInfoRes",assessInfoRes);
+                startActivityForResult(assessIntent,GET_ASSESS_INFO);
                 break;
         }
     }
@@ -185,6 +201,11 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView,G
     @Override
     public void showError(String error) {
 
+    }
+
+    @Override
+    public void getAssessInfoSuccess(AssessInfoRes assessInfoRes) {
+        this.assessInfoRes = assessInfoRes;
     }
 
     @Override
@@ -231,6 +252,14 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView,G
                     String userId = SettingPrefUtils.getUid();
                     if (null != userId && !"".equals(userId)) {
                         eduBgListPresenter.getEduBgList("getEduBgList",JSON.toJSONString(new UserInfoReq(userId)));
+                    }
+                }
+                break;
+            case GET_ASSESS_INFO: //刷新教育背景
+                if (resultCode == RESULT_OK) {
+                    String userId = SettingPrefUtils.getUid();
+                    if (null != userId && !"".equals(userId)) {
+                        assessInfoPresenter.getAssessInfo("getAssessInfo",JSON.toJSONString(new UserInfoReq(userId)));
                     }
                 }
                 break;
