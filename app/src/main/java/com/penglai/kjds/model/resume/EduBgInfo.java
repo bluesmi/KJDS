@@ -8,82 +8,83 @@ import java.io.Serializable;
  */
 
 public class EduBgInfo implements Serializable{
-    private String ID;
-    private String UserID;
-    private String SchoolName;
-    private String Academy;
-    private String Professional;
-    private String StartTime;
-    private String EndTime;
+    private String id;
+    private String userId;
+    private String schoolName;
+    private String academy;
+    private String professional;
+    private String startTime;
+    private String endTime;
 
-    public EduBgInfo(String ID, String userID, String schoolName,
-                     String academy, String professional, String startTime, String endTime) {
-        this.ID = ID;
-        UserID = userID;
-        SchoolName = schoolName;
-        Academy = academy;
-        Professional = professional;
-        StartTime = startTime;
-        EndTime = endTime;
+
+    public EduBgInfo(String id, String userId,
+                     String schoolName, String academy, String professional, String startTime, String endTime) {
+        this.id = id;
+        this.userId = userId;
+        this.schoolName = schoolName;
+        this.academy = academy;
+        this.professional = professional;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public EduBgInfo() {
     }
 
-    public String getID() {
-        return ID;
+    public String getId() {
+        return id;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getUserID() {
-        return UserID;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserID(String userID) {
-        UserID = userID;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getSchoolName() {
-        return SchoolName;
+        return schoolName;
     }
 
     public void setSchoolName(String schoolName) {
-        SchoolName = schoolName;
+        this.schoolName = schoolName;
     }
 
     public String getAcademy() {
-        return Academy;
+        return academy;
     }
 
     public void setAcademy(String academy) {
-        Academy = academy;
+        this.academy = academy;
     }
 
     public String getProfessional() {
-        return Professional;
+        return professional;
     }
 
     public void setProfessional(String professional) {
-        Professional = professional;
+        this.professional = professional;
     }
 
     public String getStartTime() {
-        return StartTime;
+        return startTime;
     }
 
     public void setStartTime(String startTime) {
-        StartTime = startTime;
+        this.startTime = startTime;
     }
 
     public String getEndTime() {
-        return EndTime;
+        return endTime;
     }
 
     public void setEndTime(String endTime) {
-        EndTime = endTime;
+        this.endTime = endTime;
     }
 
     @Override
@@ -93,43 +94,43 @@ public class EduBgInfo implements Serializable{
 
         EduBgInfo eduBgInfo = (EduBgInfo) o;
 
-        if (ID != null ? !ID.equals(eduBgInfo.ID) : eduBgInfo.ID != null) return false;
-        if (UserID != null ? !UserID.equals(eduBgInfo.UserID) : eduBgInfo.UserID != null)
+        if (id != null ? !id.equals(eduBgInfo.id) : eduBgInfo.id != null) return false;
+        if (userId != null ? !userId.equals(eduBgInfo.userId) : eduBgInfo.userId != null)
             return false;
-        if (SchoolName != null ? !SchoolName.equals(eduBgInfo.SchoolName) : eduBgInfo.SchoolName != null)
+        if (schoolName != null ? !schoolName.equals(eduBgInfo.schoolName) : eduBgInfo.schoolName != null)
             return false;
-        if (Academy != null ? !Academy.equals(eduBgInfo.Academy) : eduBgInfo.Academy != null)
+        if (academy != null ? !academy.equals(eduBgInfo.academy) : eduBgInfo.academy != null)
             return false;
-        if (Professional != null ? !Professional.equals(eduBgInfo.Professional) : eduBgInfo.Professional != null)
+        if (professional != null ? !professional.equals(eduBgInfo.professional) : eduBgInfo.professional != null)
             return false;
-        if (StartTime != null ? !StartTime.equals(eduBgInfo.StartTime) : eduBgInfo.StartTime != null)
+        if (startTime != null ? !startTime.equals(eduBgInfo.startTime) : eduBgInfo.startTime != null)
             return false;
-        return EndTime != null ? EndTime.equals(eduBgInfo.EndTime) : eduBgInfo.EndTime == null;
+        return endTime != null ? endTime.equals(eduBgInfo.endTime) : eduBgInfo.endTime == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = ID != null ? ID.hashCode() : 0;
-        result = 31 * result + (UserID != null ? UserID.hashCode() : 0);
-        result = 31 * result + (SchoolName != null ? SchoolName.hashCode() : 0);
-        result = 31 * result + (Academy != null ? Academy.hashCode() : 0);
-        result = 31 * result + (Professional != null ? Professional.hashCode() : 0);
-        result = 31 * result + (StartTime != null ? StartTime.hashCode() : 0);
-        result = 31 * result + (EndTime != null ? EndTime.hashCode() : 0);
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (userId != null ? userId.hashCode() : 0);
+        result = 31 * result + (schoolName != null ? schoolName.hashCode() : 0);
+        result = 31 * result + (academy != null ? academy.hashCode() : 0);
+        result = 31 * result + (professional != null ? professional.hashCode() : 0);
+        result = 31 * result + (startTime != null ? startTime.hashCode() : 0);
+        result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return "EduBgInfo{" +
-                "ID='" + ID + '\'' +
-                ", UserID='" + UserID + '\'' +
-                ", SchoolName='" + SchoolName + '\'' +
-                ", Academy='" + Academy + '\'' +
-                ", Professional='" + Professional + '\'' +
-                ", StartTime='" + StartTime + '\'' +
-                ", EndTime='" + EndTime + '\'' +
+                "id='" + id + '\'' +
+                ", userId='" + userId + '\'' +
+                ", schoolName='" + schoolName + '\'' +
+                ", academy='" + academy + '\'' +
+                ", professional='" + professional + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
                 '}';
     }
 }

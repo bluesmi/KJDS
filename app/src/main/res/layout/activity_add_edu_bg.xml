@@ -68,9 +68,9 @@
                 android:layout_marginRight="15dp"
                 android:background="@color/common_gray_line" />
 
-            <!-- 学历/学位 -->
+           <!--&lt;!&ndash; 系部 &ndash;&gt;-->
             <LinearLayout
-                android:id="@+id/btn_degree"
+                android:id="@+id/btn_academy"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/small_item_height"
                 android:background="@drawable/item_bg_select"
@@ -82,12 +82,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_weight="1"
-                    android:text="@string/degree"
+                    android:text="@string/academy"
                     android:textColor="@color/common_black_txt"
                     android:textSize="@dimen/middle_text_size" />
 
                 <TextView
-                    android:id="@+id/tv_degree"
+                    android:id="@+id/tv_academy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"

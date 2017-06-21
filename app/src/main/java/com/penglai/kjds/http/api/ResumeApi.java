@@ -38,5 +38,13 @@ public interface ResumeApi {
      @POST("Common.ashx")
     Call<BaseResArray> getEduBgList(@QueryMap Map<String,String> params);
 
+    /**
+     * 获取教育背景
+     * @param params
+     * @return
+     */
+    @POST("Common.ashx")
+    Call<BaseRes> modifyEduBgInfo(@QueryMap Map<String,String> params);
+
 
 }

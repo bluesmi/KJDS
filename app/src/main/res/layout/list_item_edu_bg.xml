@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:background="@color/white"
     android:layout_height="@dimen/large_item_height"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginBottom="5px">
 
     <TextView
         android:id="@+id/tv_school"

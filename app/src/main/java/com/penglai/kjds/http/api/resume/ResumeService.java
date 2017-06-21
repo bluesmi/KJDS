@@ -144,4 +144,33 @@ public class ResumeService {
             }
         });
     }
+
+
+    public static void modifyEduBgInfo(String opSign,String strJson, final RequestCallback<BaseRes<String>> callback){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("op", opSign);
+//        strJson = "["+strJson+"]";
+        //转成Json字符串
+        params.put("data", strJson);
+        LogUtils.error("modifyEduBgInfo","传入参数"+strJson);
+        Log.d("ResumeService", "modifyEduBgInfo: "+params);
+        Call<BaseRes> call = apiStr.modifyEduBgInfo(params);
+        call.enqueue(new Callback<BaseRes>() {
+            @Override
+            public void onResponse(Call<BaseRes> call, Response<BaseRes> response) {
+                LogUtils.error("modifyEduBgInfo","is success  "+response.body());
+                    callback.onSuccess(null != response ? response.body() : null);
+
+            }
+
+            @Override
+            public void onFailure(Call<BaseRes> call, Throwable t) {
+                LogUtils.error("modifyEduBgInfo","is error"+t.getMessage());
+                t.printStackTrace();
+//                Log.d("UserService", "onFailure: "+);
+                callback.onFailure(t.getMessage());
+            }
+        });
+    }
+
 }

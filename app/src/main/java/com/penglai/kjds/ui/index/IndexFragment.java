@@ -1,7 +1,6 @@
 package com.penglai.kjds.ui.index;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -17,12 +16,8 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.penglai.kjds.R;
 import com.penglai.kjds.model.index.CompanyInfo;
 import com.penglai.kjds.model.index.CompanyInfoReq;
-import com.penglai.kjds.model.resume.PersionInfo;
-import com.penglai.kjds.model.user.UserInfoReq;
 import com.penglai.kjds.presenter.impl.GetHotRecommendPresenterImpl;
-import com.penglai.kjds.presenter.impl.GetPersionInfoPresenter;
 import com.penglai.kjds.presenter.implView.GetHotRecommendView;
-import com.penglai.kjds.presenter.implView.GetPersionInfoView;
 import com.penglai.kjds.ui.activity.LoginActivity;
 import com.penglai.kjds.ui.adapter.IndexAdapter;
 import com.penglai.kjds.ui.base.BaseFragment;
@@ -31,7 +26,6 @@ import com.penglai.kjds.ui.view.widget.banner.CustomerTopBanner;
 import com.penglai.kjds.utils.SettingPrefUtils;
 import com.penglai.kjds.utils.UiUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;

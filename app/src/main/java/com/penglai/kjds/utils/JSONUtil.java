@@ -43,15 +43,15 @@ public class JSONUtil {
 
     public static PersionInfo getPersionInfo(Map data) {
         PersionInfo persionInfo = new PersionInfo();
-        persionInfo.setUserID((String) data.get("UserID"));
-        persionInfo.setHeadPicID((String) data.get("HeadPicID"));
-        persionInfo.setTrueName((String) data.get("TrueName"));
-        persionInfo.setEducation((String) data.get("Education"));
-        persionInfo.setAddress((String) data.get("Address"));
-        persionInfo.setBirthDate((String) data.get("BirthDate"));
-        persionInfo.setGender((String) data.get("Gender"));
-        persionInfo.setPhone((String) data.get("Phone"));
-        persionInfo.setEmail((String) data.get("Email"));
+        persionInfo.setUserID((String) data.get("userID"));
+        persionInfo.setHeadPicID((String) data.get("headPicID"));
+        persionInfo.setTrueName((String) data.get("trueName"));
+        persionInfo.setEducation((String) data.get("education"));
+        persionInfo.setAddress((String) data.get("address"));
+        persionInfo.setBirthDate((String) data.get("birthDate"));
+        persionInfo.setGender((String) data.get("gender"));
+        persionInfo.setPhone((String) data.get("phone"));
+        persionInfo.setEmail((String) data.get("email"));
         return persionInfo;
     }
 
@@ -66,20 +66,20 @@ public class JSONUtil {
     }
 
     public static CompanyInfo getCompanyIfo(Map data){
-        String id = (String) data.get("ID");
-        String companyName = (String) data.get("CompanyName");
-        String logoID = (String) data.get("LogoID");
-        String typeID = (String) data.get("TypeID");
-        String isRecommend = (String) data.get("IsRecommend");
-        String title = (String) data.get("Title");
-        String orgProp = (String) data.get("OrgProp");
-        String eduRequire = (String) data.get("EduRequire");
-        String workExperience = (String) data.get("WorkExperience");
-        String salary = (String) data.get("Salary");
-        String address = (String) data.get("Address");
-        String startTime = (String) data.get("StartTime");
-        String endTime = (String) data.get("EndTime");
-        String state = (String) data.get("State");
+        String id = (String) data.get("iD");
+        String companyName = (String) data.get("companyName");
+        String logoID = (String) data.get("logoID");
+        String typeID = (String) data.get("typeID");
+        String isRecommend = (String) data.get("isRecommend");
+        String title = (String) data.get("title");
+        String orgProp = (String) data.get("orgProp");
+        String eduRequire = (String) data.get("eduRequire");
+        String workExperience = (String) data.get("workExperience");
+        String salary = (String) data.get("salary");
+        String address = (String) data.get("address");
+        String startTime = (String) data.get("startTime");
+        String endTime = (String) data.get("endTime");
+        String state = (String) data.get("state");
         CompanyInfo companyInfo = new CompanyInfo(id, companyName, logoID, typeID, isRecommend,
                 title, orgProp, eduRequire, workExperience, salary, address, startTime, endTime, state);
         return companyInfo;
@@ -96,13 +96,13 @@ public class JSONUtil {
 
     public static EduBgInfo getEduBgInfo(Map map) {
         EduBgInfo eduBgInfo = new EduBgInfo();
-        eduBgInfo.setID((String) map.get("ID"));
-        eduBgInfo.setAcademy((String) map.get("Academy"));
-        eduBgInfo.setUserID((String) map.get("UserID"));
-        eduBgInfo.setSchoolName((String) map.get("SchoolName"));
-        eduBgInfo.setProfessional((String) map.get("Professional"));
-        eduBgInfo.setStartTime((String) map.get("StartTime"));
-        eduBgInfo.setEndTime((String) map.get("EndTime"));
+        eduBgInfo.setId((String) map.get("iD"));
+        eduBgInfo.setAcademy((String) map.get("academy"));
+        eduBgInfo.setUserId((String) map.get("userID"));
+        eduBgInfo.setSchoolName((String) map.get("schoolName"));
+        eduBgInfo.setProfessional((String) map.get("professional"));
+        eduBgInfo.setStartTime((String) map.get("startTime"));
+        eduBgInfo.setEndTime((String) map.get("endTime"));
         return eduBgInfo;
     }
 }

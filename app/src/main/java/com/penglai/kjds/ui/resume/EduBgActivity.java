@@ -3,6 +3,7 @@ package com.penglai.kjds.ui.resume;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -10,14 +11,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.penglai.kjds.R;
+import com.penglai.kjds.model.index.CompanyInfo;
 import com.penglai.kjds.model.resume.EduBgInfo;
 import com.penglai.kjds.model.user.UserInfoReq;
 import com.penglai.kjds.presenter.impl.GetEduBgListPresenterImpl;
 import com.penglai.kjds.presenter.implView.GetEduBgListView;
 import com.penglai.kjds.ui.adapter.EduBgAdapter;
 import com.penglai.kjds.ui.base.BaseActivity;
+import com.penglai.kjds.ui.view.listener.OnItemClickListener;
 import com.penglai.kjds.utils.SettingPrefUtils;
 
 import java.util.List;
@@ -36,20 +40,21 @@ import butterknife.OnClick;
  *  * 邮箱：gongzhiqing@xiyundata.com
  *  
  */
-public class EduBgActivity extends BaseActivity implements GetEduBgListView {
+public class EduBgActivity extends BaseActivity implements GetEduBgListView{
 
+    private static final int EDU_BG_DETAIL_INFO = 0 ;
     @BindView(R.id.index_top_layout)
     LinearLayout indexTopLayout;
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.common_top_layout)
     RelativeLayout commonTopLayout;
-    @BindView(R.id.tv_school)
+ /*   @BindView(R.id.tv_school)
     TextView tvSchool;
     @BindView(R.id.tv_time)
     TextView tvTime;
     @BindView(R.id.tv_other_info)
-    TextView tvOtherInfo;
+    TextView tvOtherInfo;*/
     @BindView(R.id.btn_back)
     ImageButton btnBack;
     @BindColor(R.color.blue_top_bg)
@@ -85,6 +90,9 @@ public class EduBgActivity extends BaseActivity implements GetEduBgListView {
     }
 
     protected void initData() {
+        //初始化XRecyclerView
+        initXRecyclerView();
+
         eduBgListPresenter = new GetEduBgListPresenterImpl(mContext,this);
        //初始化标题栏布局
         indexTopLayout.setVisibility(View.GONE);
@@ -93,6 +101,7 @@ public class EduBgActivity extends BaseActivity implements GetEduBgListView {
         tvTitle.setText(title);
         tvTitle.setTextColor(txtColor);
         btnBack.setImageBitmap(commonBack);
+
         Intent intent = getIntent();
         eduBgInfoList = (List<EduBgInfo>) intent.getSerializableExtra("eduBgInfoList");
         if (adapter == null) {
@@ -104,6 +113,58 @@ public class EduBgActivity extends BaseActivity implements GetEduBgListView {
         adapter.refreshData(eduBgInfoList);
         //设置刷新
         mRecyclerView.refresh();
+        //设置上拉刷新、下拉加载、item点击事件监听
+        setEventLister();
+    }
+
+    /**
+     * 初始化XRecyclerView
+     */
+    private void initXRecyclerView() {
+        //初始化XRecyclerView
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(layoutManager);
+        //添加刷新和加载更多样式
+        mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
+        mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.Pacman);
+        mRecyclerView.setArrowImageView(R.drawable.icon_down_grey);
+    }
+
+    /**
+     * 设置上拉刷新、下拉加载、item点击事件监听
+     */
+    private void setEventLister() {
+        mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {                 //下拉刷新
+                refreshData();
+                //结束刷新
+                mRecyclerView.refreshComplete();
+                //通知更新
+                //mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onLoadMore() {             //上拉加载
+                //结束加载更多
+                mRecyclerView.loadMoreComplete();
+                //通知更新
+                //mAdapter.notifyDataSetChanged();
+                //暂无更多数据
+                //mRecyclerView.setNoMore(true);
+            }
+        });
+
+        adapter.setOnClickListener(new OnItemClickListener<EduBgInfo>() {
+            @Override
+            public void onItemClick(EduBgInfo itemValue, int viewID, int position) {
+                //跳转至教育背景详情
+                Intent intent = new Intent(mContext, EduBgDetailActivity.class);
+                intent.putExtra("eduBgInfo",itemValue);
+                startActivityForResult(intent,EDU_BG_DETAIL_INFO);
+            }
+        });
     }
 
     private void refreshData() {
@@ -118,20 +179,24 @@ public class EduBgActivity extends BaseActivity implements GetEduBgListView {
         adapter.refreshData(eduBgInfoList);
     }
 
-    @OnClick({R.id.btn_back, R.id.btn_add_edu_bg, R.id.btn_enter_detail})
+    @OnClick({R.id.btn_back, R.id.btn_add_edu_bg})//R.id.btn_enter_detail
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_back:                                                     //返回
+                Intent intent = new Intent(mContext,ResumeFragment.class);
+                setResult(RESULT_OK,intent);
                 finish();
                 break;
 
             case R.id.btn_add_edu_bg:                                        //添加教育背景
-                startActivity(new Intent(mContext,EduBgDetailActivity.class));
+                Intent eduBgIntent = new Intent(mContext,EduBgDetailActivity.class);
+
+                startActivityForResult(eduBgIntent,EDU_BG_DETAIL_INFO);
                 break;
 
-            case R.id.btn_enter_detail:                                        //教育背景详情
+            /*case R.id.btn_enter_detail:                                        //教育背景详情
                 startActivity(new Intent(mContext,EduBgDetailActivity.class));
-                break;
+                break;*/
         }
     }
 
@@ -143,5 +208,17 @@ public class EduBgActivity extends BaseActivity implements GetEduBgListView {
     @Override
     public void getEduViewSuccess(List<EduBgInfo> eduBgInfoList) {
         this.eduBgInfoList = eduBgInfoList;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case EDU_BG_DETAIL_INFO: //修改信息返回
+                if (resultCode == RESULT_OK) {
+                    refreshData();
+                }
+                break;
+        }
     }
 }

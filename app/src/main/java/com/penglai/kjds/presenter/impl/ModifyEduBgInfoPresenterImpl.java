@@ -6,29 +6,33 @@ import com.penglai.kjds.http.RequestCallback;
 import com.penglai.kjds.http.api.resume.ResumeService;
 import com.penglai.kjds.model.BaseRes;
 import com.penglai.kjds.presenter.Presenter;
-import com.penglai.kjds.presenter.implView.ModifyPersionInfoView;
+import com.penglai.kjds.presenter.implView.ModifyEduBgInfoView;
 import com.penglai.kjds.utils.LogUtils;
 import com.penglai.kjds.utils.UiUtils;
 
 /**
- * Created by m199 on 2017/6/20.
+ * Created by m199 on 2017/6/21.
  */
 
-public class ModifyPersionInfoPresenterImpl implements Presenter {
-    private Context context;
-    private ModifyPersionInfoView modifyPersionInfoView;
+public class ModifyEduBgInfoPresenterImpl implements Presenter {
 
-    public ModifyPersionInfoPresenterImpl(Context context, ModifyPersionInfoView modifyPersionInfoView) {
-        this.context = context;
-        this.modifyPersionInfoView = modifyPersionInfoView;
+
+    private Context mContext;
+
+    private ModifyEduBgInfoView modifyEduBgInfoView;
+
+    public ModifyEduBgInfoPresenterImpl(Context mContext, ModifyEduBgInfoView modifyEduBgInfoView) {
+        this.mContext = mContext;
+        this.modifyEduBgInfoView = modifyEduBgInfoView;
     }
 
     @Override
     public void initialized() {
 
     }
-    public void modifyPersionInfo(String opSign, String strJson){
-        ResumeService.modifyPersionInfo(opSign, strJson, new RequestCallback<BaseRes<String>>() {
+
+    public void modifyEduBgInfo(String opSign,String strJson){
+        ResumeService.modifyEduBgInfo(opSign, strJson, new RequestCallback<BaseRes<String>>() {
             @Override
             public void onSuccess(BaseRes<String> stringBaseRes) {
                 if(stringBaseRes ==null){
@@ -38,16 +42,17 @@ public class ModifyPersionInfoPresenterImpl implements Presenter {
                 String msg = stringBaseRes.getMsg();
                 LogUtils.error("code","响应码"+code);
                 if(0 == code){
-                    modifyPersionInfoView.modifyPersionInfoSuccess();
+                    modifyEduBgInfoView.modifyEduBgInfoSuccess();
                 }else {
-                    UiUtils.showToast(context,msg);
+                    UiUtils.showToast(mContext,msg);
                 }
             }
 
             @Override
             public void onFailure(String message) {
-                modifyPersionInfoView.showError(message);
+                modifyEduBgInfoView.showError(message);
             }
         });
+
     }
 }

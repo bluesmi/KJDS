@@ -155,15 +155,11 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView,G
                 break;
 
             case R.id.btn_edu_bg:                                                //教育背景
-                try {
+
                     Intent eduBgIntent = new Intent(mContext,EduBgActivity.class);
                     eduBgIntent.putExtra("eduBgInfoList", (Serializable) eduBgInfoList);
+
                     startActivityForResult(eduBgIntent,GET_EDU_BG_LIST);
-                }catch (Exception e){
-                    e.printStackTrace();
-                    System.out.println(e.getMessage());
-                }
-                System.out.println("");
                 break;
 
             case R.id.btn_work_experience:                               //实习/工作经历
@@ -230,7 +226,7 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView,G
                     }
                 }
                 break;
-            case GET_EDU_BG_LIST: //修改信息返回
+            case GET_EDU_BG_LIST: //刷新教育背景
                 if (resultCode == RESULT_OK) {
                     String userId = SettingPrefUtils.getUid();
                     if (null != userId && !"".equals(userId)) {
