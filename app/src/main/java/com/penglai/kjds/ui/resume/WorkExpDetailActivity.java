@@ -1,5 +1,6 @@
 package com.penglai.kjds.ui.resume;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.View;
 import android.widget.Button;
@@ -8,9 +9,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.penglai.kjds.R;
+import com.penglai.kjds.model.resume.WorkExpInfoReq;
+import com.penglai.kjds.presenter.impl.ModifyWorkExpInfoPresenterImpl;
+import com.penglai.kjds.presenter.implView.ModifyWorkExpInfoView;
 import com.penglai.kjds.ui.base.BaseActivity;
 import com.penglai.kjds.utils.PickerUtils;
+import com.penglai.kjds.utils.SettingPrefUtils;
 
 import butterknife.BindColor;
 import butterknife.BindString;
@@ -26,7 +32,7 @@ import cn.qqtheme.framework.picker.DatePicker;
  *  * 邮箱：gongzhiqing@xiyundata.com
  *  
  */
-public class WorkExpDetailActivity extends BaseActivity {
+public class WorkExpDetailActivity extends BaseActivity implements ModifyWorkExpInfoView{
 
     @BindView(R.id.index_top_layout)
     LinearLayout indexTopLayout;
@@ -36,12 +42,14 @@ public class WorkExpDetailActivity extends BaseActivity {
     RelativeLayout commonTopLayout;
     @BindView(R.id.btn_base)
     Button btnBase;
-    /*@BindView(R.id.tv_company_name)
-    TextView tvCompanyName;*/
+    @BindView(R.id.company_content)
+    TextView tvCompanyName;
+    @BindView(R.id.job_content)
+    TextView tvJobContent;
     @BindView(R.id.tv_start_time)
     TextView tvStartTime;
     @BindView(R.id.end_time)
-    TextView endTime;
+    TextView tvEndTime;
     @BindView(R.id.et_content)
     EditText etContent;
 
@@ -53,6 +61,10 @@ public class WorkExpDetailActivity extends BaseActivity {
     String save;
 
     private static final int COMPANYNAME = 0;
+
+    private WorkExpInfoReq workExpInfoReq;
+
+    private ModifyWorkExpInfoPresenterImpl workExpInfoPresenter;
 
     @Override
     protected View getContentView() {
@@ -67,6 +79,7 @@ public class WorkExpDetailActivity extends BaseActivity {
     }
 
     protected void initData() {
+        workExpInfoPresenter = new ModifyWorkExpInfoPresenterImpl(mContext,this);
         //初始化标题栏布局
         indexTopLayout.setVisibility(View.GONE);
         commonTopLayout.setVisibility(View.VISIBLE);
@@ -74,15 +87,38 @@ public class WorkExpDetailActivity extends BaseActivity {
         btnBase.setTextColor(txtColor);
         tvTitle.setText(title);
         tvStartTime.setTextColor(txtColor);
-        endTime.setTextColor(txtColor);
+        tvEndTime.setTextColor(txtColor);
         btnBase.setText(save);
+        Intent intent = getIntent();
+        workExpInfoReq = (WorkExpInfoReq) intent.getSerializableExtra("workExpInfoReq");
+        if(null != workExpInfoReq){
+            initWorkExpInfo();
+        }else {
+            workExpInfoReq = new WorkExpInfoReq();
+            workExpInfoReq.setId("");
+            String userId = SettingPrefUtils.getUid();
+            if(null != userId && !"".equals(userId)){
+                workExpInfoReq.setUserId(userId);
+            }
+        }
+
+    }
+
+    private void initWorkExpInfo() {
+        tvCompanyName.setText(workExpInfoReq.getCompanyName());
+        tvJobContent.setText(workExpInfoReq.getPosition());
+        tvStartTime.setText(workExpInfoReq.getStartTime().substring(0,10));
+        tvEndTime.setText(workExpInfoReq.getEndTime().substring(0,10));
+        etContent.setText(workExpInfoReq.getWorkContent());
     }
 
 
-    @OnClick({R.id.btn_back, R.id.btn_company, R.id.btn_job, R.id.btn_start_time, R.id.btn_end_time})
+    @OnClick({R.id.btn_back, R.id.btn_company, R.id.btn_job, R.id.btn_start_time, R.id.btn_end_time,R.id.btn_base})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_back:                                                     //返回
+                Intent mIntent = new Intent(mContext,WorkExperienceActivity.class);
+                setResult(RESULT_OK,mIntent);
                 finish();
                 break;
 
@@ -110,12 +146,37 @@ public class WorkExpDetailActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
 //                        UiUtils.showToast(mContext);
-                        endTime.setText(endDatePicker.getSelectedYear() + "-" + endDatePicker.getSelectedMonth());
-                        endTime.setTextColor(Color.parseColor("#24CD9E"));
+                        tvEndTime.setText(endDatePicker.getSelectedYear() + "-" + endDatePicker.getSelectedMonth());
+                        tvEndTime.setTextColor(Color.parseColor("#24CD9E"));
                         endDatePicker.dismiss();
                     }
                 });
                 break;
+            case R.id.btn_base:
+                resetWorkExpInfo();
+                workExpInfoPresenter.modifyWorkExpInfo("modifyWorkExpInfo", JSON.toJSONString(workExpInfoReq));
+                break;
         }
+    }
+
+    private void resetWorkExpInfo() {
+        workExpInfoReq.setCompanyName(tvCompanyName.getText().toString());
+        workExpInfoReq.setPosition(tvJobContent.getText().toString());
+        workExpInfoReq.setEndTime(tvEndTime.getText().toString());
+        workExpInfoReq.setStartTime(tvStartTime.getText().toString());
+        workExpInfoReq.setPosition(tvJobContent.getText().toString());
+        workExpInfoReq.setWorkContent(etContent.getText().toString());
+    }
+
+    @Override
+    public void showError(String message) {
+
+    }
+
+    @Override
+    public void modifyWorkExpInfoSuccess() {
+        Intent intent = new Intent(mContext,WorkExperienceActivity.class);
+        setResult(RESULT_OK,intent);
+        finish();
     }
 }

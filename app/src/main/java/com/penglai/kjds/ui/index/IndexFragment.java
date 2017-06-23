@@ -16,8 +16,12 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.penglai.kjds.R;
 import com.penglai.kjds.model.index.CompanyInfo;
 import com.penglai.kjds.model.index.CompanyInfoReq;
+import com.penglai.kjds.model.index.JobDetail;
+import com.penglai.kjds.model.index.JobInfoReq;
 import com.penglai.kjds.presenter.impl.GetHotRecommendPresenterImpl;
+import com.penglai.kjds.presenter.impl.GetJobDetailPresenterImpl;
 import com.penglai.kjds.presenter.implView.GetHotRecommendView;
+import com.penglai.kjds.presenter.implView.GetJobDetailView;
 import com.penglai.kjds.ui.activity.LoginActivity;
 import com.penglai.kjds.ui.adapter.IndexAdapter;
 import com.penglai.kjds.ui.base.BaseFragment;
@@ -41,7 +45,7 @@ import static android.app.Activity.RESULT_OK;
  *  * 邮箱：gongzhiqing@xiyundata.com
  *  
  */
-public class IndexFragment extends BaseFragment implements View.OnClickListener,GetHotRecommendView {
+public class IndexFragment extends BaseFragment implements View.OnClickListener,GetHotRecommendView,GetJobDetailView {
 
     @BindView(R.id.index_top_layout)
     LinearLayout indexTopLayout;
@@ -61,7 +65,10 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
      * 热门推荐
      */
     private GetHotRecommendPresenterImpl hotRecommendPresenter;
-
+    /**
+     * 获取职位详细信息
+     */
+    private GetJobDetailPresenterImpl jobDetailPresenter;
 
     private List<CompanyInfo> companyInfoList;
 
@@ -91,7 +98,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
     @Override
     public void initData() {
         hotRecommendPresenter = new GetHotRecommendPresenterImpl(mContext,this);
-
+        jobDetailPresenter = new GetJobDetailPresenterImpl(mContext,this);
         indexTopLayout.setVisibility(View.VISIBLE);
         commonTopLayout.setVisibility(View.GONE);
         //初始化XRecyclerView
@@ -195,8 +202,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
         adapter.setOnClickListener(new OnItemClickListener<CompanyInfo>() {
             @Override
             public void onItemClick(CompanyInfo itemValue, int viewID, int position) {
-                //跳转至职位/岗位详情
-                startActivity(new Intent(mContext, JobDetailActivity.class));
+                jobDetailPresenter.getJobDetail("getJobDetail",JSON.toJSONString(new JobInfoReq(itemValue.getId())));
             }
         });
     }
@@ -262,6 +268,14 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
     @Override
     public void showError(String error) {
 
+    }
+
+    @Override
+    public void getJobDetailSuccess(JobDetail jobDetail) {
+        Intent intent = new Intent(mContext, JobDetailActivity.class);
+        intent.putExtra("jobDetail",jobDetail);
+        //跳转至职位/岗位详情
+        startActivity(intent);
     }
 
 

@@ -9,6 +9,7 @@ import com.penglai.kjds.model.BaseResArray;
 import com.penglai.kjds.model.resume.AssessInfoRes;
 import com.penglai.kjds.model.resume.EduBgInfo;
 import com.penglai.kjds.model.resume.PersionInfoRes;
+import com.penglai.kjds.model.resume.WorkExpInfoReq;
 import com.penglai.kjds.utils.JSONUtil;
 import com.penglai.kjds.utils.LogUtils;
 
@@ -261,4 +262,68 @@ public class ResumeService {
         });
     }
 
+
+    public static void modifyWorkExpInfo(String opSign,String strJson, final RequestCallback<BaseRes<String>> callback){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("op", opSign);
+        //转成Json字符串
+        params.put("data", strJson);
+        LogUtils.error("modifyWorkExpInfo","传入参数"+strJson);
+        Log.d("ResumeService", "modifyWorkExpInfo: "+params);
+        Call<BaseRes> call = apiStr.modifyWorkExpInfo(params);
+        call.enqueue(new Callback<BaseRes>() {
+            @Override
+            public void onResponse(Call<BaseRes> call, Response<BaseRes> response) {
+                LogUtils.error("modifyWorkExpInfo","is success  "+response.body());
+                callback.onSuccess(null != response ? response.body() : null);
+            }
+
+            @Override
+            public void onFailure(Call<BaseRes> call, Throwable t) {
+                LogUtils.error("modifyWorkExpInfo","is error"+t.getMessage());
+                t.printStackTrace();
+//                Log.d("UserService", "onFailure: "+);
+                callback.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    public static void getWorkExpList(String opSign,String strJson, final RequestCallback<BaseResArray<WorkExpInfoReq>> callback){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("op", opSign);
+        //转成Json字符串
+        params.put("data", strJson);
+        LogUtils.error("getWorkExpList","传入参数"+strJson);
+        Log.d("ResumeService", "getWorkExpList: "+params);
+        Call<BaseResArray> call = apiStr.getWorkExpList(params);
+        call.enqueue(new Callback<BaseResArray>() {
+            @Override
+            public void onResponse(Call<BaseResArray> call, Response<BaseResArray> response) {
+                LogUtils.error("getEduBgList", "is success  " + response.body());
+                if (null != response) {
+                    BaseResArray<WorkExpInfoReq> workExpInfoReqBaseResArray = new BaseResArray<WorkExpInfoReq>();
+                    workExpInfoReqBaseResArray.setCode(response.body().getCode());
+                    workExpInfoReqBaseResArray.setMsg(response.body().getMsg());
+                    if (response.body().getData().isEmpty()) {
+                        workExpInfoReqBaseResArray.setData(new ArrayList<WorkExpInfoReq>());
+                    } else {
+//                        JSON.parseObject(js, new TypeReference<Result<User>>(){});
+//                        UserData userData = JSON.parseObject(response.body().getData(),new TypeReference<UserData>());
+                        System.out.println(response.body().getData());
+
+                        workExpInfoReqBaseResArray.setData(JSONUtil.getWorkExpInfoList(response.body().getData()));
+                    }
+                    callback.onSuccess(workExpInfoReqBaseResArray);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResArray> call, Throwable t) {
+                LogUtils.error("getWorkExpList","is error"+t.getMessage());
+                t.printStackTrace();
+//                Log.d("UserService", "onFailure: "+);
+                callback.onFailure(t.getMessage());
+            }
+        });
+    }
 }

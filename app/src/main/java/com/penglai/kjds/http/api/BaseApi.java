@@ -58,6 +58,4 @@ public interface BaseApi {
      */
     @POST("Common.ashx")
     Call<BaseRes> modifyUserInfo(@QueryMap Map<String, String> params);
-
-
 }

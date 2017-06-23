@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- item -->
+<RelativeLayout android:id="@+id/btn_enter_detail"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="@dimen/large_item_height"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginBottom="5px">
+
+    <TextView
+        android:id="@+id/tv_job_name"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Android开发工程师"
+        android:textSize="@dimen/middle_text_size"
+        android:textColor="@color/common_black_txt"/>
+
+    <LinearLayout
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@id/tv_job_name"
+        android:id="@+id/verify_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/orange_bg_shape"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingRight="5dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/icon_verify" />
+
+        <TextView
+            android:id="@+id/tv_verify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:text="@string/already_verify"
+            android:textColor="@color/white"
+            android:textSize="@dimen/small_text_size" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2011-09——2015-06"
+        android:textSize="@dimen/small_text_size"
+        android:textColor="@color/common_light_gray_txt"/>
+
+    <TextView
+        android:id="@+id/tv_company_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="湖南朋来信息科技有限公司"
+        android:textSize="@dimen/small_medium_text_size"
+        android:textColor="@color/common_gray_txt"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_alignLeft="@+id/tv_job_name"
+        android:layout_alignStart="@+id/tv_job_name" />
+
+    <ImageView
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:src="@drawable/icon_arrow_right"
+        android:id="@+id/imageView" />
+
+</RelativeLayout>

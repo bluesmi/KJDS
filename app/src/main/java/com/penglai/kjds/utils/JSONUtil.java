@@ -1,9 +1,11 @@
 package com.penglai.kjds.utils;
 
 import com.penglai.kjds.model.index.CompanyInfo;
+import com.penglai.kjds.model.index.JobDetail;
 import com.penglai.kjds.model.resume.AssessInfoRes;
 import com.penglai.kjds.model.resume.EduBgInfo;
 import com.penglai.kjds.model.resume.PersionInfo;
+import com.penglai.kjds.model.resume.WorkExpInfoReq;
 import com.penglai.kjds.model.user.UserData;
 import com.penglai.kjds.model.user.UserImagePath;
 import com.penglai.kjds.model.user.UserInfo;
@@ -113,5 +115,54 @@ public class JSONUtil {
         info.setAssessId((String) data.get("assessId"));
         info.setContent((String) data.get("content"));
         return info;
+    }
+
+    public static JobDetail getJobDetailInfo(Map data) {
+         String iD  = (String) data.get("iD");
+         String typeID = (String) data.get("typeID");
+         String isRecommend = (String) data.get("isRecommend");
+         String title = (String) data.get("title");
+         String eduRequire = (String) data.get("eduRequire");
+         String workExperience = (String) data.get("workExperience");
+         String salary = (String) data.get("salary");
+         String address = (String) data.get("address");
+         String startTime = (String) data.get("startTime");
+         String endTime = (String) data.get("endTime");
+         String companyName = (String) data.get("companyName");
+         String logoID = (String) data.get("logoID");
+         String companyId = (String) data.get("companyId");
+         String companyNumber = (String) data.get("companyNumber");
+         String companyphone = (String) data.get("companyphone");
+         String companyAddress = (String) data.get("companyAddress");
+         String introduction = (String) data.get("introduction");
+         String orgProp = (String) data.get("orgProp");
+
+        JobDetail jobDetail = new JobDetail(iD, typeID, isRecommend,title, eduRequire,
+                workExperience, salary, address, startTime, endTime,
+                companyName, logoID, companyId, companyNumber, companyphone,
+                companyAddress, introduction, orgProp);
+        return jobDetail;
+    }
+
+    public static List<WorkExpInfoReq> getWorkExpInfoList(List<Map> data) {
+        List<WorkExpInfoReq> workExpInfoList = new ArrayList<WorkExpInfoReq>();
+        for (Map map:data) {
+            workExpInfoList.add(getWorkExpInfo(map));
+        }
+
+        return workExpInfoList;
+    }
+
+    public static WorkExpInfoReq getWorkExpInfo(Map map) {
+         String id = (String) map.get("iD");
+         String companyName = (String) map.get("companyName");
+         String position = (String) map.get("position");
+         String startTime = (String) map.get("startTime");
+         String endTime = (String) map.get("endTime");
+         String workContent = (String) map.get("workContent");
+         String userId = (String) map.get("userID");
+        WorkExpInfoReq workInfo = new WorkExpInfoReq( id,  companyName,  position,
+                 startTime,  endTime,  workContent,  userId);
+        return workInfo;
     }
 }

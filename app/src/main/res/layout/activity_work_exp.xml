@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <include
@@ -40,81 +41,11 @@
         </LinearLayout>
 
         <!-- item -->
-        <RelativeLayout
-            android:id="@+id/btn_enter_detail"
-            android:layout_width="match_parent"
-            android:background="@color/white"
-            android:layout_height="@dimen/large_item_height">
-
-            <TextView
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="15dp"
-                android:id="@+id/tv_job_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Android开发工程师"
-                android:textSize="@dimen/middle_text_size"
-                android:textColor="@color/common_black_txt"/>
-
-            <LinearLayout
-                android:layout_marginTop="8dp"
-                android:layout_toRightOf="@id/tv_job_name"
-                android:id="@+id/verify_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/orange_bg_shape"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingRight="5dp">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/icon_verify" />
-
-                <TextView
-                    android:id="@+id/tv_verify"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="2dp"
-                    android:text="@string/already_verify"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/small_text_size" />
-            </LinearLayout>
-
-            <TextView
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="15dp"
-                android:layout_alignParentBottom="true"
-                android:id="@+id/tv_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2011-09——2015-06"
-                android:textSize="@dimen/small_text_size"
-                android:textColor="@color/common_light_gray_txt"/>
-
-            <TextView
-                android:layout_marginLeft="15dp"
-                android:id="@+id/tv_company_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="湖南朋来信息科技有限公司"
-                android:layout_centerVertical="true"
-                android:textSize="@dimen/small_medium_text_size"
-                android:textColor="@color/common_gray_txt"/>
-
-            <ImageView
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
-                android:src="@drawable/icon_arrow_right" />
-
-        </RelativeLayout>
-
-
+        <com.jcodecraeer.xrecyclerview.XRecyclerView
+            android:id="@+id/xrv_view"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
 
     </LinearLayout>
 

@@ -77,6 +77,7 @@ public class EduBgActivity extends BaseActivity implements GetEduBgListView{
     private EduBgAdapter adapter;
 
     private GetEduBgListPresenterImpl eduBgListPresenter;
+
     @Override
     protected View getContentView() {
         return inflateView(R.layout.activity_edu_bg);
@@ -172,11 +173,8 @@ public class EduBgActivity extends BaseActivity implements GetEduBgListView{
         if(null != userId && !"".equals(userId)) {
             eduBgListPresenter.getEduBgList("getEduBgList",JSON.toJSONString(new UserInfoReq(userId)));
 
-        }else {
-            eduBgListPresenter.getEduBgList("getEduBgList",JSON.toJSONString(new UserInfoReq(userId)));
         }
-        //设置数据
-        adapter.refreshData(eduBgInfoList);
+
     }
 
     @OnClick({R.id.btn_back, R.id.btn_add_edu_bg})//R.id.btn_enter_detail
@@ -208,6 +206,8 @@ public class EduBgActivity extends BaseActivity implements GetEduBgListView{
     @Override
     public void getEduViewSuccess(List<EduBgInfo> eduBgInfoList) {
         this.eduBgInfoList = eduBgInfoList;
+        //设置数据
+        adapter.refreshData(eduBgInfoList);
     }
 
     @Override

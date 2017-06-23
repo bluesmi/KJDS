@@ -72,4 +72,22 @@ public interface ResumeApi {
     Call<BaseRes> modifyAssessInfo(@QueryMap Map<String,String> params);
 
 
+    /**
+     * 新增、修改工作经历
+     * @param params
+     * @return
+     */
+    @POST("Common.ashx")
+    Call<BaseRes> modifyWorkExpInfo(@QueryMap Map<String,String> params);
+
+    /**
+     * 获取实习工作列表
+     * @param params
+     * @return
+     */
+    @POST("Common.ashx")
+    Call<BaseResArray> getWorkExpList(@QueryMap Map<String,String> params);
+
+
+
 }

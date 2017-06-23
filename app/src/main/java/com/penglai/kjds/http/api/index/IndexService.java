@@ -2,11 +2,12 @@ package com.penglai.kjds.http.api.index;
 
 import android.util.Log;
 
-import com.alibaba.fastjson.JSON;
 import com.penglai.kjds.http.RequestCallback;
 import com.penglai.kjds.http.api.IndexApi;
+import com.penglai.kjds.model.BaseRes;
 import com.penglai.kjds.model.BaseResArray;
 import com.penglai.kjds.model.index.CompanyInfo;
+import com.penglai.kjds.model.index.JobDetail;
 import com.penglai.kjds.utils.JSONUtil;
 import com.penglai.kjds.utils.LogUtils;
 
@@ -47,7 +48,7 @@ public class IndexService {
         call.enqueue(new Callback<BaseResArray>() {
             @Override
             public void onResponse(Call<BaseResArray> call, Response<BaseResArray> response) {
-                LogUtils.error("loginResp", "is success  " + response.body());
+                LogUtils.error("getHotRecommend", "is success  " + response.body());
                 if (null != response) {
                     BaseResArray<CompanyInfo> baseResArray = new BaseResArray<CompanyInfo>();
                     baseResArray.setCode(response.body().getCode());
@@ -76,5 +77,45 @@ public class IndexService {
         });
     }
 
+
+    public static void getJobDetail(String opSign, String strJson, final RequestCallback<BaseRes<JobDetail>> callback){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("op", opSign);
+//        strJson = "["+strJson+"]";
+        //转成Json字符串
+        params.put("data", strJson);
+        LogUtils.error("getJobDetail","传入参数"+strJson);
+        Log.d(TAG, "getJobDetail: "+params);
+        Call<BaseRes> call = apiStr.getJobDetail(params);
+        call.enqueue(new Callback<BaseRes>() {
+            @Override
+            public void onResponse(Call<BaseRes> call, Response<BaseRes> response) {
+                LogUtils.error("loginResp", "is success  " + response.body());
+                if (null != response) {
+                    BaseRes<JobDetail> jobDetailBaseRes = new BaseRes<JobDetail>();
+                    jobDetailBaseRes.setCode(response.body().getCode());
+                    jobDetailBaseRes.setMsg(response.body().getMsg());
+
+                    if ("".equals(response.body().getData())) {
+                        jobDetailBaseRes.setData(null);
+                    } else {
+//                        JSON.parseObject(js, new TypeReference<Result<User>>(){});
+//                        UserData userData = JSON.parseObject(response.body().getData(),new TypeReference<UserData>());
+                        System.out.println(response.body().getData());
+                        jobDetailBaseRes.setData(JSONUtil.getJobDetailInfo((Map)response.body().getData()));
+                    }
+                    callback.onSuccess(jobDetailBaseRes);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseRes> call, Throwable t) {
+                LogUtils.error("getJobDetail","is error"+t.getMessage());
+                t.printStackTrace();
+//                Log.d("UserService", "onFailure: "+);
+                callback.onFailure(t.getMessage());
+            }
+        });
+    }
 
 }

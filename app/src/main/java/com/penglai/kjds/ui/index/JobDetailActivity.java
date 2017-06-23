@@ -3,6 +3,7 @@ package com.penglai.kjds.ui.index;
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.ActivityCompat;
@@ -20,7 +21,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.penglai.kjds.R;
+import com.penglai.kjds.model.index.CompanyInfo;
+import com.penglai.kjds.model.index.JobDetail;
 import com.penglai.kjds.ui.base.BaseActivity;
 import com.penglai.kjds.utils.PopWindowUtil;
 import com.penglai.kjds.utils.UiUtils;
@@ -88,6 +92,7 @@ public class JobDetailActivity extends BaseActivity {
     @BindColor(R.color.app_bg)
     int txtColor;
 
+    private JobDetail jobDetail;
     @Override
     protected View getContentView() {
         return inflateView(R.layout.activity_job_detail);
@@ -107,17 +112,45 @@ public class JobDetailActivity extends BaseActivity {
         commonTopLayout.setBackgroundColor(topBackgroundColor);
         tvTitle.setText(jobInfo);
         tvTitle.setTextColor(txtColor);
+        Intent intent = getIntent();
+        jobDetail = (JobDetail) intent.getSerializableExtra("jobDetail");
+        if(null != jobDetail){
+            initJobDetailInterface();
+        }
+    }
+
+    private void initJobDetailInterface() {
+        tvJobName.setText(jobDetail.getTitle());
+        tvPay.setText(jobDetail.getSalary());
+        //表示当前定位的地点，而不是工作地点，当前先用工作地点
+        tvAddress.setText(jobDetail.getAddress());
+        tvExperience.setText(jobDetail.getWorkExperience());
+        tvDegree.setText(jobDetail.getEduRequire());
+        tvEmployType.setText(jobDetail.getTypeID());
+//        tvJobProfit.setText(jobDetail.);
+        tvWorkAddress.setText(jobDetail.getAddress());
+        Glide.with(mContext)
+                .load(jobDetail.getLogoID())
+                .placeholder(R.drawable.icon_user_img)
+                .error(R.drawable.icon_user_img)
+                .into(ivCompanyLogo);
+        tvCompanyInfo.setText(jobDetail.getCompanyName());
+        String comPanyDesc = (Integer.parseInt(jobDetail.getOrgProp()) == 1 ? "私企" : "国企")+"/"+jobDetail.getCompanyNumber();
+        tvCompanyDesc.setText(comPanyDesc);
+
     }
 
     @OnClick({R.id.btn_back, R.id.btn_company_info,R.id.btn_send_resume,R.id.btn_collect_job})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_back:                                                     //返回
+
                 finish();
                 break;
 
             case R.id.btn_company_info:
-
+                   startActivity(new Intent(mContext, CompanyInfoActivity.class));
+                    finish();
                 break;
             case R.id.btn_collect_job:
 //                show(this,R.layout.collect_toast);
