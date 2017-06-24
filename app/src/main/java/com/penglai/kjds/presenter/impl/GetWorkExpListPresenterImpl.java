@@ -42,7 +42,7 @@ public class GetWorkExpListPresenterImpl implements Presenter {
                 String msg = workExpInfoReqBaseResArray.getMsg();
                 List<WorkExpInfoReq> workExpInfoReqList = workExpInfoReqBaseResArray.getData();
                 if(code == 0){        //是否成功登陆
-                    LogUtils.error("data 中的数值"+workExpInfoReqList);
+                    LogUtils.error("data 中的数值"+ workExpInfoReqList);
 
                     workExpListView.getWorkExpListSucces(workExpInfoReqList);
                 }else{

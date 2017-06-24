@@ -145,12 +145,12 @@ public class JSONUtil {
     }
 
     public static List<WorkExpInfoReq> getWorkExpInfoList(List<Map> data) {
-        List<WorkExpInfoReq> workExpInfoList = new ArrayList<WorkExpInfoReq>();
+        List<WorkExpInfoReq> workExpInfoReqList = new ArrayList<WorkExpInfoReq>();
         for (Map map:data) {
-            workExpInfoList.add(getWorkExpInfo(map));
+            workExpInfoReqList.add(getWorkExpInfo(map));
         }
 
-        return workExpInfoList;
+        return workExpInfoReqList;
     }
 
     public static WorkExpInfoReq getWorkExpInfo(Map map) {

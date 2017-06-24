@@ -88,6 +88,13 @@ public interface ResumeApi {
     @POST("Common.ashx")
     Call<BaseResArray> getWorkExpList(@QueryMap Map<String,String> params);
 
+    /**
+     * 删除工作经验
+     * @param params
+     * @return
+     */
+    @POST("Common.ashx")
+    Call<BaseRes> delWorkExpInfo(@QueryMap Map<String,String> params);
 
 
 }

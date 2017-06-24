@@ -1,8 +1,6 @@
 package com.penglai.kjds.ui.resume;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
