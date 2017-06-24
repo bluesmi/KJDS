@@ -1,73 +1,30 @@
-package com.penglai.kjds.model.index;
+package com.penglai.kjds.model.user;
 
 import java.io.Serializable;
 
 /**
- * Created by m199 on 2017/6/17.
- * 人们推荐
+ * Created by m199 on 2017/6/24.
  */
 
-public class CompanyInfo implements Serializable {
-    /**
-     * 招聘ID
-     */
-    private String id;
-    /**
-     * 公司名称
-     */
+public class DeliverInfo implements Serializable {
+    private String iD;
     private String companyName;
-    /**
-     * 公司logo地址
-     */
     private String logoID;
-    /**
-     * 招聘类型，0全部1 兼职、2全职，3项目
-     */
     private String typeID;
-    /**
-     * 是否推荐
-     */
     private String isRecommend;
-    /**
-     * 职位、岗位名称
-     */
     private String title;
-    /**
-     *公司类型：例：2国企、1私企
-     */
     private String orgProp;
-    /**
-     * 学历/学位
-     */
     private String eduRequire;
-    /**
-     * 工作经验
-     */
     private String workExperience;
-    /**
-     * 薪资
-     */
     private String salary;
-    /**
-     * 地址
-     */
     private String address;
-    /**
-     * 开始时间
-     */
     private String startTime;
-    /**
-     * 结束时间
-     */
     private String endTime;
-    private String state;
+    private boolean state;
 
-    public CompanyInfo() {
-    }
-
-    public CompanyInfo(String id, String companyName, String logoID, String typeID, String isRecommend, String title, String orgProp, String eduRequire,
-                       String workExperience, String salary, String address, String startTime, String endTime, String state) {
-        this.id = id;
+    public DeliverInfo(String iD, String companyName, String logoID, String typeID, String isRecommend, String title, String orgProp,
+                       String eduRequire, String workExperience, String salary, String address, String startTime, String endTime, boolean state) {
+        this.iD = iD;
         this.companyName = companyName;
         this.logoID = logoID;
         this.typeID = typeID;
@@ -83,12 +40,15 @@ public class CompanyInfo implements Serializable {
         this.state = state;
     }
 
-    public String getId() {
-        return id;
+    public DeliverInfo() {
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getiD() {
+        return iD;
+    }
+
+    public void setiD(String iD) {
+        this.iD = iD;
     }
 
     public String getCompanyName() {
@@ -187,11 +147,11 @@ public class CompanyInfo implements Serializable {
         this.endTime = endTime;
     }
 
-    public String getState() {
+    public boolean isState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(boolean state) {
         this.state = state;
     }
 
@@ -200,9 +160,10 @@ public class CompanyInfo implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CompanyInfo that = (CompanyInfo) o;
+        DeliverInfo that = (DeliverInfo) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (state != that.state) return false;
+        if (iD != null ? !iD.equals(that.iD) : that.iD != null) return false;
         if (companyName != null ? !companyName.equals(that.companyName) : that.companyName != null)
             return false;
         if (logoID != null ? !logoID.equals(that.logoID) : that.logoID != null) return false;
@@ -219,14 +180,13 @@ public class CompanyInfo implements Serializable {
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
         if (startTime != null ? !startTime.equals(that.startTime) : that.startTime != null)
             return false;
-        if (endTime != null ? !endTime.equals(that.endTime) : that.endTime != null) return false;
-        return state != null ? state.equals(that.state) : that.state == null;
+        return endTime != null ? endTime.equals(that.endTime) : that.endTime == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
+        int result = iD != null ? iD.hashCode() : 0;
         result = 31 * result + (companyName != null ? companyName.hashCode() : 0);
         result = 31 * result + (logoID != null ? logoID.hashCode() : 0);
         result = 31 * result + (typeID != null ? typeID.hashCode() : 0);
@@ -239,14 +199,14 @@ public class CompanyInfo implements Serializable {
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (startTime != null ? startTime.hashCode() : 0);
         result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
-        result = 31 * result + (state != null ? state.hashCode() : 0);
+        result = 31 * result + (state ? 1 : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return "CompanyInfo{" +
-                "id='" + id + '\'' +
+        return "DeliverInfo{" +
+                "iD='" + iD + '\'' +
                 ", companyName='" + companyName + '\'' +
                 ", logoID='" + logoID + '\'' +
                 ", typeID='" + typeID + '\'' +
@@ -259,7 +219,7 @@ public class CompanyInfo implements Serializable {
                 ", address='" + address + '\'' +
                 ", startTime='" + startTime + '\'' +
                 ", endTime='" + endTime + '\'' +
-                ", state='" + state + '\'' +
+                ", state=" + state +
                 '}';
     }
 }

@@ -10,6 +10,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.penglai.kjds.R;
+import com.penglai.kjds.presenter.impl.SendResumeInfoPresenterImpl;
 import com.penglai.kjds.ui.my.changeview.SettingChargeView;
 import com.penglai.kjds.ui.view.widget.PopWindowView;
 
@@ -33,7 +34,8 @@ public class PopWindowUtil {
         btnWrong= (TextView) contentView.findViewById(R.id.btn_config_wrong);
         btnRight= (TextView) contentView.findViewById(R.id.btn_config_right);
     }
-    public static void confirmSendResume(final Context mContext, View view, Activity activity){
+    public static void confirmSendResume(final Context mContext, View view, final Activity activity,
+                                         final SendResumeInfoPresenterImpl sendResumeInfoPresenter, final String strJson){
 
         init(mContext);
         tvTitle.setText("发送确认");
@@ -70,9 +72,9 @@ public class PopWindowUtil {
         btnRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UiUtils.showToast(mContext,"立即发送");
+//                UiUtils.showToast(mContext,"立即发送");
                 //权限判断
-
+                sendResumeInfoPresenter.setResumeInfo("setResumeInfo",strJson);
                 mPopWindow.dismiss();
             }
         });

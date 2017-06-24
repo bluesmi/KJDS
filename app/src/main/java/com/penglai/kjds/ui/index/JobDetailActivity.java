@@ -22,12 +22,22 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.penglai.kjds.R;
-import com.penglai.kjds.model.index.CompanyInfo;
+import com.penglai.kjds.model.index.Company;
+import com.penglai.kjds.model.index.CompanyReq;
 import com.penglai.kjds.model.index.JobDetail;
+import com.penglai.kjds.model.resume.ResumeInfoReq;
+import com.penglai.kjds.presenter.impl.GetCompanyInfoPresenterImpl;
+import com.penglai.kjds.presenter.impl.JobFavoritePresenterImpl;
+import com.penglai.kjds.presenter.impl.SendResumeInfoPresenterImpl;
+import com.penglai.kjds.presenter.implView.GetCompanyInfoView;
+import com.penglai.kjds.presenter.implView.JobFavoriteView;
+import com.penglai.kjds.presenter.implView.SendResumeInfoView;
 import com.penglai.kjds.ui.base.BaseActivity;
 import com.penglai.kjds.utils.PopWindowUtil;
+import com.penglai.kjds.utils.SettingPrefUtils;
 import com.penglai.kjds.utils.UiUtils;
 
 import org.sufficientlysecure.htmltextview.HtmlTextView;
@@ -44,7 +54,7 @@ import butterknife.OnClick;
  *  * 邮箱：gongzhiqing@xiyundata.com
  *  
  */
-public class JobDetailActivity extends BaseActivity {
+public class JobDetailActivity extends BaseActivity implements SendResumeInfoView,JobFavoriteView,GetCompanyInfoView {
 
     public final static String TAG = JobDetailActivity.class.getSimpleName();
 
@@ -99,6 +109,11 @@ public class JobDetailActivity extends BaseActivity {
     int txtColor;
 
     private JobDetail jobDetail;
+    private SendResumeInfoPresenterImpl  sendResumeInfoPresenter;
+    private JobFavoritePresenterImpl jobFavoritePresenter;
+    private GetCompanyInfoPresenterImpl companyInfoPresenter;
+    private Company company;
+
     @Override
     protected View getContentView() {
         return inflateView(R.layout.activity_job_detail);
@@ -112,6 +127,9 @@ public class JobDetailActivity extends BaseActivity {
     }
 
     protected void initData() {
+        sendResumeInfoPresenter = new SendResumeInfoPresenterImpl(mContext,this);
+        jobFavoritePresenter = new JobFavoritePresenterImpl(mContext,this);
+        companyInfoPresenter = new GetCompanyInfoPresenterImpl(mContext,this);
         indexTopLayout.setVisibility(View.GONE);
         commonTopLayout.setVisibility(View.VISIBLE);
         tvTitle.setText(jobInfo);
@@ -123,6 +141,7 @@ public class JobDetailActivity extends BaseActivity {
         if(null != jobDetail){
             initJobDetailInterface();
         }
+        companyInfoPresenter.getCompanyInfo("getCompanyInfo",JSON.toJSONString(new CompanyReq(jobDetail.getCompanyId())));
     }
 
     private void initJobDetailInterface() {
@@ -146,10 +165,12 @@ public class JobDetailActivity extends BaseActivity {
         tvJobProfit.setText(Html.fromHtml(jobDetail.getEmployAtract()));
         tvJobRespInfo.setHtml(jobDetail.getJobResp());
         tvEmployDescInfo.setHtml(jobDetail.getEmployDesc());
+
     }
 
     @OnClick({R.id.btn_back, R.id.btn_company_info,R.id.btn_send_resume,R.id.btn_collect_job})
     public void onClick(View view) {
+        String userId = SettingPrefUtils.getUid();
         switch (view.getId()) {
             case R.id.btn_back:                                                     //返回
 
@@ -157,28 +178,48 @@ public class JobDetailActivity extends BaseActivity {
                 break;
 
             case R.id.btn_company_info:
-                   startActivity(new Intent(mContext, CompanyInfoActivity.class));
-                    finish();
+                    Intent companyInfoIntent = new Intent(mContext, CompanyInfoActivity.class);
+                    companyInfoIntent.putExtra("company",company);
+                    startActivity(companyInfoIntent);
+//                    finish();
                 break;
             case R.id.btn_collect_job:
-//                show(this,R.layout.collect_toast);
-//                UiUtils.showToast(JobDetailActivity.this,"已收藏");
-//                AppUtils.init(mContext);
-                UiUtils.showImgToast(mContext,"已收藏",R.drawable.icon_confirm_collect);
-//                midToast2("已收藏",Toast.LENGTH_LONG);
+
+                if(null != userId && !"".equals(userId)) {
+                    String strJson = JSON.toJSONString(new ResumeInfoReq(jobDetail.getiD(),userId ));
+                    jobFavoritePresenter.jobFavorite("JobFavorite",strJson);
+                }
                 break;
             case R.id.btn_send_resume:
                 UiUtils.showToast(mContext,"简历以发送");
 //                showNormalDailog();
 //                confirmSendResume();
-                PopWindowUtil.confirmSendResume(mContext,getContentView(),this);
+                if(null != userId && !"".equals(userId)) {
+                    String strJson = JSON.toJSONString(new ResumeInfoReq(jobDetail.getiD(),userId ));
+                    PopWindowUtil.confirmSendResume(mContext, getContentView(), this, sendResumeInfoPresenter,strJson);
+                }
                 break;
         }
     }
 
 
+    @Override
+    public void showError(String error) {
 
+    }
 
+    @Override
+    public void getCompanyInfoSuccess(Company company) {
+        this.company = company;
+    }
 
+    @Override
+    public void collectSuccess() {
+        UiUtils.showImgToast(mContext,"已收藏",R.drawable.icon_confirm_collect);
+    }
 
+    @Override
+    public void sendResumeSuccess(String message) {
+        UiUtils.showToast(mContext,"发送成功");
+    }
 }

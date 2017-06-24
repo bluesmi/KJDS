@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * Created by m199 on 2017/6/17.
+ * 获取热门推荐请求的信息
  */
 
 public class CompanyInfoReq implements Serializable{

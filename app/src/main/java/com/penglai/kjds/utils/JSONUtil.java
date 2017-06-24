@@ -1,11 +1,13 @@
 package com.penglai.kjds.utils;
 
+import com.penglai.kjds.model.index.Company;
 import com.penglai.kjds.model.index.CompanyInfo;
 import com.penglai.kjds.model.index.JobDetail;
 import com.penglai.kjds.model.resume.AssessInfoRes;
 import com.penglai.kjds.model.resume.EduBgInfo;
 import com.penglai.kjds.model.resume.PersionInfo;
 import com.penglai.kjds.model.resume.WorkExpInfoReq;
+import com.penglai.kjds.model.user.DeliverInfo;
 import com.penglai.kjds.model.user.UserData;
 import com.penglai.kjds.model.user.UserImagePath;
 import com.penglai.kjds.model.user.UserInfo;
@@ -62,13 +64,12 @@ public class JSONUtil {
     public static List<CompanyInfo> getCompanyInfoList( List<Map> data) {
         List<CompanyInfo> companyIfoList = new ArrayList<CompanyInfo>();
         for (Map map: data) {
-                companyIfoList.add(getCompanyIfo(map));
+            companyIfoList.add(getCompanyInfo(map));
         }
-
         return companyIfoList;
     }
 
-    public static CompanyInfo getCompanyIfo(Map data){
+    public static CompanyInfo getCompanyInfo(Map data){
         String id = (String) data.get("iD");
         String companyName = (String) data.get("companyName");
         String logoID = (String) data.get("logoID");
@@ -166,5 +167,22 @@ public class JSONUtil {
         WorkExpInfoReq workInfo = new WorkExpInfoReq( id,  companyName,  position,
                  startTime,  endTime,  workContent,  userId);
         return workInfo;
+    }
+
+
+    public static Company getCompany(Map data) {
+         String companyLogo = (String) data.get("companyLogo");
+         String companyName  = (String) data.get("companyName");
+         String orgProp  = (String) data.get("orgProp");
+         String orgPeopleNumber  = (String) data.get("orgPeopleNumber");
+         String orgContact  = (String) data.get("orgContact");
+         String telphone  = (String) data.get("telphone");
+         String address  = (String) data.get("address");
+         String introduction  = (String) data.get("introduction");
+         String email  = (String) data.get("email");
+        Company company = new Company(companyLogo,  companyName,  orgProp,
+                 orgPeopleNumber,  orgContact,  telphone,
+                 address,  introduction,  email);
+        return company;
     }
 }

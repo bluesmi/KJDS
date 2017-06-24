@@ -1,12 +1,15 @@
 package com.penglai.kjds.ui.index;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.penglai.kjds.R;
+import com.penglai.kjds.model.index.Company;
 import com.penglai.kjds.ui.base.BaseActivity;
 
 import butterknife.BindString;
@@ -47,10 +50,10 @@ public class CompanyInfoActivity extends BaseActivity {
     TextView tvAddress;
     @BindView(R.id.tv_telphone)
     TextView tvTelphone;
-    @BindView(R.id.iv_more)
+/*    @BindView(R.id.iv_more)
     ImageView ivMore;
     @BindView(R.id.tv_more)
-    TextView tvMore;
+    TextView tvMore;*/
     @BindView(R.id.tv_company_desc)
     TextView tvCompanyDesc;
 
@@ -70,6 +73,25 @@ public class CompanyInfoActivity extends BaseActivity {
         indexTopLayout.setVisibility(View.GONE);
         commonTopLayout.setVisibility(View.VISIBLE);
         tvTitle.setText(companyInfo);
+        Intent intent = getIntent();
+        Company company = (Company) intent.getSerializableExtra("company");
+        if(null != company) {
+            initCompanyInfo(company);
+        }
+    }
+
+    private void initCompanyInfo(Company company) {
+        Glide.with(mContext)
+                .load(company.getCompanyLogo())
+                .placeholder(R.drawable.icon_index)
+                .error(R.drawable.icon_index)
+                .into(ivLogo);
+        tvIndustry.setText(company.getOrgProp());
+        tvCompanyType.setText(company.getOrgContact());
+        tvCompanySize.setText(company.getOrgPeopleNumber());
+        tvAddress.setText(company.getAddress());
+        tvTelphone.setText(company.getTelphone());
+        tvCompanyDesc.setText(company.getIntroduction());
     }
 
     @OnClick(R.id.btn_back)

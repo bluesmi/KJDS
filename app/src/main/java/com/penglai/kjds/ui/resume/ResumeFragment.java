@@ -26,6 +26,7 @@ import com.penglai.kjds.presenter.implView.GetWorkExpListView;
 import com.penglai.kjds.ui.base.BaseFragment;
 import com.penglai.kjds.ui.view.widget.CircleImageView;
 import com.penglai.kjds.utils.SettingPrefUtils;
+import com.penglai.kjds.utils.UiUtils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -167,7 +168,15 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView,G
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_refresh_resume:                                  //刷新简历
-
+                String userId = SettingPrefUtils.getUid();
+                if(null != userId && !"".equals(userId)){
+                    String strJson = JSON.toJSONString(new UserInfoReq(userId));
+                    persionInfoPresenter.getPersionInfo("getPersionInfo",strJson );
+                    eduBgListPresenter.getEduBgList("getEduBgList",strJson);
+                    assessInfoPresenter.getAssessInfo("getAssessInfo",strJson);
+                    workExpInfoListPresenter.getWorkExpList("getWorkExpList",strJson);
+                }
+                UiUtils.showToast(mContext,"刷新成功");
                 break;
 
             case R.id.btn_preview_resume:                                //预览简历

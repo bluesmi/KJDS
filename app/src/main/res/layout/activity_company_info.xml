@@ -93,7 +93,7 @@
                 android:layout_below="@id/tv_company_type_desc"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="20dp"
-                android:text="@string/company_type"
+                android:text="规模"
                 android:textColor="@color/common_black_txt"
                 android:textSize="@dimen/middle_text_size" />
 
@@ -211,7 +211,7 @@
                     android:text="@string/company_desc"
                     android:textColor="@color/common_black_txt"/>
 
-                <ImageView
+             <!--   <ImageView
                     android:id="@+id/iv_more"
                     android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
@@ -226,7 +226,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/small_medium_text_size"
                     android:text="@string/spread"
-                    android:textColor="@color/common_black_txt"/>
+                    android:textColor="@color/common_black_txt"/>-->
             </RelativeLayout>
 
             <View

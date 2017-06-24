@@ -29,4 +29,12 @@ public interface IndexApi {
      */
     @POST("Common.ashx")
     Call<BaseRes> getJobDetail(@QueryMap Map<String, String> params);
+
+    /**
+     * 获取公司信息
+     * @param params
+     * @return
+     */
+    @POST("Common.ashx")
+    Call<BaseRes> getCompanyInfo(@QueryMap Map<String, String> params);
 }

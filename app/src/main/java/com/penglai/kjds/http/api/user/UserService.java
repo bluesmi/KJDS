@@ -3,22 +3,23 @@ package com.penglai.kjds.http.api.user;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
 import com.penglai.kjds.http.RequestCallback;
 import com.penglai.kjds.http.api.BaseService;
 import com.penglai.kjds.http.api.BaseApi;
 import com.penglai.kjds.model.BaseRes;
+import com.penglai.kjds.model.BaseResArray;
+import com.penglai.kjds.model.user.DeliverInfo;
 import com.penglai.kjds.model.user.EmptyEntity;
 import com.penglai.kjds.model.user.LoginRes;
-import com.penglai.kjds.model.user.UserData;
 import com.penglai.kjds.model.user.UserImagePath;
-import com.penglai.kjds.model.user.UserInfo;
 import com.penglai.kjds.model.user.UserInfoRes;
 import com.penglai.kjds.utils.JSONUtil;
 import com.penglai.kjds.utils.LogUtils;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.MediaType;
@@ -232,6 +233,42 @@ public class UserService extends BaseService {
             public void onFailure(Call<BaseRes> call, Throwable t) {
                 t.printStackTrace();
                 LogUtils.error("modifyUserInfo","is error  "+t.getMessage());
+                callback.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    public static void getDeliverList(String opSign, String strJson, final RequestCallback<BaseResArray<DeliverInfo>> callback){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("data",strJson);
+        params.put("op",opSign);
+        Call<BaseResArray> call = apiStr.getDeliverList(params);
+        call.enqueue(new Callback<BaseResArray>() {
+            @Override
+            public void onResponse(Call<BaseResArray> call, Response<BaseResArray> response) {
+                LogUtils.error("getDeliverList", "is success  " + response.body());
+                if (null != response) {
+                    BaseResArray<DeliverInfo> deliverInfoBaseRes = new BaseResArray<DeliverInfo>();
+                    deliverInfoBaseRes.setCode(response.body().getCode());
+                    deliverInfoBaseRes.setMsg(response.body().getMsg());
+
+                    if (response.body().getData().isEmpty()) {
+                        deliverInfoBaseRes.setData(new ArrayList<DeliverInfo>());
+                    } else {
+//                        JSON.parseObject(js, new TypeReference<Result<User>>(){});
+//                        UserData userData = JSON.parseObject(response.body().getData(),new TypeReference<UserData>());
+                        System.out.println(response.body().getData());
+                        List<DeliverInfo> deliverInfo =  response.body().getData();
+                        deliverInfoBaseRes.setData(deliverInfo);
+                    }
+                    callback.onSuccess(deliverInfoBaseRes);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResArray> call, Throwable t) {
+                t.printStackTrace();
+                LogUtils.error("getDeliverList","is error  "+t.getMessage());
                 callback.onFailure(t.getMessage());
             }
         });

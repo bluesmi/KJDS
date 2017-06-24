@@ -1,6 +1,7 @@
 package com.penglai.kjds.http.api;
 
 import com.penglai.kjds.model.BaseRes;
+import com.penglai.kjds.model.BaseResArray;
 import com.penglai.kjds.model.user.LoginRes;
 
 import java.util.Map;
@@ -58,4 +59,12 @@ public interface BaseApi {
      */
     @POST("Common.ashx")
     Call<BaseRes> modifyUserInfo(@QueryMap Map<String, String> params);
+
+    /**
+     * 获取我的投递
+     * @param params
+     * @return
+     */
+    @POST("Common.ashx")
+    Call<BaseResArray> getDeliverList(@QueryMap Map<String, String> params);
 }

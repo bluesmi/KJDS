@@ -96,5 +96,20 @@ public interface ResumeApi {
     @POST("Common.ashx")
     Call<BaseRes> delWorkExpInfo(@QueryMap Map<String,String> params);
 
+    /**
+     * 发送简历
+     * @param params
+     * @return
+     */
+    @POST("Common.ashx")
+    Call<BaseRes> setResumeInfo(@QueryMap Map<String,String> params);
+
+    /**
+     * 收藏职位
+     * @param params
+     * @return
+     */
+    @POST("Common.ashx")
+    Call<BaseRes> jobFavorite(@QueryMap Map<String,String> params);
 
 }

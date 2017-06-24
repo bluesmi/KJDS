@@ -351,4 +351,54 @@ public class ResumeService {
             }
         });
     }
+
+    public static void setResumeInfo(String opSign,String strJson, final RequestCallback<BaseRes<String>> callback){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("op", opSign);
+        //转成Json字符串
+        params.put("data", strJson);
+        LogUtils.error("setResumeInfo","传入参数"+strJson);
+        Log.d("ResumeService", "setResumeInfo: "+params);
+        Call<BaseRes> call = apiStr.setResumeInfo(params);
+        call.enqueue(new Callback<BaseRes>() {
+            @Override
+            public void onResponse(Call<BaseRes> call, Response<BaseRes> response) {
+                LogUtils.error("setResumeInfo","is success  "+response.body());
+                callback.onSuccess(null != response ? response.body() : null);
+            }
+
+            @Override
+            public void onFailure(Call<BaseRes> call, Throwable t) {
+                LogUtils.error("setResumeInfo","is error"+t.getMessage());
+                t.printStackTrace();
+//                Log.d("UserService", "onFailure: "+);
+                callback.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    public static void jobFavorite(String opSign,String strJson, final RequestCallback<BaseRes<String>> callback){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("op", opSign);
+        //转成Json字符串
+        params.put("data", strJson);
+        LogUtils.error("JobFavorite","传入参数"+strJson);
+        Log.d("ResumeService", "JobFavorite: "+params);
+        Call<BaseRes> call = apiStr.jobFavorite(params);
+        call.enqueue(new Callback<BaseRes>() {
+            @Override
+            public void onResponse(Call<BaseRes> call, Response<BaseRes> response) {
+                LogUtils.error("JobFavorite","is success  "+response.body());
+                callback.onSuccess(null != response ? response.body() : null);
+            }
+
+            @Override
+            public void onFailure(Call<BaseRes> call, Throwable t) {
+                LogUtils.error("JobFavorite","is error"+t.getMessage());
+                t.printStackTrace();
+//                Log.d("UserService", "onFailure: "+);
+                callback.onFailure(t.getMessage());
+            }
+        });
+    }
 }
