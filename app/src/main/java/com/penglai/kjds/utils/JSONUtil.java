@@ -136,11 +136,13 @@ public class JSONUtil {
          String companyAddress = (String) data.get("companyAddress");
          String introduction = (String) data.get("introduction");
          String orgProp = (String) data.get("orgProp");
-
+        String jobResp = (String) data.get("jobResp");
+        String employDesc = (String) data.get("employDesc");
+        String employAtract = (String) data.get("employAtract");
         JobDetail jobDetail = new JobDetail(iD, typeID, isRecommend,title, eduRequire,
                 workExperience, salary, address, startTime, endTime,
                 companyName, logoID, companyId, companyNumber, companyphone,
-                companyAddress, introduction, orgProp);
+                companyAddress, introduction, orgProp,jobResp,employDesc,employAtract);
         return jobDetail;
     }
 

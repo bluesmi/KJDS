@@ -9,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -28,6 +29,8 @@ import com.penglai.kjds.model.index.JobDetail;
 import com.penglai.kjds.ui.base.BaseActivity;
 import com.penglai.kjds.utils.PopWindowUtil;
 import com.penglai.kjds.utils.UiUtils;
+
+import org.sufficientlysecure.htmltextview.HtmlTextView;
 
 import butterknife.BindColor;
 import butterknife.BindString;
@@ -85,7 +88,10 @@ public class JobDetailActivity extends BaseActivity {
     TextView tvCompanyDesc;
     @BindView(R.id.tv_job_desc)
     TextView tvJobDesc;
-
+    @BindView(R.id.tv_job_resp_info)
+    HtmlTextView tvJobRespInfo;
+    @BindView(R.id.tv_employ_desc_info)
+    HtmlTextView tvEmployDescInfo;
 
     @BindColor(R.color.blue_top_bg)
     int topBackgroundColor;
@@ -137,7 +143,9 @@ public class JobDetailActivity extends BaseActivity {
         tvCompanyInfo.setText(jobDetail.getCompanyName());
         String comPanyDesc = (Integer.parseInt(jobDetail.getOrgProp()) == 1 ? "私企" : "国企")+"/"+jobDetail.getCompanyNumber();
         tvCompanyDesc.setText(comPanyDesc);
-
+        tvJobProfit.setText(Html.fromHtml(jobDetail.getEmployAtract()));
+        tvJobRespInfo.setHtml(jobDetail.getJobResp());
+        tvEmployDescInfo.setHtml(jobDetail.getEmployDesc());
     }
 
     @OnClick({R.id.btn_back, R.id.btn_company_info,R.id.btn_send_resume,R.id.btn_collect_job})

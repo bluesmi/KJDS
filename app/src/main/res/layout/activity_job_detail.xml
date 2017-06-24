@@ -196,7 +196,7 @@
                 android:layout_marginTop="10dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:visibility="gone">
+                >
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -335,6 +335,42 @@
                 android:layout_below="@id/tv_job_desc"
                 android:layout_marginBottom="10dp"
                 android:background="@color/common_gray_line" />
+            <TextView
+                android:id="@+id/tv_job_resp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="岗位职责"
+                android:textColor="@color/common_black_txt"
+                android:textSize="@dimen/middle_text_size"
+                android:layout_below="@+id/light_view3"/>
+
+
+            <org.sufficientlysecure.htmltextview.HtmlTextView
+                android:id="@+id/tv_job_resp_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:layout_below="@+id/tv_job_resp"
+                android:layout_marginBottom="10px"
+                />
+            <TextView
+                android:id="@+id/tv_employ_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="岗位要求"
+                android:textColor="@color/common_black_txt"
+                android:textSize="@dimen/middle_text_size"
+                android:layout_below="@+id/tv_job_resp_info"
+                android:layout_marginBottom="10px"/>
+
+            <org.sufficientlysecure.htmltextview.HtmlTextView
+                android:id="@+id/tv_employ_desc_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:layout_below="@+id/tv_employ_desc"
+                android:layout_marginBottom="10px"
+                />
 
         </RelativeLayout>
 

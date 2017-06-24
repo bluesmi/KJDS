@@ -81,11 +81,24 @@ public class JobDetail implements Serializable{
      *公司类型（1：私企，2国企）
      */
     private String orgProp;
+    /**
+     * 岗位职责
+     */
+    private String jobResp;
+    /**
+     * 岗位要求
+     */
+    private String employDesc;
+    /**
+     * 职业诱惑
+     */
+    private String employAtract;
 
     public JobDetail(String iD, String typeID, String isRecommend, String title, String eduRequire,
                      String workExperience, String salary, String address, String startTime, String endTime,
                      String companyName, String logoID, String companyId, String companyNumber, String companyphone,
-                     String companyAddress, String introduction, String orgProp) {
+                     String companyAddress, String introduction, String orgProp, String jobResp,
+                     String employDesc, String employAtract) {
         this.iD = iD;
         this.typeID = typeID;
         this.isRecommend = isRecommend;
@@ -104,9 +117,36 @@ public class JobDetail implements Serializable{
         this.companyAddress = companyAddress;
         this.introduction = introduction;
         this.orgProp = orgProp;
+        this.jobResp = jobResp;
+        this.employDesc = employDesc;
+        this.employAtract = employAtract;
     }
 
     public JobDetail() {
+    }
+
+    public String getJobResp() {
+        return jobResp;
+    }
+
+    public void setJobResp(String jobResp) {
+        this.jobResp = jobResp;
+    }
+
+    public String getEmployDesc() {
+        return employDesc;
+    }
+
+    public void setEmployDesc(String employDesc) {
+        this.employDesc = employDesc;
+    }
+
+    public String getEmployAtract() {
+        return employAtract;
+    }
+
+    public void setEmployAtract(String employAtract) {
+        this.employAtract = employAtract;
     }
 
     public String getiD() {
@@ -254,6 +294,33 @@ public class JobDetail implements Serializable{
     }
 
     @Override
+    public String toString() {
+        return "JobDetail{" +
+                "iD='" + iD + '\'' +
+                ", typeID='" + typeID + '\'' +
+                ", isRecommend='" + isRecommend + '\'' +
+                ", title='" + title + '\'' +
+                ", eduRequire='" + eduRequire + '\'' +
+                ", workExperience='" + workExperience + '\'' +
+                ", salary='" + salary + '\'' +
+                ", address='" + address + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", companyName='" + companyName + '\'' +
+                ", logoID='" + logoID + '\'' +
+                ", companyId='" + companyId + '\'' +
+                ", companyNumber='" + companyNumber + '\'' +
+                ", companyphone='" + companyphone + '\'' +
+                ", companyAddress='" + companyAddress + '\'' +
+                ", introduction='" + introduction + '\'' +
+                ", orgProp='" + orgProp + '\'' +
+                ", jobResp='" + jobResp + '\'' +
+                ", employDesc='" + employDesc + '\'' +
+                ", employAtract='" + employAtract + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -292,7 +359,13 @@ public class JobDetail implements Serializable{
             return false;
         if (introduction != null ? !introduction.equals(jobDetail.introduction) : jobDetail.introduction != null)
             return false;
-        return orgProp != null ? orgProp.equals(jobDetail.orgProp) : jobDetail.orgProp == null;
+        if (orgProp != null ? !orgProp.equals(jobDetail.orgProp) : jobDetail.orgProp != null)
+            return false;
+        if (jobResp != null ? !jobResp.equals(jobDetail.jobResp) : jobDetail.jobResp != null)
+            return false;
+        if (employDesc != null ? !employDesc.equals(jobDetail.employDesc) : jobDetail.employDesc != null)
+            return false;
+        return employAtract != null ? employAtract.equals(jobDetail.employAtract) : jobDetail.employAtract == null;
 
     }
 
@@ -316,30 +389,10 @@ public class JobDetail implements Serializable{
         result = 31 * result + (companyAddress != null ? companyAddress.hashCode() : 0);
         result = 31 * result + (introduction != null ? introduction.hashCode() : 0);
         result = 31 * result + (orgProp != null ? orgProp.hashCode() : 0);
+        result = 31 * result + (jobResp != null ? jobResp.hashCode() : 0);
+        result = 31 * result + (employDesc != null ? employDesc.hashCode() : 0);
+        result = 31 * result + (employAtract != null ? employAtract.hashCode() : 0);
         return result;
     }
 
-    @Override
-    public String toString() {
-        return "JobDetail{" +
-                "iD='" + iD + '\'' +
-                ", typeID='" + typeID + '\'' +
-                ", isRecommend='" + isRecommend + '\'' +
-                ", title='" + title + '\'' +
-                ", eduRequire='" + eduRequire + '\'' +
-                ", workExperience='" + workExperience + '\'' +
-                ", salary='" + salary + '\'' +
-                ", address='" + address + '\'' +
-                ", startTime='" + startTime + '\'' +
-                ", endTime='" + endTime + '\'' +
-                ", companyName='" + companyName + '\'' +
-                ", logoID='" + logoID + '\'' +
-                ", companyId='" + companyId + '\'' +
-                ", companyNumber='" + companyNumber + '\'' +
-                ", companyphone='" + companyphone + '\'' +
-                ", companyAddress='" + companyAddress + '\'' +
-                ", introduction='" + introduction + '\'' +
-                ", orgProp='" + orgProp + '\'' +
-                '}';
-    }
 }
