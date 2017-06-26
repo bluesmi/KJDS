@@ -19,6 +19,7 @@ import com.penglai.kjds.ui.base.BaseFragment;
 import com.penglai.kjds.ui.view.widget.CircleImageView;
 import com.penglai.kjds.utils.SettingPrefUtils;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
@@ -98,7 +99,9 @@ public class MyFragment extends BaseFragment implements GetUserInfoView,GetDeliv
                 break;
 
             case R.id.my_deliver_layout:           //我的投递
-                startActivity(new Intent(mContext,MyDeliverActivity.class));
+                Intent deliverIntent = new Intent(mContext,MyDeliverActivity.class);
+                deliverIntent.putExtra("deliverInfoList", (Serializable) deliverInfoList);
+                startActivity(deliverIntent);
                 break;
 
             case R.id.my_favorite_layout:           //我的收藏

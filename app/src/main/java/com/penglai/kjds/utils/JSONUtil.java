@@ -185,4 +185,34 @@ public class JSONUtil {
                  address,  introduction,  email);
         return company;
     }
+
+    public static List<DeliverInfo> getDeliverInfoList(List<Map> deliverInfo) {
+        List<DeliverInfo> deliverInfoList = new ArrayList<DeliverInfo>();
+        for (Map map:deliverInfo) {
+            deliverInfoList.add(getDeliverInfo(map));
+        }
+
+        return deliverInfoList;
+    }
+
+    public static DeliverInfo getDeliverInfo(Map map) {
+         String iD = (String) map.get("iD");
+         String companyName = (String) map.get("companyName");
+         String logoID = (String) map.get("logoID");
+         String typeID = (String) map.get("typeID");
+         String isRecommend = (String) map.get("isRecommend");
+         String title = (String) map.get("title");
+         String orgProp = (String) map.get("orgProp");
+         String eduRequire = (String) map.get("eduRequire");
+         String workExperience = (String) map.get("workExperience");
+         String salary = (String) map.get("salary");
+         String address = (String) map.get("address");
+         String startTime = (String) map.get("startTime");
+         String endTime = (String) map.get("endTime");
+         boolean state = (boolean) map.get("state");
+
+        DeliverInfo deliverInfo = new DeliverInfo( iD,  companyName,  logoID,  typeID,  isRecommend,  title,  orgProp,
+                 eduRequire,  workExperience,  salary,  address,  startTime,  endTime,  state);
+        return deliverInfo;
+    }
 }

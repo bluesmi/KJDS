@@ -258,8 +258,8 @@ public class UserService extends BaseService {
 //                        JSON.parseObject(js, new TypeReference<Result<User>>(){});
 //                        UserData userData = JSON.parseObject(response.body().getData(),new TypeReference<UserData>());
                         System.out.println(response.body().getData());
-                        List<DeliverInfo> deliverInfo =  response.body().getData();
-                        deliverInfoBaseRes.setData(deliverInfo);
+                        List<Map> deliverInfo =  response.body().getData();
+                        deliverInfoBaseRes.setData(JSONUtil.getDeliverInfoList(deliverInfo));
                     }
                     callback.onSuccess(deliverInfoBaseRes);
                 }

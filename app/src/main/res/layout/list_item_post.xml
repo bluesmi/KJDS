@@ -3,7 +3,8 @@
     android:orientation="vertical"
     android:background="@drawable/item_gap_select"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/large_item_height">
+    android:layout_height="@dimen/large_item_height"
+    android:id="@+id/btn_enter_detail">
 <!--招聘岗位子项-->
     <RelativeLayout
         android:id="@+id/enter_detail_job"
@@ -32,7 +33,7 @@
             android:textSize="@dimen/small_text_size"
             />
         <TextView
-            android:id="@+id/tv_company_name"
+            android:id="@+id/tv_job_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/img_company_logo"
@@ -49,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/img_company_logo"
-            android:layout_toRightOf="@+id/tv_company_name"
+            android:layout_toRightOf="@+id/tv_job_name"
             android:text="兼职"
             android:textSize="@dimen/small_text_size"
             android:layout_marginLeft="5dp"
@@ -70,6 +71,7 @@
             android:text="维智大酒店  民营"
             />
         <TextView
+            android:id="@+id/tv_job_require"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/img_company_logo"
