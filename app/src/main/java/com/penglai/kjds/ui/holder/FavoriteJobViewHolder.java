@@ -37,7 +37,7 @@ public class FavoriteJobViewHolder extends BaseViewHolder<CollectInfo> {
     @BindView(R.id.tv_job_type)
     TextView tvJobType;
     @BindView(R.id.enter_detail_job_layout)
-    LinearLayout enterDetailLayout;
+    RelativeLayout enterDetailLayout;
     @BindView(R.id.btn_cancel_favorite)
     LinearLayout btnCancelFavorite;
     @BindView(R.id.btn_send_resume)

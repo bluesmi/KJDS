@@ -194,7 +194,7 @@ public class MyFavoriteActivity extends BaseActivity implements GetFavoriteListV
             public void onItemClick(CollectInfo itemValue, int viewID, int position) {
                 String userId = SettingPrefUtils.getUid();
                 switch (viewID){
-                    case R.id.enter_detail_layout:         //进入详情
+                    case R.id.enter_detail_job_layout:         //进入详情
                         jobDetailPresenter.getJobDetail("getJobDetail",JSON.toJSONString(new JobInfoReq(itemValue.getiD())));
                     break;
                     case R.id.btn_cancel_favorite:         //取消收藏
