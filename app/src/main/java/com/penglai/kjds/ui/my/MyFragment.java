@@ -7,13 +7,16 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.penglai.kjds.R;
+import com.penglai.kjds.model.user.CollectInfo;
 import com.penglai.kjds.model.user.DeliverInfo;
 import com.penglai.kjds.model.user.DeliverInfoReq;
 import com.penglai.kjds.model.user.UserInfo;
 import com.penglai.kjds.model.user.UserInfoReq;
 import com.penglai.kjds.presenter.impl.GetDeliverListPresenterImpl;
+import com.penglai.kjds.presenter.impl.GetFavoriteListPresenterImpl;
 import com.penglai.kjds.presenter.impl.GetUserInfoPresenterImpl;
 import com.penglai.kjds.presenter.implView.GetDeliverListView;
+import com.penglai.kjds.presenter.implView.GetFavoriteListView;
 import com.penglai.kjds.presenter.implView.GetUserInfoView;
 import com.penglai.kjds.ui.base.BaseFragment;
 import com.penglai.kjds.ui.view.widget.CircleImageView;
@@ -35,10 +38,11 @@ import static android.app.Activity.RESULT_OK;
  *  * 邮箱：gongzhiqing@xiyundata.com
  *  
  */
-public class MyFragment extends BaseFragment implements GetUserInfoView,GetDeliverListView {
+public class MyFragment extends BaseFragment implements GetUserInfoView,GetDeliverListView,GetFavoriteListView {
 
     public final static  String TAG = MyFragment.class.getSimpleName();
     private static final int MODIFY_USER_INFO = 0 ;
+    private static final int GET_FAVORITE_JOB = 1;
     private View contentView;
     private GetUserInfoPresenterImpl userInfoPresenter;
     private static MyFragment instance;
@@ -49,9 +53,11 @@ public class MyFragment extends BaseFragment implements GetUserInfoView,GetDeliv
 
     private GetUserInfoPresenterImpl presenter;
     private GetDeliverListPresenterImpl deliverListPresenter;
+    private GetFavoriteListPresenterImpl favoriteListPresenter;
 
     private UserInfo userInfo;
     private List<DeliverInfo> deliverInfoList;
+    private List<CollectInfo> collectInfoList;
 
     public MyFragment() {
         super();
@@ -80,10 +86,12 @@ public class MyFragment extends BaseFragment implements GetUserInfoView,GetDeliv
     public void initData() {
         presenter = new GetUserInfoPresenterImpl(mContext,this);
         deliverListPresenter = new GetDeliverListPresenterImpl(mContext,this);
+        favoriteListPresenter = new GetFavoriteListPresenterImpl(mContext,this);
         String userId = SettingPrefUtils.getUid();
         if(null != userId && !"".equals(userId)){
             presenter.getUserInfo("getUserInfo", JSON.toJSONString(new UserInfoReq(userId)));
             deliverListPresenter.getDeliverList("getDeliverList",JSON.toJSONString(new DeliverInfoReq(userId,0)));
+            favoriteListPresenter.getFavoriteList("getFavoriteList", JSON.toJSONString(new UserInfoReq(userId)));
         }
     }
 
@@ -105,7 +113,9 @@ public class MyFragment extends BaseFragment implements GetUserInfoView,GetDeliv
                 break;
 
             case R.id.my_favorite_layout:           //我的收藏
-                startActivity(new Intent(mContext,MyFavoriteActivity.class));
+                Intent favoriteIntent =  new Intent(mContext,MyFavoriteActivity.class);
+                favoriteIntent.putExtra("collectInfoList", (Serializable) collectInfoList);
+                startActivityForResult(favoriteIntent,GET_FAVORITE_JOB);
                 break;
 
             case R.id.my_msg_layout:                //我的消息
@@ -140,6 +150,11 @@ public class MyFragment extends BaseFragment implements GetUserInfoView,GetDeliv
     }
 
     @Override
+    public void getFavoriteListSuccess(List<CollectInfo> collectInfoList) {
+        this.collectInfoList = collectInfoList;
+    }
+
+    @Override
     public void getDeliverListSuccess(List<DeliverInfo> deliverInfoList) {
         this.deliverInfoList = deliverInfoList;
     }
@@ -170,6 +185,15 @@ public class MyFragment extends BaseFragment implements GetUserInfoView,GetDeliv
                     }
                 }
                 break;
+            case GET_FAVORITE_JOB://我的收藏
+                if (resultCode == RESULT_OK) {
+                    String userId = SettingPrefUtils.getUid();
+                    if (null != userId && !"".equals(userId)) {
+                        favoriteListPresenter.getFavoriteList("getUserInfo", JSON.toJSONString(new UserInfoReq(userId)));
+                    }
+                }
+                break;
+
         }
     }
 }

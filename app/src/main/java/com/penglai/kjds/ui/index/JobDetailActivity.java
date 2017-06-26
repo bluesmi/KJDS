@@ -214,8 +214,8 @@ public class JobDetailActivity extends BaseActivity implements SendResumeInfoVie
     }
 
     @Override
-    public void collectSuccess() {
-        UiUtils.showImgToast(mContext,"已收藏",R.drawable.icon_confirm_collect);
+    public void collectSuccess(String message) {
+        UiUtils.showImgToast(mContext,message+"",R.drawable.icon_confirm_collect);
     }
 
     @Override

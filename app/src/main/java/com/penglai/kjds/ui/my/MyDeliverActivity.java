@@ -9,13 +9,18 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.penglai.kjds.R;
 import com.penglai.kjds.model.user.DeliverInfo;
+import com.penglai.kjds.model.user.DeliverInfoReq;
+import com.penglai.kjds.presenter.impl.GetDeliverListPresenterImpl;
+import com.penglai.kjds.presenter.implView.GetDeliverListView;
 import com.penglai.kjds.ui.adapter.ResumePostAdapter;
 import com.penglai.kjds.ui.base.BaseActivity;
 import com.penglai.kjds.ui.view.listener.OnItemClickListener;
+import com.penglai.kjds.utils.SettingPrefUtils;
 
 
 import java.util.List;
@@ -33,7 +38,7 @@ import butterknife.OnClick;
  *  * 邮箱：gongzhiqing@xiyundata.com
  *  
  */
-public class MyDeliverActivity extends BaseActivity {
+public class MyDeliverActivity extends BaseActivity implements GetDeliverListView{
 
     @BindView(R.id.index_top_layout)
     LinearLayout indexTopLayout;
@@ -52,6 +57,8 @@ public class MyDeliverActivity extends BaseActivity {
     XRecyclerView mRecyclerView;
     private ResumePostAdapter adapter;
     private List<DeliverInfo> deliverInfoList;
+    private GetDeliverListPresenterImpl deliverListPresenter;
+
     @Override
     protected View getContentView() {
         return inflateView(R.layout.activity_my_deliver);
@@ -67,6 +74,7 @@ public class MyDeliverActivity extends BaseActivity {
     protected void initData() {
         //初始化XRecyclerView
         initXRecyclerView();
+        deliverListPresenter = new GetDeliverListPresenterImpl(mContext,this);
        //初始化标题栏布局
         indexTopLayout.setVisibility(View.GONE);
         commonTopLayout.setVisibility(View.VISIBLE);
@@ -145,6 +153,20 @@ public class MyDeliverActivity extends BaseActivity {
     }
 
     private void refreshData() {
+        String userId = SettingPrefUtils.getUid();
+        if(null != userId && !"".equals(userId)){
+            deliverListPresenter.getDeliverList("getDeliverList",JSON.toJSONString(new DeliverInfoReq(userId,0)));
+        }
+    }
 
+    @Override
+    public void showError(String message) {
+
+    }
+
+    @Override
+    public void getDeliverListSuccess(List<DeliverInfo> deliverInfoList) {
+        this.deliverInfoList  = deliverInfoList;
+        adapter.refreshData(deliverInfoList);
     }
 }

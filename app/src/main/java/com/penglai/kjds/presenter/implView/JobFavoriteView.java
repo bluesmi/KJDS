@@ -11,5 +11,5 @@ public interface JobFavoriteView {
      */
     void showError(String error);
 
-    void collectSuccess();
+    void collectSuccess(String message);
 }

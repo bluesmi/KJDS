@@ -40,7 +40,7 @@ public class JobFavoritePresenterImpl implements Presenter {
                 String data = stringBaseRes.getData();
                 if(code == 0){        //是否成功登陆
                     LogUtils.error("data 中的数值"+data);
-                    jobFavoriteView.collectSuccess();
+                    jobFavoriteView.collectSuccess(msg);
                 }else{
                     UiUtils.showToast(mContext,msg);
                 }

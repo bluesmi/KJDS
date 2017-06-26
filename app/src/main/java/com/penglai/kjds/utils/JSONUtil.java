@@ -7,6 +7,7 @@ import com.penglai.kjds.model.resume.AssessInfoRes;
 import com.penglai.kjds.model.resume.EduBgInfo;
 import com.penglai.kjds.model.resume.PersionInfo;
 import com.penglai.kjds.model.resume.WorkExpInfoReq;
+import com.penglai.kjds.model.user.CollectInfo;
 import com.penglai.kjds.model.user.DeliverInfo;
 import com.penglai.kjds.model.user.UserData;
 import com.penglai.kjds.model.user.UserImagePath;
@@ -214,5 +215,35 @@ public class JSONUtil {
         DeliverInfo deliverInfo = new DeliverInfo( iD,  companyName,  logoID,  typeID,  isRecommend,  title,  orgProp,
                  eduRequire,  workExperience,  salary,  address,  startTime,  endTime,  state);
         return deliverInfo;
+    }
+
+    public static List<CollectInfo> getCollectInfoList(List<Map> collectInfo) {
+        List<CollectInfo> collectInfoList = new ArrayList<CollectInfo>();
+        for (Map map:collectInfo) {
+            collectInfoList.add(getColectInfo(map));
+        }
+
+        return collectInfoList;
+    }
+
+    public static CollectInfo getColectInfo(Map map) {
+        String iD = (String) map.get("iD");
+        String companyName = (String) map.get("companyName");
+        String logoID = (String) map.get("logoID");
+        String typeID = (String) map.get("typeID");
+        String isRecommend = (String) map.get("isRecommend");
+        String title = (String) map.get("title");
+        String orgProp = (String) map.get("orgProp");
+        String eduRequire = (String) map.get("eduRequire");
+        String workExperience = (String) map.get("workExperience");
+        String salary = (String) map.get("salary");
+        String address = (String) map.get("address");
+        String startTime = (String) map.get("startTime");
+        String endTime = (String) map.get("endTime");
+        String state = (String) map.get("state");
+
+        CollectInfo collectInfo = new CollectInfo( iD,  companyName,  logoID,  typeID,  isRecommend,  title,  orgProp,
+                eduRequire,  workExperience,  salary,  address,  startTime,  endTime,  state);
+        return collectInfo;
     }
 }

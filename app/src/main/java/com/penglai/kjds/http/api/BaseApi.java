@@ -67,4 +67,9 @@ public interface BaseApi {
      */
     @POST("Common.ashx")
     Call<BaseResArray> getDeliverList(@QueryMap Map<String, String> params);
+
+
+    @POST("Common.ashx")
+    Call<BaseResArray> getFavoriteList(@QueryMap Map<String, String> params);
+
 }

@@ -8,6 +8,7 @@ import com.penglai.kjds.http.api.BaseService;
 import com.penglai.kjds.http.api.BaseApi;
 import com.penglai.kjds.model.BaseRes;
 import com.penglai.kjds.model.BaseResArray;
+import com.penglai.kjds.model.user.CollectInfo;
 import com.penglai.kjds.model.user.DeliverInfo;
 import com.penglai.kjds.model.user.EmptyEntity;
 import com.penglai.kjds.model.user.LoginRes;
@@ -274,4 +275,45 @@ public class UserService extends BaseService {
         });
     }
 
+    /**
+     * 获取收藏
+     * @param opSign
+     * @param strJson
+     * @param callback
+     */
+    public static void getFavoriteList(String opSign, String strJson, final RequestCallback<BaseResArray<CollectInfo>> callback){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("data",strJson);
+        params.put("op",opSign);
+        Call<BaseResArray> call = apiStr.getDeliverList(params);
+        call.enqueue(new Callback<BaseResArray>() {
+            @Override
+            public void onResponse(Call<BaseResArray> call, Response<BaseResArray> response) {
+                LogUtils.error("getFavoriteList", "is success  " + response.body());
+                if (null != response) {
+                    BaseResArray<CollectInfo> collectInfoBaseRes = new BaseResArray<CollectInfo>();
+                    collectInfoBaseRes.setCode(response.body().getCode());
+                    collectInfoBaseRes.setMsg(response.body().getMsg());
+
+                    if (response.body().getData().isEmpty()) {
+                        collectInfoBaseRes.setData(new ArrayList<CollectInfo>());
+                    } else {
+//                        JSON.parseObject(js, new TypeReference<Result<User>>(){});
+//                        UserData userData = JSON.parseObject(response.body().getData(),new TypeReference<UserData>());
+                        System.out.println(response.body().getData());
+                        List<Map> collectInfo =  response.body().getData();
+                        collectInfoBaseRes.setData(JSONUtil.getCollectInfoList(collectInfo));
+                    }
+                    callback.onSuccess(collectInfoBaseRes);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResArray> call, Throwable t) {
+                t.printStackTrace();
+                LogUtils.error("getFavoriteList","is error  "+t.getMessage());
+                callback.onFailure(t.getMessage());
+            }
+        });
+    }
 }
