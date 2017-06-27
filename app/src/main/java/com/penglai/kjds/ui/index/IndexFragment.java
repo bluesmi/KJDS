@@ -18,10 +18,13 @@ import com.penglai.kjds.model.index.CompanyInfo;
 import com.penglai.kjds.model.index.CompanyInfoReq;
 import com.penglai.kjds.model.index.JobDetail;
 import com.penglai.kjds.model.index.JobInfoReq;
+import com.penglai.kjds.model.resume.JobListReq;
 import com.penglai.kjds.presenter.impl.GetHotRecommendPresenterImpl;
 import com.penglai.kjds.presenter.impl.GetJobDetailPresenterImpl;
+import com.penglai.kjds.presenter.impl.GetJobListPresenterImpl;
 import com.penglai.kjds.presenter.implView.GetHotRecommendView;
 import com.penglai.kjds.presenter.implView.GetJobDetailView;
+import com.penglai.kjds.presenter.implView.GetJobListView;
 import com.penglai.kjds.ui.activity.LoginActivity;
 import com.penglai.kjds.ui.adapter.IndexAdapter;
 import com.penglai.kjds.ui.base.BaseFragment;
@@ -30,6 +33,7 @@ import com.penglai.kjds.ui.view.widget.banner.CustomerTopBanner;
 import com.penglai.kjds.utils.SettingPrefUtils;
 import com.penglai.kjds.utils.UiUtils;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
@@ -45,7 +49,7 @@ import static android.app.Activity.RESULT_OK;
  *  * 邮箱：gongzhiqing@xiyundata.com
  *  
  */
-public class IndexFragment extends BaseFragment implements View.OnClickListener,GetHotRecommendView,GetJobDetailView {
+public class IndexFragment extends BaseFragment implements View.OnClickListener,GetHotRecommendView,GetJobDetailView,GetJobListView {
 
     @BindView(R.id.index_top_layout)
     LinearLayout indexTopLayout;
@@ -69,10 +73,12 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
      * 获取职位详细信息
      */
     private GetJobDetailPresenterImpl jobDetailPresenter;
+    private GetJobListPresenterImpl jobListPresenter;
 
     private List<CompanyInfo> companyInfoList;
 
     private static final int LOGIN_RESULT = 0;
+
     public IndexFragment() {
         super();
     }
@@ -99,6 +105,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
     public void initData() {
         hotRecommendPresenter = new GetHotRecommendPresenterImpl(mContext,this);
         jobDetailPresenter = new GetJobDetailPresenterImpl(mContext,this);
+        jobListPresenter = new GetJobListPresenterImpl(mContext,this);
         indexTopLayout.setVisibility(View.VISIBLE);
         commonTopLayout.setVisibility(View.GONE);
         //初始化XRecyclerView
@@ -235,22 +242,35 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
 
     @Override
     public void onClick(View v) {
+        String userId = SettingPrefUtils.getUid();
         switch (v.getId()) {
             case R.id.btn_all_job:                    //全部
-                UiUtils.showToast(mContext, "全部");
-                startActivity(new Intent(mContext,CareerOpportunitiesActivity.class));
+//                UiUtils.showToast(mContext, "全部");
+                if(null != userId && !"".equals(userId)) {
+                    jobListPresenter.getJobList("getJobList",JSON.toJSONString(new JobListReq(userId,0,"","")));
+                }
+
                 break;
 
             case R.id.btn_pt_job:                     //兼职
                 UiUtils.showToast(mContext, "兼职");
+                if(null != userId && !"".equals(userId)) {
+                    jobListPresenter.getJobList("getJobList",JSON.toJSONString(new JobListReq(userId,1,"","")));
+                }
                 break;
 
             case R.id.btn_fl_job:                      //全职
                 UiUtils.showToast(mContext, "全职");
+                if(null != userId && !"".equals(userId)) {
+                    jobListPresenter.getJobList("getJobList",JSON.toJSONString(new JobListReq(userId,2,"","")));
+                }
                 break;
 
             case R.id.btn_project:                    //项目
                 UiUtils.showToast(mContext, "项目");
+                if(null != userId && !"".equals(userId)) {
+                    jobListPresenter.getJobList("getJobList",JSON.toJSONString(new JobListReq(userId,3,"","")));
+                }
                 break;
         }
     }
@@ -268,6 +288,13 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
     @Override
     public void showError(String error) {
 
+    }
+
+    @Override
+    public void getJobListSuccess(List<CompanyInfo> jobList) {
+        Intent intent = new Intent(mContext,CareerOpportunitiesActivity.class);
+        intent.putExtra("jobList", (Serializable) jobList);
+        startActivity(intent);
     }
 
     @Override

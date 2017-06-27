@@ -37,4 +37,7 @@ public interface IndexApi {
      */
     @POST("Common.ashx")
     Call<BaseRes> getCompanyInfo(@QueryMap Map<String, String> params);
+
+    @POST("Common.ashx")
+    Call<BaseResArray> getJobList(@QueryMap Map<String,String> map);
 }
