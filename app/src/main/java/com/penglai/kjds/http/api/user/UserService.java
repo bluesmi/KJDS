@@ -353,4 +353,35 @@ public class UserService extends BaseService {
             }
         });
     }
+
+
+    public static void feedBack(String opSign, String strJson, final RequestCallback<BaseRes<String>> callback){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("data",strJson);
+        params.put("op",opSign);
+        Call<BaseRes> call = apiStr.modifyUserInfo(params);
+        call.enqueue(new Callback<BaseRes>() {
+            @Override
+            public void onResponse(Call<BaseRes> call, Response<BaseRes> response) {
+                //得到返回的数据
+                LogUtils.error("feedBack","is success  "+response.body());
+
+                if(null != response){
+                    BaseRes<String> feedBackRes = new BaseRes<String>();
+                    feedBackRes.setCode(response.body().getCode());
+                    feedBackRes.setMsg(response.body().getMsg());
+                    feedBackRes.setData((String) response.body().getData());
+                    callback.onSuccess(feedBackRes);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<BaseRes> call, Throwable t) {
+                t.printStackTrace();
+                LogUtils.error("feedBack","is error  "+t.getMessage());
+                callback.onFailure(t.getMessage());
+            }
+        });
+    }
 }

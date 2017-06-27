@@ -83,4 +83,12 @@ public interface BaseApi {
      */
     @POST("Common.ashx")
     Call<BaseResArray> getMessage(@QueryMap Map<String, String> params);
+
+    /**
+     * 意见反馈
+     * @param params
+     * @return
+     */
+    @GET("Common.ashx")
+    Call<BaseRes> feedBack(@QueryMap Map<String, String> params);
 }

@@ -79,7 +79,7 @@ public class SettingActivity extends BaseActivity implements SettingChargeView{
     }
 
     @OnClick({R.id.clear_cache_layout, R.id.update_version_layout,R.id.btn_user_logout,
-            R.id.feedback_layout, R.id.about_kjds_layout, R.id.modify_pwd_layout,R.id.btn_back})
+            R.id.feedback_layout, R.id.modify_pwd_layout,R.id.btn_back})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.clear_cache_layout:                          //清除缓存
@@ -93,9 +93,9 @@ public class SettingActivity extends BaseActivity implements SettingChargeView{
                 startActivity(new Intent(mContext,FeedBackActivity.class));
                 break;
 
-            case R.id.about_kjds_layout:                         //关于平台
-                startActivity(new Intent(mContext,AboutKJDSActivity.class));
-                break;
+//            case R.id.about_kjds_layout:                         //关于平台
+//                startActivity(new Intent(mContext,AboutKJDSActivity.class));
+//                break;
 
             case R.id.modify_pwd_layout:                      //修改密码
                 startActivity(new Intent(mContext,ModifyPwdActivity.class));
