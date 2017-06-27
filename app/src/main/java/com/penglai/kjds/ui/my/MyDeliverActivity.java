@@ -102,11 +102,29 @@ public class MyDeliverActivity extends BaseActivity implements GetDeliverListVie
         setEventLister();
     }
 
-    @OnClick({R.id.btn_back})
+    @OnClick({R.id.btn_back,R.id.btn_all,R.id.btn_success,R.id.btn_fail})
     public void  onClick(View v) {
+        String userId = SettingPrefUtils.getUid();
         switch (v.getId()) {
             case R.id.btn_back:
                 finish();
+                break;
+            case R.id.btn_all:
+
+                if(null != userId && !"".equals(userId)){
+                    deliverListPresenter.getDeliverList("getDeliverList",JSON.toJSONString(new DeliverInfoReq(userId,0)));
+                }
+                break;
+            case R.id.btn_success:
+
+                if(null != userId && !"".equals(userId)){
+                    deliverListPresenter.getDeliverList("getDeliverList",JSON.toJSONString(new DeliverInfoReq(userId,2)));
+                }
+                break;
+            case R.id.btn_fail:
+                if(null != userId && !"".equals(userId)){
+                    deliverListPresenter.getDeliverList("getDeliverList",JSON.toJSONString(new DeliverInfoReq(userId,1)));
+                }
                 break;
         }
     }
@@ -159,10 +177,10 @@ public class MyDeliverActivity extends BaseActivity implements GetDeliverListVie
     }
 
     private void refreshData() {
-        String userId = SettingPrefUtils.getUid();
-        if(null != userId && !"".equals(userId)){
-            deliverListPresenter.getDeliverList("getDeliverList",JSON.toJSONString(new DeliverInfoReq(userId,0)));
-        }
+//        String userId = SettingPrefUtils.getUid();
+//        if(null != userId && !"".equals(userId)){
+//            deliverListPresenter.getDeliverList("getDeliverList",JSON.toJSONString(new DeliverInfoReq(userId,0)));
+//        }
     }
 
     @Override
