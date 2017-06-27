@@ -27,6 +27,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="5dp"/>
             <EditText
+                android:id="@+id/et_key_value"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -40,6 +41,7 @@
                 />
         </LinearLayout>
      <TextView
+         android:id="@+id/btn_cancel"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:text="取消"

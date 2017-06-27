@@ -182,8 +182,6 @@ public class IndexService {
                     if (response.body().getData().isEmpty()) {
                         baseResArray.setData(new ArrayList<CompanyInfo>());
                     } else {
-//                        JSON.parseObject(js, new TypeReference<Result<User>>(){});
-//                        UserData userData = JSON.parseObject(response.body().getData(),new TypeReference<UserData>());
                         System.out.println(response.body().getData());
                         List<Map> list = response.body().getData();
                         baseResArray.setData(JSONUtil.getCompanyInfoList(list));
@@ -195,6 +193,45 @@ public class IndexService {
             @Override
             public void onFailure(Call<BaseResArray> call, Throwable t) {
                 LogUtils.error("getJobList","is error"+t.getMessage());
+                t.printStackTrace();
+//                Log.d("UserService", "onFailure: "+);
+                callback.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    public static void searchJobList(String opSign,String strJson, final RequestCallback<BaseResArray<CompanyInfo>> callback){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("op", opSign);
+//        strJson = "["+strJson+"]";
+        //转成Json字符串
+        params.put("data", strJson);
+        LogUtils.error("searchJobList","传入参数"+strJson);
+        Log.d(TAG, "searchJobList: "+params);
+        Call<BaseResArray> call = apiStr.getJobList(params);
+        call.enqueue(new Callback<BaseResArray>() {
+            @Override
+            public void onResponse(Call<BaseResArray> call, Response<BaseResArray> response) {
+                LogUtils.error("searchJobList", "is success  " + response.body());
+                if (null != response) {
+                    BaseResArray<CompanyInfo> baseResArray = new BaseResArray<CompanyInfo>();
+                    baseResArray.setCode(response.body().getCode());
+                    baseResArray.setMsg(response.body().getMsg());
+
+                    if (response.body().getData().isEmpty()) {
+                        baseResArray.setData(new ArrayList<CompanyInfo>());
+                    } else {
+                        System.out.println(response.body().getData());
+                        List<Map> list = response.body().getData();
+                        baseResArray.setData(JSONUtil.getCompanyInfoList(list));
+                    }
+                    callback.onSuccess(baseResArray);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResArray> call, Throwable t) {
+                LogUtils.error("searchJobList","is error"+t.getMessage());
                 t.printStackTrace();
 //                Log.d("UserService", "onFailure: "+);
                 callback.onFailure(t.getMessage());

@@ -38,6 +38,19 @@ public interface IndexApi {
     @POST("Common.ashx")
     Call<BaseRes> getCompanyInfo(@QueryMap Map<String, String> params);
 
+    /**
+     * 获取岗位列表
+     * @param map
+     * @return
+     */
     @POST("Common.ashx")
     Call<BaseResArray> getJobList(@QueryMap Map<String,String> map);
+
+    /**
+     * 搜索工作
+     * @param map
+     * @return
+     */
+    @POST("Common.ashx")
+    Call<BaseResArray> searchJobList(@QueryMap Map<String,String> map);
 }
