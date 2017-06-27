@@ -66,14 +66,14 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView,G
     TextView tvUsername;
     @BindView(R.id.tv_other_info)
     TextView tvOtherInfo;
-    @BindView(R.id.tv_integrity1)
-    TextView tvIntegrity1;
+//    @BindView(R.id.tv_integrity1)
+/*    TextView tvIntegrity1;
     @BindView(R.id.tv_integrity2)
     TextView tvIntegrity2;
     @BindView(R.id.tv_integrity3)
     TextView tvIntegrity3;
     @BindView(R.id.tv_integrity4)
-    TextView tvIntegrity4;
+    TextView tvIntegrity4;*/
     @BindView(R.id.index_top_layout)
     LinearLayout indexTopLayout;
     @BindView(R.id.tv_title)

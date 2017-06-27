@@ -3,6 +3,7 @@ package com.penglai.kjds.ui.base;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.penglai.kjds.ui.view.listener.OnItemClickListener;
 
@@ -24,6 +25,7 @@ public abstract  class BaseAdapter<V> extends RecyclerView.Adapter<RecyclerView.
      * 通过回调分发点击事件
      */
     private OnItemClickListener<V> mOnItemClickListener;
+
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

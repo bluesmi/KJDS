@@ -2,6 +2,8 @@ package com.penglai.kjds.ui.holder;
 
 import android.content.Context;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.penglai.kjds.R;
@@ -26,6 +28,8 @@ public class ResumeEduBgViewHolder extends BaseViewHolder<EduBgInfo> {
     TextView tvEnterSchoolData;
     @BindView(R.id.tv_finish_school_date)
     TextView tvFinishSchoolData;
+    @BindView(R.id.edu_layout)
+    LinearLayout eduLayout;
 
     public ResumeEduBgViewHolder(Context context, ViewGroup root) {
         super(context, root, R.layout.list_item_resume_edu_bg);
@@ -44,6 +48,7 @@ public class ResumeEduBgViewHolder extends BaseViewHolder<EduBgInfo> {
         if(null != endTime && !"".equals(endTime)){
             tvFinishSchoolData.setText(endTime.substring(0,10));
         }
+
 
     }
 

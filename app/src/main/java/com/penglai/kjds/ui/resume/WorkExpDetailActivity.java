@@ -52,7 +52,10 @@ public class WorkExpDetailActivity extends BaseActivity implements ModifyWorkExp
     TextView tvEndTime;
     @BindView(R.id.et_content)
     EditText etContent;
-
+    @BindColor(R.color.blue_top_bg)
+    int topBackgroundColor;
+    @BindColor(R.color.white)
+    int topColor;
     @BindString(R.string.work_experience)
     String title;
     @BindColor(R.color.common_light_gray_txt)
@@ -86,9 +89,11 @@ public class WorkExpDetailActivity extends BaseActivity implements ModifyWorkExp
         btnBase.setVisibility(View.VISIBLE);
         btnBase.setTextColor(txtColor);
         tvTitle.setText(title);
-        tvStartTime.setTextColor(txtColor);
-        tvEndTime.setTextColor(txtColor);
+        tvStartTime.setTextColor(topBackgroundColor);
+        tvEndTime.setTextColor(topBackgroundColor);
         btnBase.setText(save);
+        commonTopLayout.setBackgroundColor(topBackgroundColor);
+        btnBase.setTextColor(topColor);
         Intent intent = getIntent();
         workExpInfoReq = (WorkExpInfoReq) intent.getSerializableExtra("workExpInfoReq");
         if(null != workExpInfoReq){

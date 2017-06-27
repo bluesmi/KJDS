@@ -12,6 +12,7 @@ import com.penglai.kjds.R;
 import com.penglai.kjds.model.index.Company;
 import com.penglai.kjds.ui.base.BaseActivity;
 
+import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,6 +57,10 @@ public class CompanyInfoActivity extends BaseActivity {
     TextView tvMore;*/
     @BindView(R.id.tv_company_desc)
     TextView tvCompanyDesc;
+    @BindColor(R.color.blue_top_bg)
+    int topBackgroundColor;
+    @BindColor(R.color.white)
+    int topColor;
 
     @Override
     protected View getContentView() {
@@ -73,6 +78,8 @@ public class CompanyInfoActivity extends BaseActivity {
         indexTopLayout.setVisibility(View.GONE);
         commonTopLayout.setVisibility(View.VISIBLE);
         tvTitle.setText(companyInfo);
+        commonTopLayout.setBackgroundColor(topBackgroundColor);
+        tvTitle.setTextColor(topColor);
         Intent intent = getIntent();
         Company company = (Company) intent.getSerializableExtra("company");
         if(null != company) {

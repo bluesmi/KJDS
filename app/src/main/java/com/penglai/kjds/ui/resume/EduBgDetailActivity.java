@@ -63,7 +63,7 @@ public class EduBgDetailActivity extends BaseActivity implements ModifyEduBgInfo
     @BindColor(R.color.white)
     int topColor;
 
-    @BindString(R.string.work_experience)
+    @BindString(R.string.edu_info)
     String title;
     @BindColor(R.color.common_light_gray_txt)
     int txtColor;

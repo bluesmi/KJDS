@@ -2,11 +2,15 @@ package com.penglai.kjds.ui.resume;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -165,7 +169,9 @@ public class EduBgActivity extends BaseActivity implements GetEduBgListView{
                 intent.putExtra("eduBgInfo",itemValue);
                 startActivityForResult(intent,EDU_BG_DETAIL_INFO);
             }
+
         });
+
     }
 
     private void refreshData() {

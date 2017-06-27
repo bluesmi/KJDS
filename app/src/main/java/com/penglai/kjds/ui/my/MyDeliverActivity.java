@@ -13,12 +13,17 @@ import com.alibaba.fastjson.JSON;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.penglai.kjds.R;
+import com.penglai.kjds.model.index.JobDetail;
+import com.penglai.kjds.model.index.JobInfoReq;
 import com.penglai.kjds.model.user.DeliverInfo;
 import com.penglai.kjds.model.user.DeliverInfoReq;
 import com.penglai.kjds.presenter.impl.GetDeliverListPresenterImpl;
+import com.penglai.kjds.presenter.impl.GetJobDetailPresenterImpl;
 import com.penglai.kjds.presenter.implView.GetDeliverListView;
+import com.penglai.kjds.presenter.implView.GetJobDetailView;
 import com.penglai.kjds.ui.adapter.ResumePostAdapter;
 import com.penglai.kjds.ui.base.BaseActivity;
+import com.penglai.kjds.ui.index.JobDetailActivity;
 import com.penglai.kjds.ui.view.listener.OnItemClickListener;
 import com.penglai.kjds.utils.SettingPrefUtils;
 
@@ -38,7 +43,7 @@ import butterknife.OnClick;
  *  * 邮箱：gongzhiqing@xiyundata.com
  *  
  */
-public class MyDeliverActivity extends BaseActivity implements GetDeliverListView{
+public class MyDeliverActivity extends BaseActivity implements GetDeliverListView,GetJobDetailView{
 
     @BindView(R.id.index_top_layout)
     LinearLayout indexTopLayout;
@@ -58,7 +63,7 @@ public class MyDeliverActivity extends BaseActivity implements GetDeliverListVie
     private ResumePostAdapter adapter;
     private List<DeliverInfo> deliverInfoList;
     private GetDeliverListPresenterImpl deliverListPresenter;
-
+    private GetJobDetailPresenterImpl jobDetailPresenter;
     @Override
     protected View getContentView() {
         return inflateView(R.layout.activity_my_deliver);
@@ -75,6 +80,7 @@ public class MyDeliverActivity extends BaseActivity implements GetDeliverListVie
         //初始化XRecyclerView
         initXRecyclerView();
         deliverListPresenter = new GetDeliverListPresenterImpl(mContext,this);
+        jobDetailPresenter = new GetJobDetailPresenterImpl(mContext,this);
        //初始化标题栏布局
         indexTopLayout.setVisibility(View.GONE);
         commonTopLayout.setVisibility(View.VISIBLE);
@@ -147,7 +153,7 @@ public class MyDeliverActivity extends BaseActivity implements GetDeliverListVie
         adapter.setOnClickListener(new OnItemClickListener<DeliverInfo>() {
             @Override
             public void onItemClick(DeliverInfo itemValue, int viewID, int position) {
-
+                jobDetailPresenter.getJobDetail("getJobDetail",JSON.toJSONString(new JobInfoReq(itemValue.getiD())));
             }
         });
     }
@@ -162,6 +168,14 @@ public class MyDeliverActivity extends BaseActivity implements GetDeliverListVie
     @Override
     public void showError(String message) {
 
+    }
+
+    @Override
+    public void getJobDetailSuccess(JobDetail jobDetail) {
+        Intent intent = new Intent(mContext, JobDetailActivity.class);
+        intent.putExtra("jobDetail",jobDetail);
+        //跳转至职位/岗位详情
+        startActivity(intent);
     }
 
     @Override

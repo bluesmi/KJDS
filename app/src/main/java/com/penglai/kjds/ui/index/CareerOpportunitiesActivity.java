@@ -1,5 +1,6 @@
 package com.penglai.kjds.ui.index;
 
+import android.content.Intent;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -142,14 +143,10 @@ public class CareerOpportunitiesActivity extends BaseActivity implements GetJobD
     }
 
     private void refreshData(){
-        String userId = SettingPrefUtils.getUid();
-        if(null != userId && !"".equals(userId)) {
-            jobListPresenter.getJobList("getJobList",JSON.toJSONString(new JobListReq(userId,0,"","")));
-        }else {
-//            hotRecommendPresenter.getHotRecommend("getHotRecommend", JSON.toJSONString(new CompanyInfoReq("",0,0)));
-        }
-        //设置数据
-//        adapter.refreshData(companyInfoList);
+        Intent intent = getIntent();
+        List<CompanyInfo> companyInfoList = (List<CompanyInfo>) intent.getSerializableExtra("jobList");
+        if(null != companyInfoList)
+        adapter.refreshData(companyInfoList);
     }
 
     @OnClick({R.id.btn_back})
