@@ -32,7 +32,8 @@ public class WorkExpInfoViewHolder extends BaseViewHolder<WorkExpInfoReq> {
     String alreadyVerify;
     @BindView(R.id.btn_enter_detail)
     RelativeLayout enterDetailLayout;
-
+    @BindView(R.id.btn_delete)
+    TextView btnDelete;
     public WorkExpInfoViewHolder(Context context, ViewGroup root) {
         super(context, root, R.layout.list_item_work_exp_info);
     }
@@ -44,6 +45,15 @@ public class WorkExpInfoViewHolder extends BaseViewHolder<WorkExpInfoReq> {
         tvTime.setText(itemValue.getStartTime().substring(0,7)+"--"+itemValue.getEndTime().substring(0,7));
         //点击item事件
         enterDetailLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener == null) {
+                    return;
+                }
+                listener.onItemClick(itemValue, v.getId(), position);
+            }
+        });
+        btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (listener == null) {

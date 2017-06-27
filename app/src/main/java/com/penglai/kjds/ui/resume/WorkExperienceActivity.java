@@ -12,9 +12,13 @@ import com.alibaba.fastjson.JSON;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.penglai.kjds.R;
+import com.penglai.kjds.model.resume.DelEduBgReq;
+import com.penglai.kjds.model.resume.DelWorkExpReq;
 import com.penglai.kjds.model.resume.WorkExpInfoReq;
 import com.penglai.kjds.model.user.UserInfoReq;
+import com.penglai.kjds.presenter.impl.DelWorkExpPresenterImpl;
 import com.penglai.kjds.presenter.impl.GetWorkExpListPresenterImpl;
+import com.penglai.kjds.presenter.implView.DelWorkExpView;
 import com.penglai.kjds.presenter.implView.GetWorkExpListView;
 import com.penglai.kjds.ui.adapter.WorkExpInfoAdapter;
 import com.penglai.kjds.ui.base.BaseActivity;
@@ -36,7 +40,7 @@ import butterknife.OnClick;
  *  * 邮箱：gongzhiqing@xiyundata.com
  *  
  */
-public class WorkExperienceActivity extends BaseActivity implements GetWorkExpListView{
+public class WorkExperienceActivity extends BaseActivity implements GetWorkExpListView,DelWorkExpView{
 
     private static final int WORK_EXP_INFO = 0;
     private static final int MOFIFY_WORK_EXP_INFO = 1;
@@ -73,6 +77,8 @@ public class WorkExperienceActivity extends BaseActivity implements GetWorkExpLi
     private WorkExpInfoAdapter adapter;
 
     private GetWorkExpListPresenterImpl workExpListPresenter;
+    private DelWorkExpPresenterImpl delWorkExpresenter;
+    private int myPosition;
 
     @Override
     protected View getContentView() {
@@ -90,7 +96,7 @@ public class WorkExperienceActivity extends BaseActivity implements GetWorkExpLi
         initXRecyclerView();
 
         workExpListPresenter = new GetWorkExpListPresenterImpl(mContext,this);
-
+        delWorkExpresenter = new DelWorkExpPresenterImpl(mContext,this);
         //初始化标题栏布局
         indexTopLayout.setVisibility(View.GONE);
         commonTopLayout.setVisibility(View.VISIBLE);
@@ -175,10 +181,20 @@ public class WorkExperienceActivity extends BaseActivity implements GetWorkExpLi
         adapter.setOnClickListener(new OnItemClickListener<WorkExpInfoReq>() {
             @Override
             public void onItemClick(WorkExpInfoReq itemValue, int viewID, int position) {
-                //跳转至工作经历详情
-                Intent intent = new Intent(mContext, WorkExpDetailActivity.class);
-                intent.putExtra("workExpInfoReq",itemValue);
-                startActivityForResult(intent,WORK_EXP_INFO);
+
+
+                myPosition = position;
+                switch (viewID){
+                    case R.id.btn_enter_detail:
+                        //跳转至工作经历详情
+                        Intent intent = new Intent(mContext, WorkExpDetailActivity.class);
+                        intent.putExtra("workExpInfoReq",itemValue);
+                        startActivityForResult(intent,WORK_EXP_INFO);
+                        break;
+                    case R.id.btn_delete:
+                        delWorkExpresenter.delWorkExpInfo("delWorkExpInfo",JSON.toJSONString(new DelWorkExpReq(itemValue.getId())));
+                        break;
+                }
             }
         });
     }
@@ -196,6 +212,13 @@ public class WorkExperienceActivity extends BaseActivity implements GetWorkExpLi
     @Override
     public void showError(String error) {
 
+    }
+
+    @Override
+    public void delWorkExpSuccess() {
+        workExpInfoReqList.remove(myPosition);
+        //设置数据
+        adapter.refreshData(workExpInfoReqList);
     }
 
     @Override
