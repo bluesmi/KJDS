@@ -112,4 +112,11 @@ public interface ResumeApi {
     @POST("Common.ashx")
     Call<BaseRes> jobFavorite(@QueryMap Map<String,String> params);
 
+    /**
+     * 预览简历
+     * @param params
+     * @return
+     */
+    @POST("Common.ashx")
+    Call<BaseRes> getResumeInfo(@QueryMap Map<String,String> params);
 }

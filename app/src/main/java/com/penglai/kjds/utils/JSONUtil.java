@@ -3,9 +3,11 @@ package com.penglai.kjds.utils;
 import com.penglai.kjds.model.index.Company;
 import com.penglai.kjds.model.index.CompanyInfo;
 import com.penglai.kjds.model.index.JobDetail;
+import com.penglai.kjds.model.resume.Assess;
 import com.penglai.kjds.model.resume.AssessInfoRes;
 import com.penglai.kjds.model.resume.EduBgInfo;
 import com.penglai.kjds.model.resume.PersionInfo;
+import com.penglai.kjds.model.resume.ResumeRes;
 import com.penglai.kjds.model.resume.WorkExpInfoReq;
 import com.penglai.kjds.model.user.CollectInfo;
 import com.penglai.kjds.model.user.DeliverInfo;
@@ -246,4 +248,37 @@ public class JSONUtil {
                 eduRequire,  workExperience,  salary,  address,  startTime,  endTime,  state);
         return collectInfo;
     }
+
+    private static Assess getAsses(Map map) {
+        String content = (String) map.get("content");
+        Assess assess = new Assess(content);
+        return assess;
+    }
+
+    public static ResumeRes getPreResumeInfo(Map data) {
+        ResumeRes resumeRes = new ResumeRes();
+        if(null == data.get("persion")){
+            resumeRes.setPersion(null);
+        }else {
+            resumeRes.setPersion(getPersionInfo((Map) data.get("persion")));
+        }
+        if(null == data.get("eduBg")){
+            resumeRes.setEduBgInfoList(null);
+        }else {
+            resumeRes.setEduBgInfoList(getEduBgInfoList((List<Map>) data.get("eduBg")));
+        }
+        if(null == data.get("workExp")){
+            resumeRes.setWorkExp(null);
+        }else {
+            resumeRes.setWorkExp(getWorkExpInfoList((List<Map>) data.get("workExp")));
+        }
+        if(null == data.get("assess")){
+            resumeRes.setAssess(null);
+        }else {
+            resumeRes.setAssess(getAsses((Map)data.get("assess")));
+        }
+        return resumeRes;
+    }
+
+
 }

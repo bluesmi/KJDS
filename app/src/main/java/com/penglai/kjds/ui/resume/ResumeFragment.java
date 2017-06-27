@@ -13,15 +13,18 @@ import com.penglai.kjds.R;
 import com.penglai.kjds.model.resume.AssessInfoRes;
 import com.penglai.kjds.model.resume.EduBgInfo;
 import com.penglai.kjds.model.resume.PersionInfo;
+import com.penglai.kjds.model.resume.ResumeRes;
 import com.penglai.kjds.model.resume.WorkExpInfoReq;
 import com.penglai.kjds.model.user.UserInfoReq;
 import com.penglai.kjds.presenter.impl.GetAssessInfoPresenterImpl;
 import com.penglai.kjds.presenter.impl.GetEduBgListPresenterImpl;
 import com.penglai.kjds.presenter.impl.GetPersionInfoPresenter;
+import com.penglai.kjds.presenter.impl.GetResumeInfoPresenterImpl;
 import com.penglai.kjds.presenter.impl.GetWorkExpListPresenterImpl;
 import com.penglai.kjds.presenter.implView.GetAssessInfoView;
 import com.penglai.kjds.presenter.implView.GetEduBgListView;
 import com.penglai.kjds.presenter.implView.GetPersionInfoView;
+import com.penglai.kjds.presenter.implView.GetResumeInfoView;
 import com.penglai.kjds.presenter.implView.GetWorkExpListView;
 import com.penglai.kjds.ui.base.BaseFragment;
 import com.penglai.kjds.ui.view.widget.CircleImageView;
@@ -46,13 +49,14 @@ import static android.app.Activity.RESULT_OK;
  *  * 邮箱：gongzhiqing@xiyundata.com
  *  
  */
-public class ResumeFragment extends BaseFragment implements GetPersionInfoView,GetEduBgListView,GetAssessInfoView,GetWorkExpListView{
+public class ResumeFragment extends BaseFragment implements GetPersionInfoView,GetEduBgListView,GetAssessInfoView,GetWorkExpListView,GetResumeInfoView{
 
     public final static String TAG = ResumeFragment.class.getSimpleName();
     private static final int MOFIFY_PERSION_INFO = 0;
     private static final int GET_EDU_BG_LIST = 1;
     private static final int GET_ASSESS_INFO = 2;
     private static final int WORK_EXP_INFO_LIST = 3;
+    private static final int LOOK_RESUME = 4;
     private static ResumeFragment instance;
     private View contentView;
 
@@ -99,8 +103,15 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView,G
      * 获取自我评价
      */
     private GetAssessInfoPresenterImpl assessInfoPresenter;
-
+    /**
+     * 获取工作经历
+     */
     private GetWorkExpListPresenterImpl workExpInfoListPresenter;
+
+    /**
+     * 获取简历信息
+     */
+    private GetResumeInfoPresenterImpl resumeInfoPresenter;
 
     /**
      * 基本信息
@@ -116,6 +127,7 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView,G
      * 工作经历
      */
     private List<WorkExpInfoReq> workExpInfoReqList;
+    private ResumeRes resumeRes;
 
     public ResumeFragment() {
         super();
@@ -145,6 +157,9 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView,G
         eduBgListPresenter = new GetEduBgListPresenterImpl(mContext,this);
         assessInfoPresenter = new GetAssessInfoPresenterImpl(mContext,this);
         workExpInfoListPresenter = new GetWorkExpListPresenterImpl(mContext,this);
+        resumeInfoPresenter = new GetResumeInfoPresenterImpl(mContext,this);
+
+
         indexTopLayout.setVisibility(View.GONE);
         commonTopLayout.setVisibility(View.VISIBLE);
         commonTopLayout.setBackgroundColor(topBg);
@@ -159,6 +174,7 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView,G
             eduBgListPresenter.getEduBgList("getEduBgList",strJson);
             assessInfoPresenter.getAssessInfo("getAssessInfo",strJson);
             workExpInfoListPresenter.getWorkExpList("getWorkExpList",strJson);
+            resumeInfoPresenter.getResumeInfo("getResumeInfo",strJson);
         }
     }
 
@@ -175,12 +191,19 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView,G
                     eduBgListPresenter.getEduBgList("getEduBgList",strJson);
                     assessInfoPresenter.getAssessInfo("getAssessInfo",strJson);
                     workExpInfoListPresenter.getWorkExpList("getWorkExpList",strJson);
+                    resumeInfoPresenter.getResumeInfo("getResumeInfo",strJson);
                 }
                 UiUtils.showToast(mContext,"刷新成功");
                 break;
 
             case R.id.btn_preview_resume:                                //预览简历
-                startActivity(new Intent(mContext,PreviewResumeActivity.class));
+                if (null != resumeRes.getPersion()) {
+                    Intent resumeIntent = new Intent(mContext, PreviewResumeActivity.class);
+                    resumeIntent.putExtra("resumeRes", resumeRes);
+                    startActivityForResult(resumeIntent, LOOK_RESUME);
+                }else {
+                    UiUtils.showToast(mContext,"请先完善您的简历");
+                }
                 break;
 
             case R.id.btn_base_info:                                             //基本信息
@@ -224,6 +247,11 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView,G
     @Override
     public void showError(String error) {
 
+    }
+
+    @Override
+    public void getResumeInfoSuccess(ResumeRes resumeRes) {
+        this.resumeRes = resumeRes;
     }
 
     @Override
@@ -296,6 +324,14 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView,G
                     String userId = SettingPrefUtils.getUid();
                     if (null != userId && !"".equals(userId)) {
                         workExpInfoListPresenter.getWorkExpList("getWorkExpList",JSON.toJSONString(new UserInfoReq(userId)));
+                    }
+                }
+                break;
+            case LOOK_RESUME:
+                if (resultCode == RESULT_OK) {
+                    String userId = SettingPrefUtils.getUid();
+                    if (null != userId && !"".equals(userId)) {
+                        resumeInfoPresenter.getResumeInfo("getResumeInfo",JSON.toJSONString(new UserInfoReq(userId)));
                     }
                 }
                 break;

@@ -9,6 +9,7 @@ import com.penglai.kjds.model.BaseResArray;
 import com.penglai.kjds.model.resume.AssessInfoRes;
 import com.penglai.kjds.model.resume.EduBgInfo;
 import com.penglai.kjds.model.resume.PersionInfoRes;
+import com.penglai.kjds.model.resume.ResumeRes;
 import com.penglai.kjds.model.resume.WorkExpInfoReq;
 import com.penglai.kjds.utils.JSONUtil;
 import com.penglai.kjds.utils.LogUtils;
@@ -395,6 +396,37 @@ public class ResumeService {
             @Override
             public void onFailure(Call<BaseRes> call, Throwable t) {
                 LogUtils.error("JobFavorite","is error"+t.getMessage());
+                t.printStackTrace();
+//                Log.d("UserService", "onFailure: "+);
+                callback.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    public static void getResumeInfo(String opSign,String strJson, final RequestCallback<BaseRes<ResumeRes>> callback){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("op", opSign);
+        //转成Json字符串
+        params.put("data", strJson);
+        LogUtils.error("getResumeInfo","传入参数"+strJson);
+        Log.d("ResumeService", "getResumeInfo: "+params);
+        Call<BaseRes> call = apiStr.getResumeInfo(params);
+        call.enqueue(new Callback<BaseRes>() {
+            @Override
+            public void onResponse(Call<BaseRes> call, Response<BaseRes> response) {
+                if (null != response) {
+                    BaseRes<ResumeRes> resumeResBaseRes = new BaseRes<ResumeRes>();
+                    resumeResBaseRes.setCode(response.body().getCode());
+                    resumeResBaseRes.setMsg(response.body().getMsg());
+                    System.out.println(response.body().getData());
+                    resumeResBaseRes.setData(JSONUtil.getPreResumeInfo((Map)response.body().getData()));
+                    callback.onSuccess(resumeResBaseRes);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseRes> call, Throwable t) {
+                LogUtils.error("getResumeInfo","is error"+t.getMessage());
                 t.printStackTrace();
 //                Log.d("UserService", "onFailure: "+);
                 callback.onFailure(t.getMessage());
