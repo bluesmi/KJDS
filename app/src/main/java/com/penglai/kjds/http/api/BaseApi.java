@@ -68,8 +68,19 @@ public interface BaseApi {
     @POST("Common.ashx")
     Call<BaseResArray> getDeliverList(@QueryMap Map<String, String> params);
 
-
+    /**
+     * 获取我的收藏
+     * @param params
+     * @return
+     */
     @POST("Common.ashx")
     Call<BaseResArray> getFavoriteList(@QueryMap Map<String, String> params);
 
+    /**
+     * 获取我的消息
+     * @param params
+     * @return
+     */
+    @POST("Common.ashx")
+    Call<BaseResArray> getMessage(@QueryMap Map<String, String> params);
 }

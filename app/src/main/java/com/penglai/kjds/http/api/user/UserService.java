@@ -12,6 +12,7 @@ import com.penglai.kjds.model.user.CollectInfo;
 import com.penglai.kjds.model.user.DeliverInfo;
 import com.penglai.kjds.model.user.EmptyEntity;
 import com.penglai.kjds.model.user.LoginRes;
+import com.penglai.kjds.model.user.MyMessage;
 import com.penglai.kjds.model.user.UserImagePath;
 import com.penglai.kjds.model.user.UserInfoRes;
 import com.penglai.kjds.utils.JSONUtil;
@@ -312,6 +313,42 @@ public class UserService extends BaseService {
             public void onFailure(Call<BaseResArray> call, Throwable t) {
                 t.printStackTrace();
                 LogUtils.error("getFavoriteList","is error  "+t.getMessage());
+                callback.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    public static void getMessage(String opSign, String strJson, final RequestCallback<BaseResArray<MyMessage>> callback){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("op",opSign);
+        params.put("data",strJson);
+        Call<BaseResArray> call = apiStr.getMessage(params);
+        call.enqueue(new Callback<BaseResArray>() {
+            @Override
+            public void onResponse(Call<BaseResArray> call, Response<BaseResArray> response) {
+                LogUtils.error("getFavoriteList", "is success  " + response.body());
+                if (null != response) {
+                    BaseResArray<MyMessage> myMessageBaseResArray = new BaseResArray<MyMessage>();
+                    myMessageBaseResArray.setCode(response.body().getCode());
+                    myMessageBaseResArray.setMsg(response.body().getMsg());
+
+                    if (response.body().getData().isEmpty()) {
+                        myMessageBaseResArray.setData(new ArrayList<MyMessage>());
+                    } else {
+//                        JSON.parseObject(js, new TypeReference<Result<User>>(){});
+//                        UserData userData = JSON.parseObject(response.body().getData(),new TypeReference<UserData>());
+                        System.out.println(response.body().getData());
+                        List<Map> messageInfoList =  response.body().getData();
+                        myMessageBaseResArray.setData(JSONUtil.getMessagenfoList(messageInfoList));
+                    }
+                    callback.onSuccess(myMessageBaseResArray);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResArray> call, Throwable t) {
+                t.printStackTrace();
+                LogUtils.error("getMessage","is error  "+t.getMessage());
                 callback.onFailure(t.getMessage());
             }
         });

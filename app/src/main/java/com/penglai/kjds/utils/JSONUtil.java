@@ -1,5 +1,7 @@
 package com.penglai.kjds.utils;
 
+import android.os.Message;
+
 import com.penglai.kjds.model.index.Company;
 import com.penglai.kjds.model.index.CompanyInfo;
 import com.penglai.kjds.model.index.JobDetail;
@@ -11,6 +13,7 @@ import com.penglai.kjds.model.resume.ResumeRes;
 import com.penglai.kjds.model.resume.WorkExpInfoReq;
 import com.penglai.kjds.model.user.CollectInfo;
 import com.penglai.kjds.model.user.DeliverInfo;
+import com.penglai.kjds.model.user.MyMessage;
 import com.penglai.kjds.model.user.UserData;
 import com.penglai.kjds.model.user.UserImagePath;
 import com.penglai.kjds.model.user.UserInfo;
@@ -281,4 +284,23 @@ public class JSONUtil {
     }
 
 
+    public static List<MyMessage> getMessagenfoList(List<Map> messageInfoList) {
+        List<MyMessage> messageList = new ArrayList<MyMessage>();
+        for (Map map:messageInfoList) {
+            messageList.add(getMessageInfo(map));
+        }
+
+        return messageList;
+    }
+
+    public static MyMessage getMessageInfo(Map map) {
+         String iD = (String) map.get("iD");
+         String userName = (String) map.get("userName");
+         String messageType = (String) map.get("messageType");
+         String title = (String) map.get("title");
+         String content = (String) map.get("content");
+         String sendTime = (String) map.get("sendTime");
+         MyMessage message = new MyMessage( iD,  userName,  messageType,  title,  content,  sendTime);
+         return message;
+    }
 }

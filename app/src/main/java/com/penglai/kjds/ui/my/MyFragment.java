@@ -10,13 +10,16 @@ import com.penglai.kjds.R;
 import com.penglai.kjds.model.user.CollectInfo;
 import com.penglai.kjds.model.user.DeliverInfo;
 import com.penglai.kjds.model.user.DeliverInfoReq;
+import com.penglai.kjds.model.user.MyMessage;
 import com.penglai.kjds.model.user.UserInfo;
 import com.penglai.kjds.model.user.UserInfoReq;
 import com.penglai.kjds.presenter.impl.GetDeliverListPresenterImpl;
 import com.penglai.kjds.presenter.impl.GetFavoriteListPresenterImpl;
+import com.penglai.kjds.presenter.impl.GetMyMessagePresenterImpl;
 import com.penglai.kjds.presenter.impl.GetUserInfoPresenterImpl;
 import com.penglai.kjds.presenter.implView.GetDeliverListView;
 import com.penglai.kjds.presenter.implView.GetFavoriteListView;
+import com.penglai.kjds.presenter.implView.GetMyMessageView;
 import com.penglai.kjds.presenter.implView.GetUserInfoView;
 import com.penglai.kjds.ui.base.BaseFragment;
 import com.penglai.kjds.ui.view.widget.CircleImageView;
@@ -38,7 +41,7 @@ import static android.app.Activity.RESULT_OK;
  *  * 邮箱：gongzhiqing@xiyundata.com
  *  
  */
-public class MyFragment extends BaseFragment implements GetUserInfoView,GetDeliverListView,GetFavoriteListView {
+public class MyFragment extends BaseFragment implements GetUserInfoView,GetDeliverListView,GetFavoriteListView,GetMyMessageView {
 
     public final static  String TAG = MyFragment.class.getSimpleName();
     private static final int MODIFY_USER_INFO = 0 ;
@@ -54,6 +57,7 @@ public class MyFragment extends BaseFragment implements GetUserInfoView,GetDeliv
     private GetUserInfoPresenterImpl presenter;
     private GetDeliverListPresenterImpl deliverListPresenter;
     private GetFavoriteListPresenterImpl favoriteListPresenter;
+    private GetMyMessagePresenterImpl myMessagePresenter;
 
     private UserInfo userInfo;
     private List<DeliverInfo> deliverInfoList;
@@ -87,6 +91,7 @@ public class MyFragment extends BaseFragment implements GetUserInfoView,GetDeliv
         presenter = new GetUserInfoPresenterImpl(mContext,this);
         deliverListPresenter = new GetDeliverListPresenterImpl(mContext,this);
         favoriteListPresenter = new GetFavoriteListPresenterImpl(mContext,this);
+        myMessagePresenter = new GetMyMessagePresenterImpl(mContext,this);
         String userId = SettingPrefUtils.getUid();
         if(null != userId && !"".equals(userId)){
             presenter.getUserInfo("getUserInfo", JSON.toJSONString(new UserInfoReq(userId)));
@@ -119,7 +124,10 @@ public class MyFragment extends BaseFragment implements GetUserInfoView,GetDeliv
                 break;
 
             case R.id.my_msg_layout:                //我的消息
-                startActivity(new Intent(mContext,MyMsgActivity.class));
+                String userId = SettingPrefUtils.getUid();
+                if(null != userId && !"".equals(userId)){
+                    myMessagePresenter.getMessage("getMessage",JSON.toJSONString(new UserInfoReq(userId)));
+                }
                 break;
 
             case R.id.my_settting_layout:           //设置
@@ -147,6 +155,13 @@ public class MyFragment extends BaseFragment implements GetUserInfoView,GetDeliv
     @Override
     public void showError(String error) {
 
+    }
+
+    @Override
+    public void getMyMessageSuccess(List<MyMessage> myMessageList) {
+        Intent intent = new Intent(mContext,MyMsgActivity.class);
+        intent.putExtra("myMessageList", (Serializable) myMessageList);
+        startActivity(intent);
     }
 
     @Override
