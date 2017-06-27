@@ -214,6 +214,7 @@ public class PreviewResumeActivity extends BaseActivity {
             case R.id.btn_back:
                 Intent intent = new Intent(mContext,ResumeFragment.class);
                 setResult(RESULT_OK,intent);
+                finish();
                 break;
         }
     }
