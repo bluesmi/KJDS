@@ -27,6 +27,8 @@ public class EduBgViewHolder extends BaseViewHolder<EduBgInfo> {
     TextView tvOtherInfo;
     @BindView(R.id.btn_enter_detail)
     RelativeLayout enterDetailLayout;
+    @BindView(R.id.btn_delete)
+    TextView btnDelete;
 
     private Context mContext;
     public EduBgViewHolder(Context context, ViewGroup root) {
@@ -55,5 +57,16 @@ public class EduBgViewHolder extends BaseViewHolder<EduBgInfo> {
                 listener.onItemClick(itemValue, v.getId(), position);
             }
         });
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener == null) {
+                    return;
+                }
+                listener.onItemClick(itemValue, v.getId(), position);
+            }
+        });
+
     }
+
 }

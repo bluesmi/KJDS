@@ -19,9 +19,12 @@ import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.penglai.kjds.R;
 import com.penglai.kjds.model.index.CompanyInfo;
+import com.penglai.kjds.model.resume.DelEduBgReq;
 import com.penglai.kjds.model.resume.EduBgInfo;
 import com.penglai.kjds.model.user.UserInfoReq;
+import com.penglai.kjds.presenter.impl.DelEdubgInfoPresenterImpl;
 import com.penglai.kjds.presenter.impl.GetEduBgListPresenterImpl;
+import com.penglai.kjds.presenter.implView.DelEduInfoView;
 import com.penglai.kjds.presenter.implView.GetEduBgListView;
 import com.penglai.kjds.ui.adapter.EduBgAdapter;
 import com.penglai.kjds.ui.base.BaseActivity;
@@ -44,7 +47,7 @@ import butterknife.OnClick;
  *  * 邮箱：gongzhiqing@xiyundata.com
  *  
  */
-public class EduBgActivity extends BaseActivity implements GetEduBgListView{
+public class EduBgActivity extends BaseActivity implements GetEduBgListView,DelEduInfoView{
 
     private static final int EDU_BG_DETAIL_INFO = 0 ;
     @BindView(R.id.index_top_layout)
@@ -81,6 +84,9 @@ public class EduBgActivity extends BaseActivity implements GetEduBgListView{
     private EduBgAdapter adapter;
 
     private GetEduBgListPresenterImpl eduBgListPresenter;
+    private DelEdubgInfoPresenterImpl delEdubgInfoPresenter;
+
+    private int myPosition;
 
     @Override
     protected View getContentView() {
@@ -99,6 +105,7 @@ public class EduBgActivity extends BaseActivity implements GetEduBgListView{
         initXRecyclerView();
 
         eduBgListPresenter = new GetEduBgListPresenterImpl(mContext,this);
+        delEdubgInfoPresenter = new DelEdubgInfoPresenterImpl(mContext,this);
        //初始化标题栏布局
         indexTopLayout.setVisibility(View.GONE);
         commonTopLayout.setVisibility(View.VISIBLE);
@@ -164,10 +171,19 @@ public class EduBgActivity extends BaseActivity implements GetEduBgListView{
         adapter.setOnClickListener(new OnItemClickListener<EduBgInfo>() {
             @Override
             public void onItemClick(EduBgInfo itemValue, int viewID, int position) {
-                //跳转至教育背景详情
-                Intent intent = new Intent(mContext, EduBgDetailActivity.class);
-                intent.putExtra("eduBgInfo",itemValue);
-                startActivityForResult(intent,EDU_BG_DETAIL_INFO);
+                myPosition = position;
+                switch (viewID){
+                    case R.id.btn_enter_detail:
+                        //跳转至教育背景详情
+                        Intent intent = new Intent(mContext, EduBgDetailActivity.class);
+                        intent.putExtra("eduBgInfo",itemValue);
+                        startActivityForResult(intent,EDU_BG_DETAIL_INFO);
+                        break;
+                    case R.id.btn_delete:
+                        delEdubgInfoPresenter.delEduBgInfo("delEduBgInfo",JSON.toJSONString(new DelEduBgReq(itemValue.getId())));
+                        break;
+                }
+
             }
 
         });
@@ -207,6 +223,12 @@ public class EduBgActivity extends BaseActivity implements GetEduBgListView{
     @Override
     public void showError(String message) {
 
+    }
+
+    @Override
+    public void delEduInfoViewSuccess() {
+        eduBgInfoList.remove(myPosition);
+        adapter.refreshData(eduBgInfoList);
     }
 
     @Override
