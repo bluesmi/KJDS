@@ -89,9 +89,9 @@ public class EvaluationActivity extends BaseActivity implements ModifyAssessInfo
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_back:                                                     //返回
-                Intent mIntent = new Intent(mContext,ResumeFragment.class);
-                setResult(RESULT_OK,mIntent);
-
+//                Intent mIntent = new Intent(mContext,ResumeFragment.class);
+//                startActivity(mIntent);
+                    finish();
                 break;
 
             case R.id.btn_submit_evaluation:                             //提交评价

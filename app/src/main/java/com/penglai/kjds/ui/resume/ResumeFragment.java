@@ -128,7 +128,10 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView,G
      */
     private List<WorkExpInfoReq> workExpInfoReqList;
     private ResumeRes resumeRes;
-
+    /**
+     * 刷新简历
+     */
+    private boolean isRefreshResume;
     public ResumeFragment() {
         super();
     }
@@ -158,7 +161,7 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView,G
         assessInfoPresenter = new GetAssessInfoPresenterImpl(mContext,this);
         workExpInfoListPresenter = new GetWorkExpListPresenterImpl(mContext,this);
         resumeInfoPresenter = new GetResumeInfoPresenterImpl(mContext,this);
-
+        isRefreshResume = true;
 
         indexTopLayout.setVisibility(View.GONE);
         commonTopLayout.setVisibility(View.VISIBLE);
@@ -188,10 +191,11 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView,G
         switch (view.getId()) {
             case R.id.btn_refresh_resume:                                  //刷新简历
                 if(null != userId && !"".equals(userId)){
-                    persionInfoPresenter.getPersionInfo("getPersionInfo",strJson );
+                 /*   persionInfoPresenter.getPersionInfo("getPersionInfo",strJson );
                     eduBgListPresenter.getEduBgList("getEduBgList",strJson);
                     assessInfoPresenter.getAssessInfo("getAssessInfo",strJson);
-                    workExpInfoListPresenter.getWorkExpList("getWorkExpList",strJson);
+                    workExpInfoListPresenter.getWorkExpList("getWorkExpList",strJson);*/
+                    isRefreshResume = false;
                     resumeInfoPresenter.getResumeInfo("getResumeInfo",strJson);
                 }
                 UiUtils.showToast(mContext,"刷新成功");
@@ -199,6 +203,7 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView,G
 
             case R.id.btn_preview_resume:                                //预览简历
                 if(null != userId && !"".equals(userId)) {
+                    isRefreshResume = true;
                     resumeInfoPresenter.getResumeInfo("getResumeInfo",strJson);
                 }
                 break;
@@ -228,9 +233,6 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView,G
                 if(null != userId && !"".equals(userId)) {
                     assessInfoPresenter.getAssessInfo("getAssessInfo",strJson);
                 }
-                Intent assessIntent = new Intent(mContext,EvaluationActivity.class);
-                assessIntent.putExtra("assessInfoRes",assessInfoRes);
-                startActivityForResult(assessIntent,GET_ASSESS_INFO);
                 break;
         }
     }
@@ -253,12 +255,14 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView,G
     @Override
     public void getResumeInfoSuccess(ResumeRes resumeRes) {
         this.resumeRes = resumeRes;
-        if (null != resumeRes.getPersion()) {
-            Intent resumeIntent = new Intent(mContext, PreviewResumeActivity.class);
-            resumeIntent.putExtra("resumeRes", resumeRes);
-            startActivityForResult(resumeIntent, LOOK_RESUME);
-        }else {
-            UiUtils.showToast(mContext,"请先完善您的简历");
+        if(isRefreshResume) {
+            if (null != resumeRes.getPersion()) {
+                Intent resumeIntent = new Intent(mContext, PreviewResumeActivity.class);
+                resumeIntent.putExtra("resumeRes", resumeRes);
+                startActivityForResult(resumeIntent, LOOK_RESUME);
+            } else {
+                UiUtils.showToast(mContext, "请先完善您的简历");
+            }
         }
     }
 
@@ -275,7 +279,7 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView,G
         this.assessInfoRes = assessInfoRes;
         Intent assessIntent = new Intent(mContext,EvaluationActivity.class);
         assessIntent.putExtra("assessInfoRes",assessInfoRes);
-        startActivityForResult(assessIntent,GET_ASSESS_INFO);
+        startActivity(assessIntent);
     }
 
     @Override
