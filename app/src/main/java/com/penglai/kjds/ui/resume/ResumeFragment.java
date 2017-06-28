@@ -166,27 +166,28 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView,G
         btnBack.setVisibility(View.GONE);
         tvTitle.setTextColor(titleBg);
         tvTitle.setText(title);
-
         String userId = SettingPrefUtils.getUid();
+        String strJson = JSON.toJSONString(new UserInfoReq(userId));
         if(null != userId && !"".equals(userId)){
-            String strJson = JSON.toJSONString(new UserInfoReq(userId));
+
             persionInfoPresenter.getPersionInfo("getPersionInfo",strJson );
-            eduBgListPresenter.getEduBgList("getEduBgList",strJson);
-            assessInfoPresenter.getAssessInfo("getAssessInfo",strJson);
-            workExpInfoListPresenter.getWorkExpList("getWorkExpList",strJson);
-            resumeInfoPresenter.getResumeInfo("getResumeInfo",strJson);
         }
+
+
+
+
+
     }
 
     //点击事件
     @OnClick({R.id.btn_refresh_resume, R.id.btn_preview_resume, R.id.btn_base_info,
             R.id.btn_edu_bg, R.id.btn_work_experience, R.id.btn_evaluation})
     public void onClick(View view) {
+        String userId = SettingPrefUtils.getUid();
+        String strJson = JSON.toJSONString(new UserInfoReq(userId));
         switch (view.getId()) {
             case R.id.btn_refresh_resume:                                  //刷新简历
-                String userId = SettingPrefUtils.getUid();
                 if(null != userId && !"".equals(userId)){
-                    String strJson = JSON.toJSONString(new UserInfoReq(userId));
                     persionInfoPresenter.getPersionInfo("getPersionInfo",strJson );
                     eduBgListPresenter.getEduBgList("getEduBgList",strJson);
                     assessInfoPresenter.getAssessInfo("getAssessInfo",strJson);
@@ -197,36 +198,36 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView,G
                 break;
 
             case R.id.btn_preview_resume:                                //预览简历
-                if (null != resumeRes.getPersion()) {
-                    Intent resumeIntent = new Intent(mContext, PreviewResumeActivity.class);
-                    resumeIntent.putExtra("resumeRes", resumeRes);
-                    startActivityForResult(resumeIntent, LOOK_RESUME);
-                }else {
-                    UiUtils.showToast(mContext,"请先完善您的简历");
+                if(null != userId && !"".equals(userId)) {
+                    resumeInfoPresenter.getResumeInfo("getResumeInfo",strJson);
                 }
                 break;
 
             case R.id.btn_base_info:                                             //基本信息
+
                 Intent intent = new Intent(mContext,BaseInfoActivity.class);
                 intent.putExtra("persionInfo",persionInfo);
                 startActivityForResult(intent,MOFIFY_PERSION_INFO);
                 break;
 
             case R.id.btn_edu_bg:                                                //教育背景
+                if(null != userId && !"".equals(userId)) {
+                    eduBgListPresenter.getEduBgList("getEduBgList", strJson);
+                }
 
-                    Intent eduBgIntent = new Intent(mContext,EduBgActivity.class);
-                    eduBgIntent.putExtra("eduBgInfoList", (Serializable) eduBgInfoList);
-
-                    startActivityForResult(eduBgIntent,GET_EDU_BG_LIST);
                 break;
 
             case R.id.btn_work_experience:                               //实习/工作经历
-                Intent workExpIntent = new Intent(mContext,WorkExperienceActivity.class);
-                workExpIntent.putExtra("workExpInfoReqList", (Serializable) workExpInfoReqList);
-                startActivityForResult(workExpIntent,WORK_EXP_INFO_LIST);
+                if(null != userId && !"".equals(userId)) {
+                    workExpInfoListPresenter.getWorkExpList("getWorkExpList",strJson);
+                }
+
                 break;
 
             case R.id.btn_evaluation:                                           //自我评价
+                if(null != userId && !"".equals(userId)) {
+                    assessInfoPresenter.getAssessInfo("getAssessInfo",strJson);
+                }
                 Intent assessIntent = new Intent(mContext,EvaluationActivity.class);
                 assessIntent.putExtra("assessInfoRes",assessInfoRes);
                 startActivityForResult(assessIntent,GET_ASSESS_INFO);
@@ -252,21 +253,36 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView,G
     @Override
     public void getResumeInfoSuccess(ResumeRes resumeRes) {
         this.resumeRes = resumeRes;
+        if (null != resumeRes.getPersion()) {
+            Intent resumeIntent = new Intent(mContext, PreviewResumeActivity.class);
+            resumeIntent.putExtra("resumeRes", resumeRes);
+            startActivityForResult(resumeIntent, LOOK_RESUME);
+        }else {
+            UiUtils.showToast(mContext,"请先完善您的简历");
+        }
     }
 
     @Override
     public void getWorkExpListSucces(List<WorkExpInfoReq> workExpInfoReqList) {
         this.workExpInfoReqList = workExpInfoReqList;
+        Intent workExpIntent = new Intent(mContext,WorkExperienceActivity.class);
+        workExpIntent.putExtra("workExpInfoReqList", (Serializable) workExpInfoReqList);
+        startActivityForResult(workExpIntent,WORK_EXP_INFO_LIST);
     }
 
     @Override
     public void getAssessInfoSuccess(AssessInfoRes assessInfoRes) {
         this.assessInfoRes = assessInfoRes;
+        Intent assessIntent = new Intent(mContext,EvaluationActivity.class);
+        assessIntent.putExtra("assessInfoRes",assessInfoRes);
+        startActivityForResult(assessIntent,GET_ASSESS_INFO);
     }
 
     @Override
     public void getEduViewSuccess(List<EduBgInfo> eduBgInfoList) {
-        this.eduBgInfoList = eduBgInfoList;
+        Intent eduBgIntent = new Intent(mContext,EduBgActivity.class);
+        eduBgIntent.putExtra("eduBgInfoList", (Serializable) eduBgInfoList);
+        startActivityForResult(eduBgIntent,GET_EDU_BG_LIST);
     }
 
     @Override
@@ -304,36 +320,36 @@ public class ResumeFragment extends BaseFragment implements GetPersionInfoView,G
                 }
                 break;
             case GET_EDU_BG_LIST: //刷新教育背景
-                if (resultCode == RESULT_OK) {
-                    String userId = SettingPrefUtils.getUid();
-                    if (null != userId && !"".equals(userId)) {
-                        eduBgListPresenter.getEduBgList("getEduBgList",JSON.toJSONString(new UserInfoReq(userId)));
-                    }
-                }
+//                if (resultCode == RESULT_OK) {
+//                    String userId = SettingPrefUtils.getUid();
+//                    if (null != userId && !"".equals(userId)) {
+//                        eduBgListPresenter.getEduBgList("getEduBgList",JSON.toJSONString(new UserInfoReq(userId)));
+//                    }
+//                }
                 break;
             case GET_ASSESS_INFO: //刷新教育背景
-                if (resultCode == RESULT_OK) {
-                    String userId = SettingPrefUtils.getUid();
-                    if (null != userId && !"".equals(userId)) {
-                        assessInfoPresenter.getAssessInfo("getAssessInfo",JSON.toJSONString(new UserInfoReq(userId)));
-                    }
-                }
+//                if (resultCode == RESULT_OK) {
+//                    String userId = SettingPrefUtils.getUid();
+//                    if (null != userId && !"".equals(userId)) {
+//                        assessInfoPresenter.getAssessInfo("getAssessInfo",JSON.toJSONString(new UserInfoReq(userId)));
+//                    }
+//                }
                 break;
             case WORK_EXP_INFO_LIST:
-                if (resultCode == RESULT_OK) {
-                    String userId = SettingPrefUtils.getUid();
-                    if (null != userId && !"".equals(userId)) {
-                        workExpInfoListPresenter.getWorkExpList("getWorkExpList",JSON.toJSONString(new UserInfoReq(userId)));
-                    }
-                }
+//                if (resultCode == RESULT_OK) {
+//                    String userId = SettingPrefUtils.getUid();
+//                    if (null != userId && !"".equals(userId)) {
+//                        workExpInfoListPresenter.getWorkExpList("getWorkExpList",JSON.toJSONString(new UserInfoReq(userId)));
+//                    }
+//                }
                 break;
             case LOOK_RESUME:
-                if (resultCode == RESULT_OK) {
-                    String userId = SettingPrefUtils.getUid();
-                    if (null != userId && !"".equals(userId)) {
-                        resumeInfoPresenter.getResumeInfo("getResumeInfo",JSON.toJSONString(new UserInfoReq(userId)));
-                    }
-                }
+//                if (resultCode == RESULT_OK) {
+//                    String userId = SettingPrefUtils.getUid();
+//                    if (null != userId && !"".equals(userId)) {
+//                        resumeInfoPresenter.getResumeInfo("getResumeInfo",JSON.toJSONString(new UserInfoReq(userId)));
+//                    }
+//                }
                 break;
         }
     }
