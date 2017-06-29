@@ -106,9 +106,10 @@ public class ModifyPwdActivity extends BaseActivity  implements ModifyPwdView{
         }
         if(intent != null){
 
-                userName = intent.getStringExtra("userName");
-                if (!TextUtils.isEmpty(userName)) {            //非空判定
+                userName = SettingPrefUtils.getUserName();
+                if (null != userName && !"".equals(userName)) {            //非空判定
                     tvUsername.setText("当前账户：" + userName);
+                    tvUsername.setTextColor(topBackgroundColor);
                 }
 
         }

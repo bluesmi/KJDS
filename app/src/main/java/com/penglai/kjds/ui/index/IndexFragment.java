@@ -185,8 +185,8 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
             public void fillBannerItem(CustomerTopBanner banner, ImageView itemView, String model, int position) {
                 Glide.with(itemView.getContext())
                         .load(model)
-                        .placeholder(R.drawable.icon_default)
-                        .error(R.drawable.icon_default)
+                        .placeholder(R.drawable.banner1)
+                        .error(R.drawable.kjds)
                         .dontAnimate()
                         .centerCrop()
                         .into(itemView);

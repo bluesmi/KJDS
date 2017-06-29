@@ -21,6 +21,7 @@ import com.penglai.kjds.ui.MainActivity;
 import com.penglai.kjds.ui.base.BaseActivity;
 import com.penglai.kjds.ui.my.ModifyPwdActivity;
 import com.penglai.kjds.presenter.implView.LoginView;
+import com.penglai.kjds.utils.SettingPrefUtils;
 import com.penglai.kjds.utils.UiUtils;
 
 import butterknife.BindView;
@@ -61,6 +62,12 @@ public class LoginActivity extends BaseActivity implements LoginView {
     protected void setContentViewAfter(View contentView) {
         //绑定View
         ButterKnife.bind(LoginActivity.this);
+        String userId = SettingPrefUtils.getUid();
+        if(null != userId && !"".equals(userId)) {
+            Intent intent = new Intent(mContext, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
         //初始化
         initData();
     }
