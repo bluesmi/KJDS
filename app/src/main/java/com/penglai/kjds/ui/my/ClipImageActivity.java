@@ -90,7 +90,7 @@ public class ClipImageActivity extends BaseActivity {
             Log.e("android", "zoomedCropBitmap == null");
             return;
         }
-        Uri mSaveUri = Uri.fromFile(new File(getCacheDir(), "cropped_" + System.currentTimeMillis() + ".jpg"));
+        Uri mSaveUri = Uri.fromFile(new File(getCacheDir(), "cropped_1.jpg"));
         if (mSaveUri != null) {
             OutputStream outputStream = null;
             try {
