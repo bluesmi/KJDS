@@ -165,6 +165,11 @@
             android:configChanges="keyboardHidden"
             android:screenOrientation="portrait" />
 
+        <!-- 我的消息详细 -->
+        <activity
+            android:name=".ui.my.MyMessageDetailActivity"
+            android:configChanges="keyboardHidden"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -20,6 +20,7 @@ import com.penglai.kjds.presenter.impl.GetMyMessagePresenterImpl;
 import com.penglai.kjds.presenter.implView.GetMyMessageView;
 import com.penglai.kjds.ui.adapter.MyMessageAdapter;
 import com.penglai.kjds.ui.base.BaseActivity;
+import com.penglai.kjds.ui.view.listener.OnItemClickListener;
 import com.penglai.kjds.utils.SettingPrefUtils;
 
 import java.util.List;
@@ -140,7 +141,14 @@ public class MyMsgActivity extends BaseActivity implements GetMyMessageView {
                 //mRecyclerView.setNoMore(true);
             }
         });
-
+        adapter.setOnClickListener(new OnItemClickListener<MyMessage>() {
+            @Override
+            public void onItemClick(MyMessage itemValue, int viewID, int position) {
+                Intent intent = new Intent(mContext,MyMessageDetailActivity.class);
+                intent.putExtra("myMessage",itemValue);
+                startActivity(intent);
+            }
+        });
 
     }
 

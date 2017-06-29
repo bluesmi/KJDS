@@ -130,5 +130,6 @@
     <string name="all_region">全部地区</string>
     <string name="academy">系部</string>
     <string name="edu_info">教育背景</string>
+    <string name="my_msg_detail">消息详情</string>
 
 </resources>
