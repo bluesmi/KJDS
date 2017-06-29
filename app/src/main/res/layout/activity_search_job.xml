@@ -51,7 +51,7 @@
          android:textColor="@color/common_gray_txt"
          />
     </LinearLayout>
-    <LinearLayout
+  <!--  <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/large_item_height"
         android:background="@color/gray_content_bg"
@@ -111,9 +111,9 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"/>
         </LinearLayout>
-    </LinearLayout>
+    </LinearLayout>-->
 
-    <LinearLayout
+   <!-- <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -144,5 +144,5 @@
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
             android:textColor="@color/common_gray_txt" />
-    </LinearLayout>
+    </LinearLayout>-->
 </LinearLayout>

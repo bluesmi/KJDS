@@ -191,7 +191,7 @@ public class JobDetailActivity extends BaseActivity implements SendResumeInfoVie
                 }
                 break;
             case R.id.btn_send_resume:
-                UiUtils.showToast(mContext,"简历以发送");
+//                UiUtils.showToast(mContext,"简历以发送");
 //                showNormalDailog();
 //                confirmSendResume();
                 if(null != userId && !"".equals(userId)) {

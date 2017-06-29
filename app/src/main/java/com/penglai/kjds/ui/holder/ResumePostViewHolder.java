@@ -64,7 +64,7 @@ public class ResumePostViewHolder extends BaseViewHolder<DeliverInfo> {
         tvJobName.setText(itemValue.getTitle());
         //类型
 //        String typeId = itemValue.getTypeID();
-        tvItemPt.setText(itemValue.getTypeID());
+        tvItemPt.setText(getTypeID(itemValue.getTypeID()));
         tvCompanyDetail.setText(itemValue.getAddress()+"|"+itemValue.getCompanyName());
         tvCompanyCondition.setText(itemValue.getSalary());
         tvPublishTime.setText(itemValue.getStartTime());

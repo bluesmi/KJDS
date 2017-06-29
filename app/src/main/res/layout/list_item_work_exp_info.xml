@@ -27,7 +27,7 @@
         android:textSize="@dimen/middle_text_size"
         android:textColor="@color/common_black_txt"/>
 
-    <LinearLayout
+  <!--  <LinearLayout
         android:layout_marginTop="8dp"
         android:layout_toRightOf="@id/tv_job_name"
         android:id="@+id/verify_layout"
@@ -52,7 +52,7 @@
             android:text="@string/already_verify"
             android:textColor="@color/white"
             android:textSize="@dimen/small_text_size" />
-    </LinearLayout>
+    </LinearLayout>-->
 
     <TextView
         android:layout_marginBottom="10dp"

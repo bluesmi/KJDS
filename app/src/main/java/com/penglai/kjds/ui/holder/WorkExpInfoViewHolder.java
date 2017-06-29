@@ -26,8 +26,8 @@ public class WorkExpInfoViewHolder extends BaseViewHolder<WorkExpInfoReq> {
     @BindView(R.id.tv_company_info)
     TextView tvCompanyInfo;
     //是否核实
-    @BindView(R.id.tv_verify)
-    TextView tvVerify;
+  /*  @BindView(R.id.tv_verify)
+    TextView tvVerify;*/
     @BindString(R.string.already_verify)
     String alreadyVerify;
     @BindView(R.id.btn_enter_detail)

@@ -26,6 +26,7 @@ import com.penglai.kjds.ui.base.BaseActivity;
 import com.penglai.kjds.ui.index.JobDetailActivity;
 import com.penglai.kjds.ui.view.listener.OnItemClickListener;
 import com.penglai.kjds.utils.SettingPrefUtils;
+import com.penglai.kjds.utils.UiUtils;
 
 
 import java.util.List;
@@ -199,6 +200,11 @@ public class MyDeliverActivity extends BaseActivity implements GetDeliverListVie
     @Override
     public void getDeliverListSuccess(List<DeliverInfo> deliverInfoList) {
         this.deliverInfoList  = deliverInfoList;
-        adapter.refreshData(deliverInfoList);
+       if(deliverInfoList.isEmpty())
+       {
+           UiUtils.showToast(mContext,"还没有任何消息哦");
+       }
+           adapter.refreshData(deliverInfoList);
+
     }
 }

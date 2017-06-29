@@ -59,7 +59,7 @@ public class FavoriteJobViewHolder extends BaseViewHolder<CollectInfo> {
                 .into(ivCompanyLogo);
         tvJobName.setText(itemValue.getTitle());
         tvOtherInfo.setText(itemValue.getAddress()+"  "+itemValue.getWorkExperience());
-        tvJobType.setText(itemValue.getTypeID());
+        tvJobType.setText(getTypeID(itemValue.getTypeID()));
         tvPay.setText(itemValue.getSalary());
         tvTime.setText(itemValue.getStartTime());
         String orgProp = itemValue.getOrgProp();
@@ -99,5 +99,28 @@ public class FavoriteJobViewHolder extends BaseViewHolder<CollectInfo> {
             }
         });
 
+    }
+    private String getTypeID(String typeId) {
+        String type = null;
+        if(null != typeId && !"".equals(typeId)){
+            int id = Integer.parseInt(typeId);
+            switch (id){
+                case 0 :
+                    type = "全部";
+                    break;
+                case 1 :
+                    type = "兼职";
+                    break;
+                case 2 :
+                    type = "全职";
+                    break;
+                case 3 :
+                    type = "项目";
+                    break;
+
+            }
+        }
+
+        return type;
     }
 }
