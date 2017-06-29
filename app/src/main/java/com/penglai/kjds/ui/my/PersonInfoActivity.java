@@ -558,6 +558,7 @@ public class PersonInfoActivity extends BaseActivity implements UploadUserImgVie
             tvBirthday.setText(birthday);
             tvBirthday.setTextColor(Color.parseColor("#24CD9E"));
         }
+        logImagePath = userInfo.getUserImage();
     }
 }
 

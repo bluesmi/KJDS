@@ -54,8 +54,8 @@ public class BaseInfoActivity extends BaseActivity implements ModifyPersionInfoV
     TextView tvUsername;
     @BindView(R.id.tv_school)
     TextView tvSchool;
-    @BindView(R.id.tv_department)
-    TextView tvDepartment;
+    /*@BindView(R.id.tv_department)
+    TextView tvDepartment;*/
     @BindView(R.id.tv_city)
     TextView tvCity;
     @BindView(R.id.tv_birthday)
@@ -119,11 +119,16 @@ public class BaseInfoActivity extends BaseActivity implements ModifyPersionInfoV
         PersionInfo persionInfo = (PersionInfo) intent.getSerializableExtra("persionInfo");
         if(null != persionInfo){
             showPersionInfo(persionInfo);
+        }else {
+            String userId = SettingPrefUtils.getUid();
+            if(null != userId && !"".equals(userId)){
+                modifyPersionInfoReq.setUserId(userId);
+            }
         }
     }
-
+// R.id.btn_department,
     @OnClick({R.id.btn_back, R.id.btn_base, R.id.btn_username, R.id.btn_school,
-            R.id.btn_department, R.id.btn_city, R.id.btn_birthday, R.id.btn_sex, R.id.btn_phone, R.id.btn_email})
+            R.id.btn_city, R.id.btn_birthday, R.id.btn_sex, R.id.btn_phone, R.id.btn_email})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_back:                                                      //返回
@@ -141,8 +146,8 @@ public class BaseInfoActivity extends BaseActivity implements ModifyPersionInfoV
             case R.id.btn_school:                                                   //学校
                 break;
 
-            case R.id.btn_department:                                         //系部
-                break;
+          /*  case R.id.btn_department:                                         //系部
+                break;*/
 
             case R.id.btn_city:                                                        //城市
                 break;
@@ -225,6 +230,16 @@ public class BaseInfoActivity extends BaseActivity implements ModifyPersionInfoV
         modifyPersionInfoReq.setUserImg(persionInfo.getHeadPicID());
         modifyPersionInfoReq.setGender("男".equals(persionInfo.getGender()) ? 0 : ("女".equals(persionInfo.getGender()) ? 1 : -1));
         modifyPersionInfoReq.setPhone(persionInfo.getPhone());
+        modifyPersionInfoReq.setUserImg(persionInfo.getHeadPicID());
+        String userId = persionInfo.getUserID();
+        if(null != userId && !"".equals(userId)) {
+            modifyPersionInfoReq.setUserId(userId);
+        }else {
+             userId = SettingPrefUtils.getUid();
+            if(null != userId && !"".equals(userId)){
+                modifyPersionInfoReq.setUserId(userId);
+            }
+        }
     }
 
     private void resetModifyPersionInfoReq(){

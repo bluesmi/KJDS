@@ -107,7 +107,7 @@
                 android:background="@color/common_gray_line" />
 
             <!-- 系部 -->
-            <LinearLayout
+       <!--     <LinearLayout
                 android:id="@+id/btn_department"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/small_item_height"
@@ -144,7 +144,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="15dp"
                     android:src="@drawable/icon_arrow_right" />
-            </LinearLayout>
+            </LinearLayout>-->
 
             <View
                 android:layout_width="match_parent"

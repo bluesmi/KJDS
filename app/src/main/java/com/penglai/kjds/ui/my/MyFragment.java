@@ -110,11 +110,17 @@ public class MyFragment extends BaseFragment implements GetUserInfoView,GetDeliv
     @OnClick({R.id.edit_layout,R.id.my_deliver_layout,R.id.my_favorite_layout,
             R.id.my_msg_layout,R.id.my_settting_layout})
     public void onClick(View v){
+        String userId = SettingPrefUtils.getUid();
         switch (v.getId()) {
             case R.id.edit_layout://编辑用户资料
+
+          /*      if(null != userId && !"".equals(userId)){
+                    presenter.getUserInfo("getUserInfo", JSON.toJSONString(new UserInfoReq(userId)));
+                }*/
                 Intent intent = new Intent(mContext,PersonInfoActivity.class);
                 intent.putExtra("userInfo",userInfo);
                 startActivityForResult(intent,MODIFY_USER_INFO);
+
                 break;
 
             case R.id.my_deliver_layout:           //我的投递
@@ -130,7 +136,6 @@ public class MyFragment extends BaseFragment implements GetUserInfoView,GetDeliv
                 break;
 
             case R.id.my_msg_layout:                //我的消息
-                String userId = SettingPrefUtils.getUid();
                 if(null != userId && !"".equals(userId)){
                     myMessagePresenter.getMessage("getMessage",JSON.toJSONString(new UserInfoReq(userId)));
                 }

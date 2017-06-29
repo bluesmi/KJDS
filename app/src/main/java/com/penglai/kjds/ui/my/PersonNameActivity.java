@@ -74,7 +74,7 @@ public class PersonNameActivity extends BaseActivity {
         String strNickName = getIntent().getStringExtra("nickName");
         if(!"".equals(strNickName))
         nickName.setText(strNickName);
-        UiUtils.showToast(mContext,getIntent().getExtras()+""+"更改呢称");
+//        UiUtils.showToast(mContext,getIntent().getExtras()+""+"更改呢称");
     }
     @OnClick({R.id.btn_back,R.id.btn_base})
     public void onClick(View view) {

@@ -22,8 +22,8 @@ public class ResumeEduBgViewHolder extends BaseViewHolder<EduBgInfo> {
     TextView tvSchool;
     @BindView(R.id.tv_profession)
     TextView tvProfession;
-    @BindView(R.id.tv_professional)
-    TextView tvProfessional;
+  /*  @BindView(R.id.tv_professional)
+    TextView tvProfessional;*/
     @BindView(R.id.tv_enter_school_date)
     TextView tvEnterSchoolData;
     @BindView(R.id.tv_finish_school_date)
@@ -39,7 +39,7 @@ public class ResumeEduBgViewHolder extends BaseViewHolder<EduBgInfo> {
     protected void bindData(EduBgInfo itemValue, int position, OnItemClickListener listener) {
         tvSchool.setText(itemValue.getSchoolName());
         tvProfession.setText(itemValue.getProfessional());
-        tvProfessional.setText(itemValue.getProfessional());
+//        tvProfessional.setText(itemValue.getProfessional());
         String startTime = itemValue.getStartTime();
         String endTime = itemValue.getEndTime();
         if(null != startTime && !"".equals(startTime)){
