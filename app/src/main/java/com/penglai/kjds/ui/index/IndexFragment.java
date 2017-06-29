@@ -280,12 +280,12 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
     public void skipToClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:                    //用户登陆
-                UiUtils.showToast(mContext, "登陆");
+//                UiUtils.showToast(mContext, "登陆");
 //                startActivityForResult(new Intent(mContext, LoginActivity.class),LOGIN_RESULT);
                 break;
 
             case R.id.search_layout:            //搜索
-                UiUtils.showToast(mContext, "搜索");
+//                UiUtils.showToast(mContext, "搜索");
                 startActivity(new Intent(mContext, SearchActivity.class));
                 break;
         }
@@ -304,21 +304,21 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
                 break;
 
             case R.id.btn_pt_job:                     //兼职
-                UiUtils.showToast(mContext, "兼职");
+//                UiUtils.showToast(mContext, "兼职");
                 if(null != userId && !"".equals(userId)) {
                     jobListPresenter.getJobList("getJobList",JSON.toJSONString(new JobListReq(userId,1,"","")));
                 }
                 break;
 
             case R.id.btn_fl_job:                      //全职
-                UiUtils.showToast(mContext, "全职");
+//                UiUtils.showToast(mContext, "全职");
                 if(null != userId && !"".equals(userId)) {
                     jobListPresenter.getJobList("getJobList",JSON.toJSONString(new JobListReq(userId,2,"","")));
                 }
                 break;
 
             case R.id.btn_project:                    //项目
-                UiUtils.showToast(mContext, "项目");
+//                UiUtils.showToast(mContext, "项目");
                 if(null != userId && !"".equals(userId)) {
                     jobListPresenter.getJobList("getJobList",JSON.toJSONString(new JobListReq(userId,3,"","")));
                 }

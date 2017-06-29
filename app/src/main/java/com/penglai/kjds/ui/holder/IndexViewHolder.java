@@ -56,7 +56,7 @@ public class IndexViewHolder extends BaseViewHolder<CompanyInfo> {
                 .into(ivCompanyLogo);
         tvCompanyInfo.setText(itemValue.getCompanyName()+"|"+(Integer.parseInt(itemValue.getOrgProp())==1 ? "私企" : "国企"));
         tvJobName.setText(itemValue.getTitle());
-        tvJobType.setText(itemValue.getTypeID());
+        tvJobType.setText(getItemType(itemValue.getTypeID()));
         if("False".equals(itemValue.getIsRecommend())){
             tvHot.setVisibility(View.GONE);
         }
@@ -79,6 +79,25 @@ public class IndexViewHolder extends BaseViewHolder<CompanyInfo> {
                 listener.onItemClick(itemValue, v.getId(), position);
             }
         });
+    }
+
+    private String getItemType(String typeID) {
+        String typeName = "";
+        if(null!= typeID && !"".equals(typeID)) {
+            switch (Integer.parseInt(typeID)) {
+                case 1:
+                    typeName = "兼职";
+                    break;
+                case 2:
+                    typeName = "全职";
+                    break;
+                case 3:
+                    typeName = "项目";
+                    break;
+
+            }
+        }
+        return typeName;
     }
 
 }

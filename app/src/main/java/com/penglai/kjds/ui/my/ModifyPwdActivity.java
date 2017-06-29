@@ -22,8 +22,10 @@ import com.penglai.kjds.R;
 import com.penglai.kjds.model.user.ModifyPwdReq;
 import com.penglai.kjds.presenter.impl.ModifyPwdPresenterImpl;
 import com.penglai.kjds.presenter.implView.ModifyPwdView;
+import com.penglai.kjds.ui.MainActivity;
 import com.penglai.kjds.ui.activity.LoginActivity;
 import com.penglai.kjds.ui.base.BaseActivity;
+import com.penglai.kjds.utils.PrefUtils;
 import com.penglai.kjds.utils.SettingPrefUtils;
 import com.penglai.kjds.utils.UiUtils;
 
@@ -236,8 +238,10 @@ public class ModifyPwdActivity extends BaseActivity  implements ModifyPwdView{
 
         @Override
         public void modifySuccess() {
-            startActivity(new Intent(mContext, LoginActivity.class));
-            finish();
+            PrefUtils.clearAll();
+            Intent intent = new Intent(mContext, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }
 
         @Override

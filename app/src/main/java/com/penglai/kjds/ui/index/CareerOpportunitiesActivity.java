@@ -170,6 +170,9 @@ public class CareerOpportunitiesActivity extends BaseActivity implements GetJobD
 
     @Override
     public void getJobDetailSuccess(JobDetail jobDetail) {
-
+        Intent intent = new Intent(mContext, JobDetailActivity.class);
+        intent.putExtra("jobDetail",jobDetail);
+        //跳转至职位/岗位详情
+        startActivity(intent);
     }
 }

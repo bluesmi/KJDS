@@ -51,7 +51,7 @@ public class PopWindowUtil {
                 if (event.getAction() == MotionEvent.ACTION_OUTSIDE ) {
                     //如果焦点不在popupWindow上，且点击了外面，不再往下dispatch事件：
                     //不做任何响应,不 dismiss popupWindow
-                    UiUtils.showToast(mContext,"dicbdcv ");
+//                    UiUtils.showToast(mContext,"dicbdcv ");
                     return true;
                 }
                 //否则default，往下dispatch事件:关掉popupWindow，
@@ -65,7 +65,7 @@ public class PopWindowUtil {
         btnWrong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UiUtils.showToast(mContext,"再想一想");
+//                UiUtils.showToast(mContext,"再想一想");
 
                 mPopWindow.dismiss();
             }
@@ -95,7 +95,7 @@ public class PopWindowUtil {
                 if (event.getAction() == MotionEvent.ACTION_OUTSIDE ) {
                     //如果焦点不在popupWindow上，且点击了外面，不再往下dispatch事件：
                     //不做任何响应,不 dismiss popupWindow
-                    UiUtils.showToast(mContext,"dicbdcv ");
+//                    UiUtils.showToast(mContext,"dicbdcv ");
                     return true;
                 }
                 //否则default，往下dispatch事件:关掉popupWindow，
@@ -107,7 +107,7 @@ public class PopWindowUtil {
         btnWrong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UiUtils.showToast(mContext,"不删除缓存");
+//                UiUtils.showToast(mContext,"不删除缓存");
 
                 mPopWindow.dismiss();
             }
@@ -115,7 +115,7 @@ public class PopWindowUtil {
         btnRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UiUtils.showToast(mContext,"确定删除缓存");
+//                UiUtils.showToast(mContext,"确定删除缓存");
                 //权限判断
                 DataCleanManagerUtils.clearAllCache(mContext);
                settingChargeView.onSuccess();
@@ -138,7 +138,7 @@ public class PopWindowUtil {
                 if (event.getAction() == MotionEvent.ACTION_OUTSIDE ) {
                     //如果焦点不在popupWindow上，且点击了外面，不再往下dispatch事件：
                     //不做任何响应,不 dismiss popupWindow
-                    UiUtils.showToast(mContext,"dicbdcv ");
+//                    UiUtils.showToast(mContext,"dicbdcv ");
                     return true;
                 }
                 //否则default，往下dispatch事件:关掉popupWindow，
@@ -150,7 +150,7 @@ public class PopWindowUtil {
         btnWrong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UiUtils.showToast(mContext,"不更新");
+//                UiUtils.showToast(mContext,"不更新");
 
                 mPopWindow.dismiss();
             }
@@ -158,7 +158,7 @@ public class PopWindowUtil {
         btnRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UiUtils.showToast(mContext,"更新");
+//                UiUtils.showToast(mContext,"更新");
                 //权限判断
 
                 mPopWindow.dismiss();
@@ -180,7 +180,7 @@ public class PopWindowUtil {
                 if (event.getAction() == MotionEvent.ACTION_OUTSIDE ) {
                     //如果焦点不在popupWindow上，且点击了外面，不再往下dispatch事件：
                     //不做任何响应,不 dismiss popupWindow
-                    UiUtils.showToast(mContext,"dicbdcv ");
+//                    UiUtils.showToast(mContext,"dicbdcv ");
                     return true;
                 }
                 //否则default，往下dispatch事件:关掉popupWindow，
@@ -192,7 +192,7 @@ public class PopWindowUtil {
         btnWrong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UiUtils.showToast(mContext,"取消");
+//                UiUtils.showToast(mContext,"取消");
                 mPopWindow.dismiss();
                 settingChargeView.onFailure("");
 
@@ -201,7 +201,7 @@ public class PopWindowUtil {
         btnRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UiUtils.showToast(mContext,"退出登录");
+//                UiUtils.showToast(mContext,"退出登录");
                 mPopWindow.dismiss();
                 settingChargeView.onSuccess();
                /* //权限判断

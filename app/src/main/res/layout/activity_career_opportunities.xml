@@ -88,7 +88,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:text="@string/pt_job"
+                android:text="@string/all_job"
                 android:textSize="@dimen/middle_text_size"
                 android:gravity="center|right"
                 android:textColor="@color/common_black_txt"

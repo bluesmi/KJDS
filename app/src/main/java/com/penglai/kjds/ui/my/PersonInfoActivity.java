@@ -41,7 +41,6 @@ import com.penglai.kjds.model.user.UserInfoReq;
 import com.penglai.kjds.presenter.impl.GetUserInfoPresenterImpl;
 import com.penglai.kjds.presenter.impl.ModifyUserInfoPresenterImpl;
 import com.penglai.kjds.presenter.impl.UploadUserImgPresenterImpl;
-import com.penglai.kjds.presenter.implView.GetUserInfoView;
 import com.penglai.kjds.presenter.implView.ModifyUserInfoView;
 import com.penglai.kjds.presenter.implView.UploadUserImgView;
 import com.penglai.kjds.ui.base.BaseActivity;
@@ -49,7 +48,6 @@ import com.penglai.kjds.ui.view.widget.CircleImageView;
 import com.penglai.kjds.ui.view.widget.PopWindowView;
 import com.penglai.kjds.utils.PickerUtils;
 import com.penglai.kjds.utils.SettingPrefUtils;
-import com.penglai.kjds.utils.UiUtils;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -165,7 +163,7 @@ public class PersonInfoActivity extends BaseActivity implements UploadUserImgVie
         btnBase.setText(save);
         btnBase.setTextColor(Color.parseColor("#EFEFEF"));
         commonTopLayout.setBackgroundColor(topBackgroundColor);
-        UiUtils.showToast(mContext,getIntent().getExtras()+"");
+//        UiUtils.showToast(mContext,getIntent().getExtras()+"");
         Intent intent = getIntent();
         UserInfo userInfo = (UserInfo) intent.getSerializableExtra("userInfo");
         if(null != userInfo){
@@ -225,7 +223,7 @@ public class PersonInfoActivity extends BaseActivity implements UploadUserImgVie
                 finish();
                 break;
             case R.id.btn_base:                                                      //保存信息
-                UiUtils.showToast(mContext,"保存");
+//                UiUtils.showToast(mContext,"保存");
                 saveUserInfo();
                 break;
 
@@ -247,7 +245,7 @@ public class PersonInfoActivity extends BaseActivity implements UploadUserImgVie
         contentView.findViewById(R.id.take_photo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UiUtils.showToast(mContext,"拍照");
+//                UiUtils.showToast(mContext,"拍照");
                 //权限判断
 
 
@@ -267,7 +265,7 @@ public class PersonInfoActivity extends BaseActivity implements UploadUserImgVie
         contentView.findViewById(R.id.get_photo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UiUtils.showToast(mContext,"选择照片");
+//                UiUtils.showToast(mContext,"选择照片");
                 //权限判断
                 if ((ContextCompat.checkSelfPermission(PersonInfoActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED) ||
@@ -286,7 +284,7 @@ public class PersonInfoActivity extends BaseActivity implements UploadUserImgVie
         contentView.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UiUtils.showToast(mContext,"取消");
+//                UiUtils.showToast(mContext,"取消");
                 mPopWindow.dismiss();
             }
         });
@@ -306,21 +304,21 @@ public class PersonInfoActivity extends BaseActivity implements UploadUserImgVie
         if (requestCode == WRITE_EXTERNAL_STORAGE_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission Granted
-                UiUtils.showToast(mContext,"相机启动");
+//                UiUtils.showToast(mContext,"相机启动");
                 gotoCarema();
             } else {
                 // Permission Denied
-                UiUtils.showToast(mContext,"相机启动失败");
+//                UiUtils.showToast(mContext,"相机启动失败");
             }
         } else if (requestCode == READ_EXTERNAL_STORAGE_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission Granted
 
-                UiUtils.showToast(mContext,"相机册动");
+//                UiUtils.showToast(mContext,"相机册动");
                 gotoPhoto();
             } else {
                 // Permission Denied
-                UiUtils.showToast(mContext,"相机启动失败");
+//                UiUtils.showToast(mContext,"相机启动失败");
             }
         }
     }
@@ -360,11 +358,11 @@ public class PersonInfoActivity extends BaseActivity implements UploadUserImgVie
 //        UiUtils.showToast(mContext,"bvcnjdbvjdkfbcvjd");
         if (savedInstanceState != null && savedInstanceState.containsKey("tempFile")) {
             tempFile = (File) savedInstanceState.getSerializable("tempFile");
-            UiUtils.showToast(mContext,"第一个:"+tempFile);
+//            UiUtils.showToast(mContext,"第一个:"+tempFile);
         } else {
             tempFile = new File(checkDirPath(Environment.getExternalStorageDirectory().getPath() + "/image/"),
                      "1.jpg");
-            UiUtils.showToast(mContext,"第二个:"+tempFile);
+//            UiUtils.showToast(mContext,"第二个:"+tempFile);
         }
     }
 
