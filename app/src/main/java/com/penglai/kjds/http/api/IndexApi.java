@@ -53,4 +53,13 @@ public interface IndexApi {
      */
     @POST("Common.ashx")
     Call<BaseResArray> searchJobList(@QueryMap Map<String,String> map);
+
+    /**
+     * 获取轮播图
+     * @param map
+     * @return
+     */
+    @POST("Common.ashx")
+    Call<BaseResArray> carouselImage(@QueryMap Map<String,String> map);
+
 }

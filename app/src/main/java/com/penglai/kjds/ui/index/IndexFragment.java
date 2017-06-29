@@ -19,9 +19,12 @@ import com.penglai.kjds.model.index.CompanyInfoReq;
 import com.penglai.kjds.model.index.JobDetail;
 import com.penglai.kjds.model.index.JobInfoReq;
 import com.penglai.kjds.model.resume.JobListReq;
+import com.penglai.kjds.model.user.EmptyEntity;
+import com.penglai.kjds.presenter.impl.CarouselImagePresenterImpl;
 import com.penglai.kjds.presenter.impl.GetHotRecommendPresenterImpl;
 import com.penglai.kjds.presenter.impl.GetJobDetailPresenterImpl;
 import com.penglai.kjds.presenter.impl.GetJobListPresenterImpl;
+import com.penglai.kjds.presenter.implView.CarouselImageView;
 import com.penglai.kjds.presenter.implView.GetHotRecommendView;
 import com.penglai.kjds.presenter.implView.GetJobDetailView;
 import com.penglai.kjds.presenter.implView.GetJobListView;
@@ -49,7 +52,8 @@ import static android.app.Activity.RESULT_OK;
  *  * 邮箱：gongzhiqing@xiyundata.com
  *  
  */
-public class IndexFragment extends BaseFragment implements View.OnClickListener,GetHotRecommendView,GetJobDetailView,GetJobListView {
+public class IndexFragment extends BaseFragment implements View.OnClickListener,
+        GetHotRecommendView,GetJobDetailView,GetJobListView,CarouselImageView {
 
     @BindView(R.id.index_top_layout)
     LinearLayout indexTopLayout;
@@ -75,10 +79,12 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
      */
     private GetJobDetailPresenterImpl jobDetailPresenter;
     private GetJobListPresenterImpl jobListPresenter;
+    private CarouselImagePresenterImpl carouselImagePresenter;
 
     private List<CompanyInfo> companyInfoList;
 
     private static final int LOGIN_RESULT = 0;
+    private List<String>  bannerPathList;
 
     public IndexFragment() {
         super();
@@ -107,9 +113,13 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
         hotRecommendPresenter = new GetHotRecommendPresenterImpl(mContext,this);
         jobDetailPresenter = new GetJobDetailPresenterImpl(mContext,this);
         jobListPresenter = new GetJobListPresenterImpl(mContext,this);
+        carouselImagePresenter = new CarouselImagePresenterImpl(mContext,this);
         indexTopLayout.setVisibility(View.VISIBLE);
         commonTopLayout.setVisibility(View.GONE);
         mBtnLogin.setVisibility(View.GONE);
+
+
+
         //初始化XRecyclerView
         initXRecyclerView();
         //初始化banner
@@ -127,6 +137,8 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
         mRecyclerView.refresh();
         //设置上拉刷新、下拉加载、item点击事件监听
         setEventLister();
+
+        carouselImagePresenter.carouselImage("CarouselImage",JSON.toJSONString(new EmptyEntity()));
 
     }
 
@@ -165,6 +177,39 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
         View headerView = mInflater.inflate(R.layout.view_custom_header, container,false);
         mRecyclerView.addHeaderView(headerView);
         CustomerTopBanner mTopBanner = (CustomerTopBanner) headerView.findViewById(R.id.banner);
+        //        mTopBanner.setAdapter(new CustomerTopBanner.Adapter<ImageView,int>() );
+
+        //设置Banner的监听事件,并初始化
+        mTopBanner.setAdapter(new CustomerTopBanner.Adapter<ImageView, String>() {
+            @Override
+            public void fillBannerItem(CustomerTopBanner banner, ImageView itemView, String model, int position) {
+                Glide.with(itemView.getContext())
+                        .load(model)
+                        .placeholder(R.drawable.icon_default)
+                        .error(R.drawable.icon_default)
+                        .dontAnimate()
+                        .centerCrop()
+                        .into(itemView);
+            }
+        });
+        int[] mView = {R.drawable.banner1, R.drawable.kjds, R.drawable.kjds1};
+        mTopBanner.setData(mView);
+        mTopBanner.setmModels(bannerPathList);
+        //设置数据
+//        mTopBanner.setData(bannerPathList,null);
+//        mTopBanner.getP
+
+    }
+
+
+    /***
+     * 初始化banner
+     */
+    private void initTopBanner(List<String> stringList) {
+        //添加banner头布局
+        View headerView = mInflater.inflate(R.layout.view_custom_header, container,false);
+        mRecyclerView.addHeaderView(headerView);
+        CustomerTopBanner mTopBanner = (CustomerTopBanner) headerView.findViewById(R.id.banner);
         //设置Banner的监听事件,并初始化
         mTopBanner.setAdapter(new CustomerTopBanner.Adapter<ImageView, String>() {
             @Override
@@ -177,12 +222,14 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
                         .centerCrop()
                         .into(itemView);
             }
+
         });
 
-//        mTopBanner.setAdapter(new CustomerTopBanner.Adapter<ImageView,int>() );
-        int[] mView = {R.drawable.banner1, R.drawable.kjds, R.drawable.kjds1};
-        //设置数据
-        mTopBanner.setData(mView);
+//*/        mTopBanner.setAdapter(new CustomerTopBanner.Adapter<ImageView,int>() );
+//        int[] mView = {R.drawable.banner1, R.drawable.kjds, R.drawable.kjds1};
+//        //设置数据
+//        mTopBanner.setData(mView);
+//        mTopBanner.setmModels(stringList);
     }
 
     /**
@@ -292,6 +339,12 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
     @Override
     public void showError(String error) {
 
+    }
+
+    @Override
+    public void getCarouselImageListSuccess(List<String> stringList) {
+//        initTopBanner(stringList);
+        this.bannerPathList = stringList;
     }
 
     @Override

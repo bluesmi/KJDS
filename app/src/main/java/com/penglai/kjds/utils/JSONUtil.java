@@ -2,6 +2,7 @@ package com.penglai.kjds.utils;
 
 import android.os.Message;
 
+import com.penglai.kjds.model.index.CarouselRes;
 import com.penglai.kjds.model.index.Company;
 import com.penglai.kjds.model.index.CompanyInfo;
 import com.penglai.kjds.model.index.JobDetail;
@@ -302,5 +303,19 @@ public class JSONUtil {
          String sendTime = (String) map.get("sendTime");
          MyMessage message = new MyMessage( iD,  userName,  messageType,  title,  content,  sendTime);
          return message;
+    }
+
+    public static List<CarouselRes> getCarouselList(List<Map> list) {
+        List<CarouselRes> messageList = new ArrayList<CarouselRes>();
+        for (Map map:list) {
+            messageList.add(getCarousel(map));
+        }
+
+        return messageList;
+    }
+
+    private static CarouselRes getCarousel(Map map) {
+//        String path = (String) ;
+        return new CarouselRes((String) map.get("path"));
     }
 }

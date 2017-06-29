@@ -6,6 +6,7 @@ import com.penglai.kjds.http.RequestCallback;
 import com.penglai.kjds.http.api.IndexApi;
 import com.penglai.kjds.model.BaseRes;
 import com.penglai.kjds.model.BaseResArray;
+import com.penglai.kjds.model.index.CarouselRes;
 import com.penglai.kjds.model.index.Company;
 import com.penglai.kjds.model.index.CompanyInfo;
 import com.penglai.kjds.model.index.JobDetail;
@@ -232,6 +233,45 @@ public class IndexService {
             @Override
             public void onFailure(Call<BaseResArray> call, Throwable t) {
                 LogUtils.error("searchJobList","is error"+t.getMessage());
+                t.printStackTrace();
+//                Log.d("UserService", "onFailure: "+);
+                callback.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    public static void carouselImage(String opSign,String strJson, final RequestCallback<BaseResArray<CarouselRes>> callback){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("op", opSign);
+//        strJson = "["+strJson+"]";
+        //转成Json字符串
+        params.put("data", strJson);
+        LogUtils.error("carouselImage","传入参数"+strJson);
+        Log.d(TAG, "carouselImage: "+params);
+        Call<BaseResArray> call = apiStr.carouselImage(params);
+        call.enqueue(new Callback<BaseResArray>() {
+            @Override
+            public void onResponse(Call<BaseResArray> call, Response<BaseResArray> response) {
+                LogUtils.error("carouselImage", "is success  " + response.body());
+                if (null != response) {
+                    BaseResArray<CarouselRes> baseResArray = new BaseResArray<CarouselRes>();
+                    baseResArray.setCode(response.body().getCode());
+                    baseResArray.setMsg(response.body().getMsg());
+
+                    if (response.body().getData().isEmpty()) {
+                        baseResArray.setData(null);
+                    } else {
+                        System.out.println(response.body().getData());
+                        List<Map> list = response.body().getData();
+                        baseResArray.setData(JSONUtil.getCarouselList(list));
+                    }
+                    callback.onSuccess(baseResArray);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResArray> call, Throwable t) {
+                LogUtils.error("carouselImage","is error"+t.getMessage());
                 t.printStackTrace();
 //                Log.d("UserService", "onFailure: "+);
                 callback.onFailure(t.getMessage());

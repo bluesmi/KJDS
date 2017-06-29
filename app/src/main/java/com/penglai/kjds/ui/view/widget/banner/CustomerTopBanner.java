@@ -352,6 +352,9 @@ public class CustomerTopBanner extends RelativeLayout implements CustomerViewPag
         setData(R.layout.banner_item_image, models, tips);
     }
 
+
+
+
     /**
      * 设置每一页的控件集合，主要针对引导页的情况
      *
@@ -836,6 +839,8 @@ public class CustomerTopBanner extends RelativeLayout implements CustomerViewPag
         mAdapter = adapter;
     }
 
+
+
     private class PageAdapter extends PagerAdapter {
 
         @Override
@@ -936,5 +941,9 @@ public class CustomerTopBanner extends RelativeLayout implements CustomerViewPag
      */
     public interface GuideDelegate {
         void onClickEnterOrSkip();
+    }
+
+    public void setmModels(List<? extends Object> mModels) {
+        this.mModels = mModels;
     }
 }
