@@ -18,6 +18,8 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -30,6 +32,8 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.penglai.kjds.R;
 import com.penglai.kjds.model.user.ModifyUserInfoReq;
 import com.penglai.kjds.model.user.UserInfo;
@@ -47,7 +51,10 @@ import com.penglai.kjds.utils.PickerUtils;
 import com.penglai.kjds.utils.SettingPrefUtils;
 import com.penglai.kjds.utils.UiUtils;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import butterknife.BindColor;
 import butterknife.BindString;
@@ -142,6 +149,8 @@ public class PersonInfoActivity extends BaseActivity implements UploadUserImgVie
 
         uploadUserImgPresenter = new UploadUserImgPresenterImpl(mContext,this);
         modifyUserInfoPresenter = new ModifyUserInfoPresenterImpl(mContext,this);
+        uploadUserImgPresenter = new UploadUserImgPresenterImpl(mContext,this);
+
         logImagePath = "";
         //初始化标题栏布局
         indexTopLayout.setVisibility(View.GONE);
@@ -354,7 +363,7 @@ public class PersonInfoActivity extends BaseActivity implements UploadUserImgVie
             UiUtils.showToast(mContext,"第一个:"+tempFile);
         } else {
             tempFile = new File(checkDirPath(Environment.getExternalStorageDirectory().getPath() + "/image/"),
-                    System.currentTimeMillis() + ".jpg");
+                     "1.jpg");
             UiUtils.showToast(mContext,"第二个:"+tempFile);
         }
     }
@@ -407,6 +416,11 @@ public class PersonInfoActivity extends BaseActivity implements UploadUserImgVie
                     ivUserImg.setImageBitmap(bitMap);
                     //此处后面可以将bitMap转为二进制上传后台网络
                     //......
+                    try{
+                        uploadUserImgPresenter.uploadUserImg("uploadUserImg",saveFile(bitMap,cropImagePath));
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
 
                 }
                 break;
@@ -422,7 +436,20 @@ public class PersonInfoActivity extends BaseActivity implements UploadUserImgVie
 
         }
     }
-
+    /**
+     * 保存文件
+     * @param bm
+     * @param cropImagePath
+     * @throws IOException
+     */
+    public File saveFile(Bitmap bm, String cropImagePath) throws IOException {
+        File myCaptureFile = new File(cropImagePath);
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(myCaptureFile));
+        bm.compress(Bitmap.CompressFormat.JPEG, 80, bos);
+        bos.flush();
+        bos.close();
+        return myCaptureFile;
+    }
 
     /**
      * 打开截图界面
@@ -491,16 +518,26 @@ public class PersonInfoActivity extends BaseActivity implements UploadUserImgVie
      */
     @Override
     public void saveUserImgPath(String path) {
-
+        logImagePath = path;
     }
 
 
     public void showUserInfo(UserInfo userInfo) {
         Glide.with(mContext)
-             .load(userInfo.getUserImage())
-             .placeholder(R.drawable.icon_user_img)
-             .error(R.drawable.icon_user_img)
-             .into(ivUserImg);
+                .load(userInfo.getUserImage())
+                .asBitmap()
+                .placeholder(R.drawable.icon_user_img)
+                .error(R.drawable.icon_user_img)
+                .diskCacheStrategy(DiskCacheStrategy.ALL) //设置缓存
+                .into(new BitmapImageViewTarget(ivUserImg) {
+                    @Override
+                    protected void setResource(Bitmap resource) {
+                        RoundedBitmapDrawable circularBitmapDrawable =
+                                RoundedBitmapDrawableFactory.create(mContext.getResources(), resource);
+                        circularBitmapDrawable.setCircular(true);
+                        ivUserImg.setImageDrawable(circularBitmapDrawable);
+                    }
+                });
         String nickName = userInfo.getNickName();
         if(null != nickName && !"".equals(nickName)) {
             tvNickname.setText(nickName);

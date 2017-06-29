@@ -160,16 +160,16 @@ public class UserService extends BaseService {
     /**
      * 上传头像
      * @param opSign
-     * @param imgPath
+     * @param img
      * @param callback
      */
-    public static void uploadUserImg(String opSign, String imgPath, final RequestCallback<BaseRes<UserImagePath>> callback){
+    public static void uploadUserImg(String opSign, File img, final RequestCallback<BaseRes<UserImagePath>> callback){
         HashMap<String, String> params = new HashMap<>();
         params.put("data",JSON.toJSONString(new EmptyEntity()));
         params.put("op",opSign);
-        File file = new File(imgPath);
-        final RequestBody requestBody = RequestBody.create(MediaType.parse("image/jpg"),file);
-        MultipartBody.Part body = MultipartBody.Part.createFormData("picture",file.getName(),requestBody);
+//        File file = new File(imgPath);
+        final RequestBody requestBody = RequestBody.create(MediaType.parse("image/jpg"),img);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("picture",img.getName(),requestBody);
         Call<BaseRes> call = apiStr.uploadUserImg(params,body);
         call.enqueue(new Callback<BaseRes>() {
             @Override

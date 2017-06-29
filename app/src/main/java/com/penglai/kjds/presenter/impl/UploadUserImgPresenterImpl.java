@@ -11,6 +11,8 @@ import com.penglai.kjds.presenter.implView.UploadUserImgView;
 import com.penglai.kjds.utils.LogUtils;
 import com.penglai.kjds.utils.UiUtils;
 
+import java.io.File;
+
 /**
  * Created by m199 on 2017/6/16.
  */
@@ -28,8 +30,8 @@ public class UploadUserImgPresenterImpl implements Presenter {
         this.uploadUserImgView = uploadUserImgView;
     }
 
-   public void uploadUserImg(String opSign,String imgPath){
-       UserService.uploadUserImg("uploadUserImg", imgPath, new RequestCallback<BaseRes<UserImagePath>>() {
+   public void uploadUserImg(String opSign,File img){
+       UserService.uploadUserImg("uploadUserImg", img, new RequestCallback<BaseRes<UserImagePath>>() {
            @Override
            public void onSuccess(BaseRes<UserImagePath> baseRes) {
                if(baseRes ==null){

@@ -1,11 +1,16 @@
 package com.penglai.kjds.ui.my;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.view.View;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.penglai.kjds.R;
 import com.penglai.kjds.model.user.CollectInfo;
 import com.penglai.kjds.model.user.DeliverInfo;
@@ -33,6 +38,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static android.app.Activity.RESULT_OK;
+import static com.penglai.kjds.R.id.imageView;
 
 /**
  * 我的
@@ -186,6 +192,22 @@ public class MyFragment extends BaseFragment implements GetUserInfoView,GetDeliv
                 .placeholder(R.drawable.icon_user_img)
                 .error(R.drawable.icon_user_img)
                 .into(ivUserImg);
+
+        Glide.with(mContext)
+                .load(userInfo.getUserImage())
+                .asBitmap()
+                .placeholder(R.drawable.icon_user_img)
+                .error(R.drawable.icon_user_img)
+                .diskCacheStrategy(DiskCacheStrategy.ALL) //设置缓存
+                .into(new BitmapImageViewTarget(ivUserImg) {
+                    @Override
+                    protected void setResource(Bitmap resource) {
+                        RoundedBitmapDrawable circularBitmapDrawable =
+                                RoundedBitmapDrawableFactory.create(mContext.getResources(), resource);
+                        circularBitmapDrawable.setCircular(true);
+                        ivUserImg.setImageDrawable(circularBitmapDrawable);
+                    }
+                });
     }
 
     @Override

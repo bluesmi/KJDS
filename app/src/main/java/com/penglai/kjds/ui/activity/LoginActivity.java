@@ -132,7 +132,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
         //跳转至主页面
         Intent intent = new Intent(mContext, MainActivity.class);
-        setResult(RESULT_OK,intent);
+        startActivity(intent);
+//        setResult(RESULT_OK,intent);
 //        startActivityForResult(,0);
 
         finish();

@@ -61,7 +61,8 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
     public TextView mBtnLogin;
     @BindView(R.id.xrv_view)
     XRecyclerView mRecyclerView;
-
+ /*   @BindView(R.id.btn_login)
+    TextView btnLogin;*/
     private View contentView;
     private static IndexFragment instance;
     private IndexAdapter adapter;
@@ -108,6 +109,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
         jobListPresenter = new GetJobListPresenterImpl(mContext,this);
         indexTopLayout.setVisibility(View.VISIBLE);
         commonTopLayout.setVisibility(View.GONE);
+        mBtnLogin.setVisibility(View.GONE);
         //初始化XRecyclerView
         initXRecyclerView();
         //初始化banner
@@ -169,14 +171,16 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
             public void fillBannerItem(CustomerTopBanner banner, ImageView itemView, String model, int position) {
                 Glide.with(itemView.getContext())
                         .load(model)
-                        .placeholder(R.drawable.icon_default)
-                        .error(R.drawable.icon_default)
+                        .placeholder(R.drawable.banner1)
+                        .error(R.drawable.banner1)
                         .dontAnimate()
                         .centerCrop()
                         .into(itemView);
             }
         });
-        int[] mView = {R.drawable.icon_default, R.drawable.icon_default, R.drawable.icon_default};
+
+//        mTopBanner.setAdapter(new CustomerTopBanner.Adapter<ImageView,int>() );
+        int[] mView = {R.drawable.banner1, R.drawable.kjds, R.drawable.kjds1};
         //设置数据
         mTopBanner.setData(mView);
     }
@@ -230,7 +234,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
         switch (view.getId()) {
             case R.id.btn_login:                    //用户登陆
                 UiUtils.showToast(mContext, "登陆");
-                startActivityForResult(new Intent(mContext, LoginActivity.class),LOGIN_RESULT);
+//                startActivityForResult(new Intent(mContext, LoginActivity.class),LOGIN_RESULT);
                 break;
 
             case R.id.search_layout:            //搜索
