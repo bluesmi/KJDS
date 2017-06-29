@@ -187,11 +187,11 @@ public class MyFragment extends BaseFragment implements GetUserInfoView,GetDeliv
         if(null != nickName && !"".equals(nickName)) {
             tvUsername.setText(nickName);
         }
-        Glide.with(mContext)
+      /*  Glide.with(mContext)
                 .load(userInfo.getUserImage())
                 .placeholder(R.drawable.icon_user_img)
                 .error(R.drawable.icon_user_img)
-                .into(ivUserImg);
+                .into(ivUserImg);*/
 
         Glide.with(mContext)
                 .load(userInfo.getUserImage())

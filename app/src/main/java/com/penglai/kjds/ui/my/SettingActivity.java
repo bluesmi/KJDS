@@ -9,10 +9,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.penglai.kjds.R;
+import com.penglai.kjds.ui.MainActivity;
+import com.penglai.kjds.ui.activity.LoginActivity;
 import com.penglai.kjds.ui.base.BaseActivity;
 import com.penglai.kjds.ui.my.changeview.SettingChargeView;
 import com.penglai.kjds.utils.DataCleanManagerUtils;
 import com.penglai.kjds.utils.PopWindowUtil;
+import com.penglai.kjds.utils.PrefUtils;
 
 import butterknife.BindBitmap;
 import butterknife.BindColor;
@@ -50,6 +53,9 @@ public class SettingActivity extends BaseActivity implements SettingChargeView{
     int topBackgroundColor;
     @BindBitmap(R.drawable.icon_common_back)
     Bitmap commonBack;
+
+    private int settingCharge;
+
     @Override
     protected View getContentView() {
         return inflateView(R.layout.activity_setting);
@@ -69,6 +75,7 @@ public class SettingActivity extends BaseActivity implements SettingChargeView{
         tvTitle.setTextColor(txtColor);
         commonTopLayout.setBackgroundColor(topBackgroundColor);
         btnBack.setImageBitmap(commonBack);
+        settingCharge = 0;
         String cache = "0KB";
         try {
             cache = DataCleanManagerUtils.getTotalCacheSize(mContext);
@@ -102,7 +109,8 @@ public class SettingActivity extends BaseActivity implements SettingChargeView{
                 break;
 
             case R.id.btn_user_logout:                            //退出登陆
-                PopWindowUtil.loginOut(mContext,getContentView(),this);
+                settingCharge = 1;
+                PopWindowUtil.loginOut(mContext,getContentView(),this,this);
                 break;
 
             case R.id.btn_back:                                         //返回
@@ -114,13 +122,29 @@ public class SettingActivity extends BaseActivity implements SettingChargeView{
 
     @Override
     public void onSuccess() {
-        String cache = "0KB";
-        try {
-            cache = DataCleanManagerUtils.getTotalCacheSize(mContext);
-        } catch (Exception e) {
-            e.printStackTrace();
+
+
+        switch (settingCharge){
+            case 0:
+                String cache = "0KB";
+                try {
+                    cache = DataCleanManagerUtils.getTotalCacheSize(mContext);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                tvCache.setText(cache);
+                break;
+            case  1:
+                   //权限判断
+                PrefUtils.clearAll();
+                Intent intent = new Intent(mContext, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+
+
+//                setResult(RESULT_OK);
+                break;
         }
-        tvCache.setText(cache);
     }
 
     @Override

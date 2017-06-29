@@ -119,4 +119,8 @@ public class PrefUtils {
         sp.edit().clear().commit();
     }
 
+    public static void remove(String key){
+        sp.edit().remove(key);
+    }
+
 }

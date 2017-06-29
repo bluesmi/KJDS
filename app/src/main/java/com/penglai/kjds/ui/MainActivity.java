@@ -1,5 +1,6 @@
 package com.penglai.kjds.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -11,10 +12,12 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.penglai.kjds.R;
+import com.penglai.kjds.ui.activity.LoginActivity;
 import com.penglai.kjds.ui.adapter.FragmentTabAdapter;
 import com.penglai.kjds.ui.index.IndexFragment;
 import com.penglai.kjds.ui.my.MyFragment;
 import com.penglai.kjds.ui.resume.ResumeFragment;
+import com.penglai.kjds.utils.SettingPrefUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -72,6 +75,12 @@ public class MainActivity extends AppCompatActivity {
 
         //初始化tab菜单
         setTab();
+        String userId = SettingPrefUtils.getUid();
+        if(null == userId || "".equals(userId)) {
+            Intent intent = new Intent(mContext, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     /**

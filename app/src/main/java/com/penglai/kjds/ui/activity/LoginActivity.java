@@ -62,14 +62,10 @@ public class LoginActivity extends BaseActivity implements LoginView {
     protected void setContentViewAfter(View contentView) {
         //绑定View
         ButterKnife.bind(LoginActivity.this);
-        String userId = SettingPrefUtils.getUid();
-        if(null != userId && !"".equals(userId)) {
-            Intent intent = new Intent(mContext, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-        //初始化
-        initData();
+
+            //初始化
+            initData();
+
     }
 
     protected void initData() {

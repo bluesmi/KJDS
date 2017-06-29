@@ -2,6 +2,7 @@ package com.penglai.kjds.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -11,10 +12,10 @@ import android.widget.TextView;
 
 import com.penglai.kjds.R;
 import com.penglai.kjds.presenter.impl.SendResumeInfoPresenterImpl;
+import com.penglai.kjds.ui.activity.LoginActivity;
 import com.penglai.kjds.ui.my.changeview.SettingChargeView;
 import com.penglai.kjds.ui.view.widget.PopWindowView;
 
-import butterknife.BindView;
 
 /**
  * Created by m199 on 2017/4/29.
@@ -165,7 +166,7 @@ public class PopWindowUtil {
         });
     }
 
-    public static void loginOut(final Context mContext, View view, Activity activity){
+    public static void loginOut(final Context mContext, View view, final Activity activity, final SettingChargeView settingChargeView){
         init(mContext);
         tvTitle.setText("退出登录");
         tvContent.setText("退出后，您将不能接受到消息\n是否确认退出？");
@@ -191,18 +192,22 @@ public class PopWindowUtil {
         btnWrong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UiUtils.showToast(mContext,"不更新");
-
+                UiUtils.showToast(mContext,"取消");
                 mPopWindow.dismiss();
+                settingChargeView.onFailure("");
+
             }
         });
         btnRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UiUtils.showToast(mContext,"更新");
-                //权限判断
-
+                UiUtils.showToast(mContext,"退出登录");
                 mPopWindow.dismiss();
+                settingChargeView.onSuccess();
+               /* //权限判断
+                PrefUtils.clearAll();
+                activity.startActivity(new Intent(mContext, LoginActivity.class));
+                mPopWindow.dismiss();*/
             }
         });
     }
