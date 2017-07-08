@@ -69,4 +69,12 @@ public interface IndexApi {
      */
     @POST("Common.ashx")
     Call<BaseResArray> getCourseList(@QueryMap Map<String,String> map);
+
+    /**
+     * 获取培训列表
+     * @param map
+     * @return
+     */
+    @POST("Common.ashx")
+    Call<BaseResArray> getTrainList(@QueryMap Map<String,String> map);
 }

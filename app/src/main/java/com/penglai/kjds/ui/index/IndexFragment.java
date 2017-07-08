@@ -19,6 +19,7 @@ import com.penglai.kjds.model.index.CompanyInfoReq;
 import com.penglai.kjds.model.index.Course;
 import com.penglai.kjds.model.index.JobDetail;
 import com.penglai.kjds.model.index.JobInfoReq;
+import com.penglai.kjds.model.index.TrainInfo;
 import com.penglai.kjds.model.resume.JobListReq;
 import com.penglai.kjds.model.user.EmptyEntity;
 import com.penglai.kjds.presenter.impl.CarouselImagePresenterImpl;
@@ -26,11 +27,13 @@ import com.penglai.kjds.presenter.impl.GetCourseListPresenterImpl;
 import com.penglai.kjds.presenter.impl.GetHotRecommendPresenterImpl;
 import com.penglai.kjds.presenter.impl.GetJobDetailPresenterImpl;
 import com.penglai.kjds.presenter.impl.GetJobListPresenterImpl;
+import com.penglai.kjds.presenter.impl.GetTrainListPresenterImpl;
 import com.penglai.kjds.presenter.implView.CarouselImageView;
 import com.penglai.kjds.presenter.implView.GetCourseListView;
 import com.penglai.kjds.presenter.implView.GetHotRecommendView;
 import com.penglai.kjds.presenter.implView.GetJobDetailView;
 import com.penglai.kjds.presenter.implView.GetJobListView;
+import com.penglai.kjds.presenter.implView.GetTrainListView;
 import com.penglai.kjds.ui.activity.LoginActivity;
 import com.penglai.kjds.ui.adapter.IndexAdapter;
 import com.penglai.kjds.ui.base.BaseFragment;
@@ -59,7 +62,7 @@ import static android.app.Activity.RESULT_OK;
  */
 public class IndexFragment extends BaseFragment implements View.OnClickListener,
         GetHotRecommendView,GetJobDetailView,GetJobListView,CarouselImageView,
-        GetCourseListView {
+        GetCourseListView,GetTrainListView {
 
     @BindView(R.id.index_top_layout)
     LinearLayout indexTopLayout;
@@ -88,7 +91,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
     private GetJobListPresenterImpl jobListPresenter;
     private CarouselImagePresenterImpl carouselImagePresenter;
     private GetCourseListPresenterImpl courseListPresenter;
-
+    private GetTrainListPresenterImpl trainListPresenter;
 
     private List<CompanyInfo> companyInfoList;
 
@@ -123,6 +126,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
         jobListPresenter = new GetJobListPresenterImpl(mContext,this);
         carouselImagePresenter = new CarouselImagePresenterImpl(mContext,this);
         courseListPresenter = new GetCourseListPresenterImpl(mContext,this);
+        trainListPresenter = new GetTrainListPresenterImpl(mContext,this);
 
         indexTopLayout.setVisibility(View.VISIBLE);
         commonTopLayout.setVisibility(View.GONE);
@@ -295,10 +299,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
                 break;
 
             case R.id.btn_train:                    //培训
-//                UiUtils.showToast(mContext, "项目");
-                if(null != userId && !"".equals(userId)) {
-                    jobListPresenter.getJobList("getJobList",JSON.toJSONString(new JobListReq(userId,3,"","")));
-                }
+                trainListPresenter.getTrainList("getTrainList", JSON.toJSONString(new EmptyEntity()));
                 break;
         }
     }
@@ -316,6 +317,13 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
     @Override
     public void showError(String error) {
 
+    }
+
+    @Override
+    public void getTrainListSuccess(List<TrainInfo> trainInfoList) {
+        Intent intent = new Intent(mContext,TrainListActivity.class);
+        intent.putExtra("trainInfoList", (Serializable) trainInfoList);
+        startActivity(intent);
     }
 
     @Override

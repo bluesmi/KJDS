@@ -59,7 +59,7 @@ public class CourseViewHolder extends BaseViewHolder<Course> {
 
         if (null != startTime && 0 != startTime.length() &&
             null != endTime && 0 != startTime.length()){
-            tvCourseTime.setText(startTime.substring(0,10)+" -- "+endTime);
+            tvCourseTime.setText(startTime.substring(0,10)+" -- "+endTime.substring(0,10));
         }
 
     }

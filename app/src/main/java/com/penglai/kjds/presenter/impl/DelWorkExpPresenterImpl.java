@@ -27,6 +27,7 @@ public class DelWorkExpPresenterImpl implements Presenter {
     public void initialized() {
 
     }
+
     public void delWorkExpInfo(String opSign,String strJson){
         ResumeService.delWorkExpInfo(opSign, strJson, new RequestCallback<BaseRes<String>>() {
             @Override

@@ -7,6 +7,7 @@ import com.penglai.kjds.model.index.Company;
 import com.penglai.kjds.model.index.CompanyInfo;
 import com.penglai.kjds.model.index.Course;
 import com.penglai.kjds.model.index.JobDetail;
+import com.penglai.kjds.model.index.TrainInfo;
 import com.penglai.kjds.model.resume.Assess;
 import com.penglai.kjds.model.resume.AssessInfoRes;
 import com.penglai.kjds.model.resume.EduBgInfo;
@@ -354,5 +355,39 @@ public class JSONUtil {
          isTest,  desc,  createCourseUser);
 
         return course;
+    }
+
+    public static List<TrainInfo> getTrainList(List<Map> list) {
+        List<TrainInfo> trainInfoList = new ArrayList<TrainInfo>();
+        for (Map map:list) {
+            trainInfoList.add(getTrainInfo(map));
+        }
+
+        return trainInfoList;
+    }
+
+    private static TrainInfo getTrainInfo(Map map) {
+         String iD = (String) map.get("iD");
+         String user = (String) map.get("user");
+         String photoId = (String) map.get("photoId");
+         String host = (String) map.get("host");
+         String address = (String) map.get("address");
+         String content = (String) map.get("content");
+         String trainTitle = (String) map.get("trainTitle");
+         String statusCode = (String) map.get("statusCode");
+         Double limitNumber = (Double) map.get("limitNumber");
+        Double partNumber = (Double) map.get("partNumber");
+         String publishTime = (String) map.get("publishTime");
+         String startTime = (String) map.get("startTime");
+         String endTime = (String) map.get("endTime");
+         String applySTime = (String) map.get("applySTime");
+         String applyETime = (String) map.get("applyETime");
+         String summary = (String) map.get("summary");
+
+        TrainInfo trainInfo = new TrainInfo( iD, user, photoId, host,
+                  address, content, trainTitle, statusCode, limitNumber, partNumber,
+                  publishTime, startTime, endTime, applySTime, applyETime, summary);
+
+        return trainInfo;
     }
 }

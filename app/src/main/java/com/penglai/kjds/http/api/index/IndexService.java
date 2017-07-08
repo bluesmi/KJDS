@@ -11,6 +11,7 @@ import com.penglai.kjds.model.index.Company;
 import com.penglai.kjds.model.index.CompanyInfo;
 import com.penglai.kjds.model.index.Course;
 import com.penglai.kjds.model.index.JobDetail;
+import com.penglai.kjds.model.index.TrainInfo;
 import com.penglai.kjds.utils.JSONUtil;
 import com.penglai.kjds.utils.LogUtils;
 
@@ -313,6 +314,42 @@ public class IndexService {
                 LogUtils.error("getCourseList","is error"+t.getMessage());
                 t.printStackTrace();
 //                Log.d("UserService", "onFailure: "+);
+                callback.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    public static void getTrainList(String opSign,String strJson, final RequestCallback<BaseResArray<TrainInfo>> callback) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("op", opSign);
+        params.put("data", strJson);
+        LogUtils.error("getTrainList", "传入参数" + strJson);
+        Log.d(TAG, "getTrainList: " + params);
+        Call<BaseResArray> call = apiStr.getTrainList(params);
+        call.enqueue(new Callback<BaseResArray>() {
+            @Override
+            public void onResponse(Call<BaseResArray> call, Response<BaseResArray> response) {
+                LogUtils.error("getTrainList", "is success  " + response.body());
+                if (null != response) {
+                    BaseResArray<TrainInfo> baseResArray = new BaseResArray<TrainInfo>();
+                    baseResArray.setCode(response.body().getCode());
+                    baseResArray.setMsg(response.body().getMsg());
+
+                    if (response.body().getData().isEmpty()) {
+                        baseResArray.setData(new ArrayList<TrainInfo>());
+                    } else {
+                        System.out.println(response.body().getData());
+                        List<Map> list = response.body().getData();
+                        baseResArray.setData(JSONUtil.getTrainList(list));
+                    }
+                    callback.onSuccess(baseResArray);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResArray> call, Throwable t) {
+                LogUtils.error("getTrainList","is error"+t.getMessage());
+                t.printStackTrace();
                 callback.onFailure(t.getMessage());
             }
         });

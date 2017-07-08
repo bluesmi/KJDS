@@ -47,6 +47,11 @@
             android:name=".ui.index.CourseListActivity"
             android:configChanges="keyboardHidden"
             android:screenOrientation="portrait" />
+        <!-- 培训列表 -->
+        <activity
+            android:name=".ui.index.TrainListActivity"
+            android:configChanges="keyboardHidden"
+            android:screenOrientation="portrait" />
 
         <!--招聘岗位-->
         <activity
