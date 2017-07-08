@@ -20,7 +20,7 @@
         >
         <!--全部岗位-->
         <RelativeLayout
-            android:id="@+id/btn_all_post"
+            android:id="@+id/btn_full_time"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -32,25 +32,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:text="@string/all_post"
+                android:text="全职"
                 android:textSize="@dimen/middle_text_size"
                 android:gravity="center|right"
                 android:textColor="@color/common_black_txt"
-                android:layout_centerInParent="true"
-                />
-            <ImageView
-                android:id="@+id/img_all_post"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/icon_blank_down"
-                android:layout_marginLeft="3dp"
-                android:layout_toRightOf="@+id/tv_all_post"
-                />
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+            <!--<ImageView-->
+                <!--android:id="@+id/img_all_post"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:src="@drawable/icon_blank_down"-->
+                <!--android:layout_marginLeft="3dp"-->
+                <!--android:layout_toRightOf="@+id/tv_all_post"-->
+                <!--/>-->
         </RelativeLayout>
 
         <!--全部地区-->
         <RelativeLayout
-            android:id="@+id/btn_all_region"
+            android:id="@+id/btn_part_job"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -60,25 +60,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:text="@string/all_region"
+                android:text="兼职"
                 android:textSize="@dimen/middle_text_size"
                 android:gravity="center|right"
                 android:textColor="@color/common_black_txt"
                 android:layout_centerInParent="true"
                 />
-            <ImageView
+       <!--     <ImageView
                 android:id="@+id/img_all_region"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@drawable/icon_blank_down"
                 android:layout_marginLeft="3dp"
                 android:layout_toRightOf="@+id/tv_all_region"
-                />
+                />-->
         </RelativeLayout>
 
         <!--兼职-->
         <RelativeLayout
-            android:id="@+id/btn_post_pt_job"
+            android:id="@+id/btn_project"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -88,20 +88,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:text="@string/all_job"
+                android:text="项目"
                 android:textSize="@dimen/middle_text_size"
                 android:gravity="center|right"
                 android:textColor="@color/common_black_txt"
                 android:layout_centerInParent="true"
                 />
-            <ImageView
+          <!--  <ImageView
                 android:id="@+id/img_post_pt_job"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@drawable/icon_blank_down"
                 android:layout_marginLeft="3dp"
                 android:layout_toRightOf="@+id/tv_post_pt_job"
-                />
+                />-->
         </RelativeLayout>
     </LinearLayout>
 

@@ -149,11 +149,27 @@ public class CareerOpportunitiesActivity extends BaseActivity implements GetJobD
         adapter.refreshData(companyInfoList);
     }
 
-    @OnClick({R.id.btn_back})
+    @OnClick({R.id.btn_back,R.id.btn_full_time,R.id.btn_part_job,R.id.btn_project})
     public void  onClick(View v) {
+        String userId = SettingPrefUtils.getUid();
         switch (v.getId()) {
             case R.id.btn_back:
                 finish();
+                break;
+            case R.id.btn_full_time:
+                if(null != userId && !"".equals(userId)) {
+                    jobListPresenter.getJobList("getJobList",JSON.toJSONString(new JobListReq(userId,2,"","")));
+                }
+                break;
+            case R.id.btn_part_job:
+                if(null != userId && !"".equals(userId)) {
+                    jobListPresenter.getJobList("getJobList",JSON.toJSONString(new JobListReq(userId,1,"","")));
+                }
+                break;
+            case R.id.btn_project:
+                if(null != userId && !"".equals(userId)) {
+                    jobListPresenter.getJobList("getJobList",JSON.toJSONString(new JobListReq(userId,3,"","")));
+                }
                 break;
         }
     }
