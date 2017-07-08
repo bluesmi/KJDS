@@ -16,15 +16,18 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.penglai.kjds.R;
 import com.penglai.kjds.model.index.CompanyInfo;
 import com.penglai.kjds.model.index.CompanyInfoReq;
+import com.penglai.kjds.model.index.Course;
 import com.penglai.kjds.model.index.JobDetail;
 import com.penglai.kjds.model.index.JobInfoReq;
 import com.penglai.kjds.model.resume.JobListReq;
 import com.penglai.kjds.model.user.EmptyEntity;
 import com.penglai.kjds.presenter.impl.CarouselImagePresenterImpl;
+import com.penglai.kjds.presenter.impl.GetCourseListPresenterImpl;
 import com.penglai.kjds.presenter.impl.GetHotRecommendPresenterImpl;
 import com.penglai.kjds.presenter.impl.GetJobDetailPresenterImpl;
 import com.penglai.kjds.presenter.impl.GetJobListPresenterImpl;
 import com.penglai.kjds.presenter.implView.CarouselImageView;
+import com.penglai.kjds.presenter.implView.GetCourseListView;
 import com.penglai.kjds.presenter.implView.GetHotRecommendView;
 import com.penglai.kjds.presenter.implView.GetJobDetailView;
 import com.penglai.kjds.presenter.implView.GetJobListView;
@@ -53,7 +56,8 @@ import static android.app.Activity.RESULT_OK;
  *  
  */
 public class IndexFragment extends BaseFragment implements View.OnClickListener,
-        GetHotRecommendView,GetJobDetailView,GetJobListView,CarouselImageView {
+        GetHotRecommendView,GetJobDetailView,GetJobListView,CarouselImageView,
+        GetCourseListView {
 
     @BindView(R.id.index_top_layout)
     LinearLayout indexTopLayout;
@@ -65,8 +69,6 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
     public TextView mBtnLogin;
     @BindView(R.id.xrv_view)
     XRecyclerView mRecyclerView;
- /*   @BindView(R.id.btn_login)
-    TextView btnLogin;*/
     private View contentView;
     private static IndexFragment instance;
     private IndexAdapter adapter;
@@ -80,6 +82,8 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
     private GetJobDetailPresenterImpl jobDetailPresenter;
     private GetJobListPresenterImpl jobListPresenter;
     private CarouselImagePresenterImpl carouselImagePresenter;
+    private GetCourseListPresenterImpl courseListPresenter;
+
 
     private List<CompanyInfo> companyInfoList;
 
@@ -114,6 +118,8 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
         jobDetailPresenter = new GetJobDetailPresenterImpl(mContext,this);
         jobListPresenter = new GetJobListPresenterImpl(mContext,this);
         carouselImagePresenter = new CarouselImagePresenterImpl(mContext,this);
+        courseListPresenter = new GetCourseListPresenterImpl(mContext,this);
+
         indexTopLayout.setVisibility(View.VISIBLE);
         commonTopLayout.setVisibility(View.GONE);
         mBtnLogin.setVisibility(View.GONE);
@@ -163,10 +169,10 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
         //添加类别布局
         View jobTitleView = mInflater.inflate(R.layout.view_title_header, container,false);
         mRecyclerView.addHeaderView(jobTitleView);
-        jobTitleView.findViewById(R.id.btn_all_job).setOnClickListener(this);
-        jobTitleView.findViewById(R.id.btn_pt_job).setOnClickListener(this);
-        jobTitleView.findViewById(R.id.btn_fl_job).setOnClickListener(this);
-        jobTitleView.findViewById(R.id.btn_project).setOnClickListener(this);
+//        jobTitleView.findViewById(R.id.btn_all_job).setOnClickListener(this);
+        jobTitleView.findViewById(R.id.btn_get_a_job).setOnClickListener(this);
+        jobTitleView.findViewById(R.id.btn_course).setOnClickListener(this);
+        jobTitleView.findViewById(R.id.btn_train).setOnClickListener(this);
     }
 
     /***
@@ -186,7 +192,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
                 Glide.with(itemView.getContext())
                         .load(model)
                         .placeholder(R.drawable.banner1)
-                        .error(R.drawable.kjds)
+                        .error(R.drawable.banner1)
                         .dontAnimate()
                         .centerCrop()
                         .into(itemView);
@@ -195,9 +201,6 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
         int[] mView = {R.drawable.banner1, R.drawable.kjds, R.drawable.kjds1};
         mTopBanner.setData(mView);
         mTopBanner.setmModels(bannerPathList);
-        //设置数据
-//        mTopBanner.setData(bannerPathList,null);
-//        mTopBanner.getP
 
     }
 
@@ -225,11 +228,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
 
         });
 
-//*/        mTopBanner.setAdapter(new CustomerTopBanner.Adapter<ImageView,int>() );
-//        int[] mView = {R.drawable.banner1, R.drawable.kjds, R.drawable.kjds1};
-//        //设置数据
-//        mTopBanner.setData(mView);
-//        mTopBanner.setmModels(stringList);
+
     }
 
     /**
@@ -295,29 +294,26 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
     public void onClick(View v) {
         String userId = SettingPrefUtils.getUid();
         switch (v.getId()) {
-            case R.id.btn_all_job:                    //全部
-//                UiUtils.showToast(mContext, "全部");
+//            case R.id.btn_all_job:                    //全部
+////                UiUtils.showToast(mContext, "全部");
+//                if(null != userId && !"".equals(userId)) {
+//                    jobListPresenter.getJobList("getJobList",JSON.toJSONString(new JobListReq(userId,0,"","")));
+//                }
+//
+//                break;
+
+            case R.id.btn_get_a_job:                     //就业
+//                UiUtils.showToast(mContext, "兼职");
                 if(null != userId && !"".equals(userId)) {
                     jobListPresenter.getJobList("getJobList",JSON.toJSONString(new JobListReq(userId,0,"","")));
                 }
-
                 break;
 
-            case R.id.btn_pt_job:                     //兼职
-//                UiUtils.showToast(mContext, "兼职");
-                if(null != userId && !"".equals(userId)) {
-                    jobListPresenter.getJobList("getJobList",JSON.toJSONString(new JobListReq(userId,1,"","")));
-                }
+            case R.id.btn_course:                      //课程
+                courseListPresenter.getCourseList("getCourseList", JSON.toJSONString(new EmptyEntity()));
                 break;
 
-            case R.id.btn_fl_job:                      //全职
-//                UiUtils.showToast(mContext, "全职");
-                if(null != userId && !"".equals(userId)) {
-                    jobListPresenter.getJobList("getJobList",JSON.toJSONString(new JobListReq(userId,2,"","")));
-                }
-                break;
-
-            case R.id.btn_project:                    //项目
+            case R.id.btn_train:                    //培训
 //                UiUtils.showToast(mContext, "项目");
                 if(null != userId && !"".equals(userId)) {
                     jobListPresenter.getJobList("getJobList",JSON.toJSONString(new JobListReq(userId,3,"","")));
@@ -339,6 +335,13 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
     @Override
     public void showError(String error) {
 
+    }
+
+    @Override
+    public void getCourseListSuccess(List<Course> courseList) {
+        Intent intent = new Intent(mContext,CourseListActivity.class);
+        intent.putExtra("courseList", (Serializable) courseList);
+        startActivity(intent);
     }
 
     @Override

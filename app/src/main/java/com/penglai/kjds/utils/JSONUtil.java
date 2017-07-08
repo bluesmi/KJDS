@@ -5,6 +5,7 @@ import android.os.Message;
 import com.penglai.kjds.model.index.CarouselRes;
 import com.penglai.kjds.model.index.Company;
 import com.penglai.kjds.model.index.CompanyInfo;
+import com.penglai.kjds.model.index.Course;
 import com.penglai.kjds.model.index.JobDetail;
 import com.penglai.kjds.model.resume.Assess;
 import com.penglai.kjds.model.resume.AssessInfoRes;
@@ -317,5 +318,41 @@ public class JSONUtil {
     private static CarouselRes getCarousel(Map map) {
 //        String path = (String) ;
         return new CarouselRes((String) map.get("path"));
+    }
+
+    /**
+     * 获取课程信息列表
+     * @param list
+     * @return
+     */
+    public static List<Course> getCourseList(List<Map> list) {
+        List<Course> courseList = new ArrayList<Course>();
+        for (Map map:list) {
+            courseList.add(getCourse(map));
+        }
+
+        return courseList;
+    }
+
+    private static Course getCourse(Map map) {
+         String iD = (String) map.get("iD");
+         String levelId = (String) map.get("levelId");
+         String photoId = (String) map.get("photoId");
+         String courseName = (String) map.get("courseName");
+         String setTime = (String) map.get("setTime");
+         double statusCode = (double) map.get("statusCode");
+         String startTime = (String) map.get("startTime");
+         String endTime = (String) map.get("endTime");
+         double serialNum = (double) map.get("serialNum");
+         String preCourse = (String) map.get("preCourse");
+         boolean isTest = (boolean) map.get("isTest");
+         String desc = (String) map.get("desc");
+         String createCourseUser = (String) map.get("createCourseUser");
+
+         Course course = new Course( iD,  levelId,  photoId,  courseName,  setTime,
+         statusCode,  startTime,  endTime,  serialNum,  preCourse,
+         isTest,  desc,  createCourseUser);
+
+        return course;
     }
 }

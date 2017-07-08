@@ -9,6 +9,7 @@ import com.penglai.kjds.model.BaseResArray;
 import com.penglai.kjds.model.index.CarouselRes;
 import com.penglai.kjds.model.index.Company;
 import com.penglai.kjds.model.index.CompanyInfo;
+import com.penglai.kjds.model.index.Course;
 import com.penglai.kjds.model.index.JobDetail;
 import com.penglai.kjds.utils.JSONUtil;
 import com.penglai.kjds.utils.LogUtils;
@@ -272,6 +273,44 @@ public class IndexService {
             @Override
             public void onFailure(Call<BaseResArray> call, Throwable t) {
                 LogUtils.error("carouselImage","is error"+t.getMessage());
+                t.printStackTrace();
+//                Log.d("UserService", "onFailure: "+);
+                callback.onFailure(t.getMessage());
+            }
+        });
+    }
+
+
+    public static void getCourseList(String opSign,String strJson, final RequestCallback<BaseResArray<Course>> callback){
+        HashMap<String, String> params = new HashMap<>();
+        params.put("op", opSign);
+        params.put("data", strJson);
+        LogUtils.error("getCourseList","传入参数"+strJson);
+        Log.d(TAG, "getCourseList: "+params);
+        Call<BaseResArray> call = apiStr.getCourseList(params);
+        call.enqueue(new Callback<BaseResArray>() {
+            @Override
+            public void onResponse(Call<BaseResArray> call, Response<BaseResArray> response) {
+                LogUtils.error("carouselImage", "is success  " + response.body());
+                if (null != response) {
+                    BaseResArray<Course> baseResArray = new BaseResArray<Course>();
+                    baseResArray.setCode(response.body().getCode());
+                    baseResArray.setMsg(response.body().getMsg());
+
+                    if (response.body().getData().isEmpty()) {
+                        baseResArray.setData(new ArrayList<Course>());
+                    } else {
+                        System.out.println(response.body().getData());
+                        List<Map> list = response.body().getData();
+                        baseResArray.setData(JSONUtil.getCourseList(list));
+                    }
+                    callback.onSuccess(baseResArray);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResArray> call, Throwable t) {
+                LogUtils.error("getCourseList","is error"+t.getMessage());
                 t.printStackTrace();
 //                Log.d("UserService", "onFailure: "+);
                 callback.onFailure(t.getMessage());

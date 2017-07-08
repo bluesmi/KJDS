@@ -62,4 +62,11 @@ public interface IndexApi {
     @POST("Common.ashx")
     Call<BaseResArray> carouselImage(@QueryMap Map<String,String> map);
 
+    /**
+     * 获取课程列表
+     * @param map
+     * @return
+     */
+    @POST("Common.ashx")
+    Call<BaseResArray> getCourseList(@QueryMap Map<String,String> map);
 }

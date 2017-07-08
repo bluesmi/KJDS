@@ -11,7 +11,7 @@
         android:orientation="horizontal">
 
         <!--全部-->
-        <LinearLayout
+      <!--  <LinearLayout
             android:id="@+id/btn_all_job"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -31,11 +31,11 @@
                 android:text="@string/all_job"
                 android:textColor="@color/common_black_txt"
                 android:textSize="@dimen/large_text_size" />
-        </LinearLayout>
+        </LinearLayout>-->
 
         <!--兼职-->
         <LinearLayout
-            android:id="@+id/btn_pt_job"
+            android:id="@+id/btn_get_a_job"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -51,14 +51,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="@string/pt_job"
+                android:text="就业"
                 android:textColor="@color/common_black_txt"
                 android:textSize="@dimen/large_text_size" />
         </LinearLayout>
 
         <!--全职-->
         <LinearLayout
-            android:id="@+id/btn_fl_job"
+            android:id="@+id/btn_course"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -74,14 +74,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="@string/fl_job"
+                android:text="课程"
                 android:textColor="@color/common_black_txt"
                 android:textSize="@dimen/large_text_size" />
         </LinearLayout>
 
         <!--项目-->
         <LinearLayout
-            android:id="@+id/btn_project"
+            android:id="@+id/btn_train"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -97,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="@string/project"
+                android:text="培训"
                 android:textColor="@color/common_black_txt"
                 android:textSize="@dimen/large_text_size" />
         </LinearLayout>
