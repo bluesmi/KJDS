@@ -35,11 +35,13 @@ import com.penglai.kjds.ui.activity.LoginActivity;
 import com.penglai.kjds.ui.adapter.IndexAdapter;
 import com.penglai.kjds.ui.base.BaseFragment;
 import com.penglai.kjds.ui.view.listener.OnItemClickListener;
+import com.penglai.kjds.ui.view.utils.BannerUtil;
 import com.penglai.kjds.ui.view.widget.banner.CustomerTopBanner;
 import com.penglai.kjds.utils.SettingPrefUtils;
 import com.penglai.kjds.utils.UiUtils;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -70,6 +72,9 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
     @BindView(R.id.xrv_view)
     XRecyclerView mRecyclerView;
     private View contentView;
+
+    private CustomerTopBanner  mTopBanner;
+
     private static IndexFragment instance;
     private IndexAdapter adapter;
     /**
@@ -88,7 +93,6 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
     private List<CompanyInfo> companyInfoList;
 
     private static final int LOGIN_RESULT = 0;
-    private List<String>  bannerPathList;
 
     public IndexFragment() {
         super();
@@ -124,11 +128,11 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
         commonTopLayout.setVisibility(View.GONE);
         mBtnLogin.setVisibility(View.GONE);
 
-
+        carouselImagePresenter.carouselImage("CarouselImage",JSON.toJSONString(new EmptyEntity()));
 
         //初始化XRecyclerView
         initXRecyclerView();
-        //初始化banner
+//        //初始化banner
         initTopBanner();
         //初始化标题
         initJobTitle();
@@ -144,7 +148,7 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
         //设置上拉刷新、下拉加载、item点击事件监听
         setEventLister();
 
-        carouselImagePresenter.carouselImage("CarouselImage",JSON.toJSONString(new EmptyEntity()));
+
 
     }
 
@@ -182,37 +186,13 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
         //添加banner头布局
         View headerView = mInflater.inflate(R.layout.view_custom_header, container,false);
         mRecyclerView.addHeaderView(headerView);
-        CustomerTopBanner mTopBanner = (CustomerTopBanner) headerView.findViewById(R.id.banner);
+         mTopBanner = (CustomerTopBanner) headerView.findViewById(R.id.banner);
         //        mTopBanner.setAdapter(new CustomerTopBanner.Adapter<ImageView,int>() );
 
-        //设置Banner的监听事件,并初始化
-        mTopBanner.setAdapter(new CustomerTopBanner.Adapter<ImageView, String>() {
-            @Override
-            public void fillBannerItem(CustomerTopBanner banner, ImageView itemView, String model, int position) {
-                Glide.with(itemView.getContext())
-                        .load(model)
-                        .placeholder(R.drawable.banner1)
-                        .error(R.drawable.banner1)
-                        .dontAnimate()
-                        .centerCrop()
-                        .into(itemView);
-            }
-        });
         int[] mView = {R.drawable.banner1, R.drawable.kjds, R.drawable.kjds1};
         mTopBanner.setData(mView);
-        mTopBanner.setmModels(bannerPathList);
-
-    }
-
-
-    /***
-     * 初始化banner
-     */
-    private void initTopBanner(List<String> stringList) {
-        //添加banner头布局
-        View headerView = mInflater.inflate(R.layout.view_custom_header, container,false);
-        mRecyclerView.addHeaderView(headerView);
-        CustomerTopBanner mTopBanner = (CustomerTopBanner) headerView.findViewById(R.id.banner);
+//        mTopBanner.setData(views,bannerPathList,bannerPathList);
+//        mTopBanner.setmModels(bannerPathList);
         //设置Banner的监听事件,并初始化
         mTopBanner.setAdapter(new CustomerTopBanner.Adapter<ImageView, String>() {
             @Override
@@ -225,11 +205,12 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
                         .centerCrop()
                         .into(itemView);
             }
-
         });
 
 
     }
+
+
 
     /**
      * 设置上拉刷新、下拉加载、item点击事件监听
@@ -346,8 +327,8 @@ public class IndexFragment extends BaseFragment implements View.OnClickListener,
 
     @Override
     public void getCarouselImageListSuccess(List<String> stringList) {
-//        initTopBanner(stringList);
-        this.bannerPathList = stringList;
+        mTopBanner.setData(stringList,new ArrayList<String>());
+
     }
 
     @Override

@@ -943,7 +943,5 @@ public class CustomerTopBanner extends RelativeLayout implements CustomerViewPag
         void onClickEnterOrSkip();
     }
 
-    public void setmModels(List<? extends Object> mModels) {
-        this.mModels = mModels;
-    }
+
 }
